@@ -6,11 +6,21 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 11:51:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:28:51 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_array_len(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 static void	ft_free_array(char **str)
 {
@@ -61,20 +71,34 @@ void	ft_leakss(void)
 	system("leaks -q minishell");
 }
 
-int	main(void)
+t_ast	*tree(char *fullcmd)
+{
+	char	**cmd;
+	t_ast	*ast;
+
+	ast = ast_init(fullcmd);
+	cmd = ft_split(fullcmd, '|');
+	return (ast);
+}
+void	do_stuff(char *str, char **envp)
+{
+	t_ast	*ast;
+	ast = tree(str);
+	(void)envp;
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 
 	atexit(ft_leakss);
+	if (argc != 1 || argv[1])
+		exit(0);
 	while (1)
 	{
 		str = readline(get_prompt());
-		ft_printf("has dicho: %s\n", str);
-		if (ft_strncmp(str, "exit", 4) == 0)
-		{
-			free(str);
-			exit(0);
-		}
+		//do_stuff(str, envp);
+		ft_filter(ft_split(str, ' '), envp);
 		free(str);
 	}
 	return (0);
