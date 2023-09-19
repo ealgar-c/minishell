@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 13:28:51 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:23:04 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,9 @@ void	ft_leakss(void)
 	system("leaks -q minishell");
 }
 
-t_ast	*tree(char *fullcmd)
-{
-	char	**cmd;
-	t_ast	*ast;
-
-	ast = ast_init(fullcmd);
-	cmd = ft_split(fullcmd, '|');
-	return (ast);
-}
 void	do_stuff(char *str, char **envp)
 {
-	t_ast	*ast;
-	ast = tree(str);
+	(void)str;
 	(void)envp;
 }
 
@@ -92,14 +82,18 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 
 	atexit(ft_leakss);
+	(void)envp;
 	if (argc != 1 || argv[1])
 		exit(0);
 	while (1)
 	{
 		str = readline(get_prompt());
-		//do_stuff(str, envp);
-		ft_filter(ft_split(str, ' '), envp);
+		get_cmds(str, false, envp);
 		free(str);
 	}
 	return (0);
 }
+
+/* 		t_ast *tree = create_tree(str);
+		(void)tree;
+		//do_stuff(str, envp); */

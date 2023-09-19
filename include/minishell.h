@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 13:30:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:24:06 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 
 //ast
@@ -42,6 +43,10 @@ t_ast_node	*ast_create_node(char *content, int type);
 void		ast_add_left(t_ast_node *root, t_ast_node *left);
 void		ast_add_right(t_ast_node *root, t_ast_node *right);
 t_ast		*ast_init(char *str);
+void		ast_add_root(t_ast *ast, t_ast_node *root);
+
+// ast.c
+t_ast		*create_tree(char *fullcmd);
 
 // builtins.c
 void		ft_pwd(char **cmd);
@@ -58,6 +63,7 @@ void		ft_filter(char **cmd, char **envp);
 // executer.c
 void		execute_process(char **cmd, char **envp);
 void		executer(char **cmd, char **envp);
+void	get_cmds(char *str, bool final, char **envp);
 
 // main.c
 int			ft_array_len(char **str);

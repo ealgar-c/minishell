@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:22:45 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 12:35:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:21:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,9 @@ t_ast	*ast_init(char *str)
 	ast->content = str;
 	ast->root = NULL;
 	return (ast);
+}
+
+void	ast_add_root(t_ast *ast, t_ast_node *root)
+{
+	ast->root = root;
 }
