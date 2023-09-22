@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 15:24:06 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:02:02 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,21 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
+/* //ast
+typedef struct s_ast_utils
+{
+	int	num_pipes;
+	int	num_cmds;
+}	t_ast_utils;
 
-//ast
 typedef struct s_ast_node
 {
-	int					type;
-	char				*content;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
+	int					type; // token para saber si es un pipe, un comando, etc HACER ENUM
+	int					index; // el indice del nodo en el arbol
+	char				*content; // el contenido del nodo
+	struct s_ast_node	*next;
+	struct s_ast_node	*prev;
+	struct s_ast_utils	*utils;
 }					t_ast_node;
 
 typedef struct s_ast
@@ -37,6 +44,8 @@ typedef struct s_ast
 	char		*content;
 	t_ast_node	*root;
 }					t_ast;
+
+// functions
 
 // ast_nodes.c
 t_ast_node	*ast_create_node(char *content, int type);
@@ -47,6 +56,48 @@ void		ast_add_root(t_ast *ast, t_ast_node *root);
 
 // ast.c
 t_ast		*create_tree(char *fullcmd);
+ */
+
+// lexer
+typedef enum e_tokens
+{
+	CMD = 0,
+	ARG,
+	PIPE,
+	GREAT,
+	GREAT_GREAT,
+	LESS,
+	LESS_LESS,
+}	t_tokens;
+
+struct	s_lexer;
+
+typedef struct s_ast_utils
+{
+	int				pipes; //pa cuántas hay
+	int				lexer_len;
+	struct s_lexer	*lexer_root;
+
+}	t_ast_utils;
+
+typedef struct s_lexer
+{
+	struct s_ast_utils	*utils;
+	int					i; // index para facilitar
+	t_tokens			token;
+	char				*content;
+	struct s_lexer		*prev;
+	struct s_lexer		*next;
+}	t_lexer;
+
+// funcs
+
+// lexer.c
+t_lexer		*new_lexer_node(char *content, int token, int i, t_ast_utils *utils);
+void		ft_lxadd_back(t_lexer **root, t_lexer *new);
+int	ft_token_type(char *str, t_ast_utils *utils, int i);
+t_ast_utils	*ft_utils_init(void);
+void		ft_lexer(char **cmdsplit);
 
 // builtins.c
 void		ft_pwd(char **cmd);
@@ -63,7 +114,7 @@ void		ft_filter(char **cmd, char **envp);
 // executer.c
 void		execute_process(char **cmd, char **envp);
 void		executer(char **cmd, char **envp);
-void	get_cmds(char *str, bool final, char **envp);
+void		get_cmds(char *str, bool final, char **envp);
 
 // main.c
 int			ft_array_len(char **str);

@@ -6,7 +6,7 @@ RM = rm -rf
 # GENERAL INFO
 NAME = minishell
 SRC_DIR = src/
-SRC = ast_nodes.c ast.c builtins.c executer.c filter.c main.c
+SRC = builtins.c executer.c filter.c main.c lexer.c
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

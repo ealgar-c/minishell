@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 15:23:04 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:25:19 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline(get_prompt());
-		get_cmds(str, false, envp);
+		ft_lexer(ft_split(str, ' '));
+		// ft_filter(ft_split(str, ' '), envp);
+		// get_cmds(str, true, envp);
 		free(str);
 	}
 	return (0);
