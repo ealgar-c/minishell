@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/22 18:02:02 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:11:42 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void		ast_add_root(t_ast *ast, t_ast_node *root);
 t_ast		*create_tree(char *fullcmd);
  */
 
-// lexer
 typedef enum e_tokens
 {
 	CMD = 0,
@@ -70,11 +69,31 @@ typedef enum e_tokens
 	LESS_LESS,
 }	t_tokens;
 
+// parser
+
+typedef struct s_parser_utils
+{
+	struct s_parser	*root;
+	bool			syntax_checker;
+	int				pipes;
+	
+}	t_parser_utils;
+
+typedef struct s_parser
+{
+	char			*cmd;
+	int				i;
+	t_tokens		token;
+	struct s_parser	*next;
+}	t_parser;
+
+// lexer
+
 struct	s_lexer;
 
 typedef struct s_ast_utils
 {
-	int				pipes; //pa cuántas hay
+	int				pipes;
 	int				lexer_len;
 	struct s_lexer	*lexer_root;
 
@@ -83,7 +102,7 @@ typedef struct s_ast_utils
 typedef struct s_lexer
 {
 	struct s_ast_utils	*utils;
-	int					i; // index para facilitar
+	int					i;
 	t_tokens			token;
 	char				*content;
 	struct s_lexer		*prev;
@@ -93,11 +112,11 @@ typedef struct s_lexer
 // funcs
 
 // lexer.c
-t_lexer		*new_lexer_node(char *content, int token, int i, t_ast_utils *utils);
+t_lexer		*new_lexer_node(char **content, int token, int i, t_ast_utils *utils);
 void		ft_lxadd_back(t_lexer **root, t_lexer *new);
-int	ft_token_type(char *str, t_ast_utils *utils, int i);
+int			ft_token_type(char **str, t_ast_utils *utils, int i);
 t_ast_utils	*ft_utils_init(void);
-void		ft_lexer(char **cmdsplit);
+t_lexer		*ft_lexer(char **cmdsplit);
 
 // builtins.c
 void		ft_pwd(char **cmd);

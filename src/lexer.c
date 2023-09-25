@@ -6,20 +6,20 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/22 18:01:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:49:47 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_lexer	*new_lexer_node(char *content, int token, int i, t_ast_utils *utils)
+t_lexer	*new_lexer_node(char **content, int token, int i, t_ast_utils *utils)
 {
 	t_lexer	*new_node;
 
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
-	new_node->content = content;
+	new_node->content = content[i];
 	new_node->i = i;
 	new_node->token = token;
 	new_node->next = NULL;
@@ -39,25 +39,25 @@ void	ft_lxadd_back(t_lexer **root, t_lexer *new)
 	ptr->next->prev = ptr;
 }
 
-int	ft_token_type(char *str, t_ast_utils *utils, int i) // esto esta antiguo, no pone args
+int	ft_token_type(char **str, t_ast_utils *utils, int i)
 {
-	static	bool cmd;
+	static bool	cmd;
 
 	if (i == 0)
 		cmd = false;
-	if (ft_strncmp(str, "|", 1) == 0)
+	if (ft_strncmp(str[i], "|", 1) == 0)
 	{
 		cmd = false;
 		utils->pipes++;
 		return (PIPE);
 	}
-	if (ft_strncmp(str, ">", 1) == 0)
+	if (ft_strncmp(str[i], ">", 1) == 0)
 		return (GREAT);
-	if (ft_strncmp(str, ">>", 2) == 0)
+	if (ft_strncmp(str[i], ">>", 2) == 0)
 		return (GREAT_GREAT);
-	if (ft_strncmp(str, "<", 1) == 0)
+	if (ft_strncmp(str[i], "<", 1) == 0)
 		return (LESS);
-	if (ft_strncmp(str, "<<", 2) == 0)
+	if (ft_strncmp(str[i], "<<", 2) == 0)
 		return (LESS_LESS);
 	else if (!cmd)
 	{
@@ -65,9 +65,7 @@ int	ft_token_type(char *str, t_ast_utils *utils, int i) // esto esta antiguo, no
 		return (CMD);
 	}
 	else
-	{
 		return (ARG);
-	}
 }
 
 t_ast_utils	*ft_utils_init(void)
@@ -87,17 +85,18 @@ void	ft_printlx(t_lexer *root)
 	t_lexer	*tmp;
 
 	tmp = root;
+	ft_printf("El numero de pipes es: %i\n", tmp->utils->pipes);
 	while (tmp)
 	{
-		printf("\nNODO: %i\n", tmp->i);
-		printf("CONT: %s\n", tmp->content);
-		printf("TOKEN: %i\n", tmp->token);
-		printf("\n");
+		ft_printf("\nNODO: %i\n", tmp->i);
+		ft_printf("CONT: %s\n", tmp->content);
+		ft_printf("TOKEN: %i\n", tmp->token);
+		ft_printf("\n");
 		tmp = tmp->next;
 	}
 }
 
-void	ft_lexer(char **cmdsplit)
+t_lexer	*ft_lexer(char **cmdsplit)
 {
 	int			i;
 	t_ast_utils	*utils;
@@ -107,19 +106,14 @@ void	ft_lexer(char **cmdsplit)
 	utils = ft_utils_init();
 	while (cmdsplit[i])
 	{
-		printf("cmds[%d]: %s\n", i, cmdsplit[i]);
-		i++;
-	}
-	i = 0;
-	while (cmdsplit[i])
-	{
-		tmp_node = new_lexer_node(cmdsplit[i], ft_token_type(cmdsplit[i], utils, i), i, utils);
-		printf("todo = %s\n", tmp_node->content);
+		tmp_node = new_lexer_node(cmdsplit,
+				ft_token_type(cmdsplit, utils, i), i, utils);
 		if (i == 0)
-			tmp_node->utils->lexer_root = tmp_node;	
+			tmp_node->utils->lexer_root = tmp_node;
 		else
 			ft_lxadd_back(&tmp_node->utils->lexer_root, tmp_node);
 		i++;
 	}
 	ft_printlx(utils->lexer_root);
+	return (utils->lexer_root);
 }

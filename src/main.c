@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/22 17:25:19 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:43:31 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ void	ft_leakss(void)
 
 void	do_stuff(char *str, char **envp)
 {
-	(void)str;
+	t_lexer	*root;
+
+	root = ft_lexer(ft_split(str, ' '));
+	
+	
 	(void)envp;
 }
 
@@ -88,9 +92,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline(get_prompt());
-		ft_lexer(ft_split(str, ' '));
-		// ft_filter(ft_split(str, ' '), envp);
-		// get_cmds(str, true, envp);
+		do_stuff(str, envp);
 		free(str);
 	}
 	return (0);
