@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/25 11:43:31 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:31:14 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	do_stuff(char *str, char **envp)
 	t_lexer	*root;
 
 	root = ft_lexer(ft_split(str, ' '));
-	
+	ft_exit(ft_split("exit", ' '));
 	
 	(void)envp;
 }

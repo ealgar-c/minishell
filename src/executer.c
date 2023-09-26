@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 15:25:01 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:11:03 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,38 +62,4 @@ void	executer(char **cmd, char **envp)
 		execute_process(cmd, envp);
 	else
 		waitpid(-1, &status, 0);
-}
-
-void	get_cmds(char *str, bool final, char **envp)
-{
-	int		i;
-	char	**cmds = NULL;
-
-	i = 0;
-	if (final == false)
-	{	
-		char	**cmds;
-		if (ft_strchr(str, '|') != NULL)
-			cmds = ft_split(str, '|');
-		else if (ft_strchr(str, '&') != NULL)
-			cmds = ft_split(str, '&');
-		else if (ft_strchr(str, '>') != NULL)
-			cmds = ft_split(str, '>');
-		else if (ft_strchr(str, '<') != NULL)
-			cmds = ft_split(str, '<');
-		else
-		{
-			cmds = ft_split(str, ' ');
-			final = true;
-		}
-		while (cmds[i])
-		{
-			get_cmds(cmds[i], final, envp);
-			i++;
-		}		
-	}
-	else
-	{
-		ft_filter(cmds, envp);
-	}
 }

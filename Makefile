@@ -6,7 +6,7 @@ RM = rm -rf
 # GENERAL INFO
 NAME = minishell
 SRC_DIR = src/
-SRC = builtins.c executer.c filter.c main.c lexer.c
+SRC = builtins.c executer.c filter.c lexer.c main.c elparser.c 
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
@@ -17,7 +17,7 @@ CEND_CODE=\033[0m
 
 all: libft $(NAME)
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) -lreadline -o $(NAME) $(OBJ) libft/*.o
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) libft/*.o
 	@ echo "-->$(GREEN_CODE) $(NAME) compiled ✅ $(CEND_CODE)<--"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

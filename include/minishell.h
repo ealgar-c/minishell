@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/25 12:11:42 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:58:41 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ typedef enum e_tokens
 	CMD = 0,
 	ARG,
 	PIPE,
-	GREAT,
-	GREAT_GREAT,
-	LESS,
-	LESS_LESS,
+	GREAT, // >
+	GREAT_GREAT, // >> APPEND
+	LESS, // <
+	LESS_LESS, // << HEREDOC
 }	t_tokens;
 
 // parser
@@ -79,13 +79,26 @@ typedef struct s_parser_utils
 	
 }	t_parser_utils;
 
+typedef struct s_parsermio
+{
+	int				i;
+	char			*cmd;
+	t_tokens		token;
+	struct s_parser	*next;
+}	t_parsermio;
+
 typedef struct s_parser
 {
 	char			*cmd;
-	int				i;
-	t_tokens		token;
+	char			*arg;
+	void			*function; // no sé cómo se hace pero pa acordarme
+	char			*redir_in;
+	bool			heredoc_flag;
+	char			*redir_out;
+	bool			double_out;
+	struct s_parser	*prev;
 	struct s_parser	*next;
-}	t_parser;
+}		t_parser;
 
 // lexer
 
