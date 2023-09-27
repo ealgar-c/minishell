@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 13:27:37 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:02:05 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,27 @@ void	ft_exit(char **cmd)
 void	ft_echo(char **cmd)
 {
 	int		i;
+	char	*tmp;
 
 	i = 1;
-	while (cmd[i])
-	{
-		if (i < ft_array_len(cmd) && i > 1)
-			ft_printf(" ");
-		ft_printf("%s", cmd[i]);
+	if (!ft_strncmp(cmd[i], "-n\0", 3))
 		i++;
+	tmp = calloc(strlen(cmd[i]), sizeof(char)); //realmente hace falta alojar?
+	tmp = cmd[i];
+	while (cmd[++i])
+		tmp = ft_strjoin(ft_strjoin(tmp, " "), cmd[i]);
+	if (tmp[0] == '"' && tmp[ft_strlen(tmp)] != '"'
+	|| tmp[0] != '"' && tmp[ft_strlen(tmp)] == '"')
+	{
+		ft_printf("Invalid argument format\n");
+		free(tmp);
+		return ;
 	}
-	ft_printf("\n");
+	tmp = ft_strtrim((const char)tmp, """");
+	ft_printf("%s", tmp);
+	if (ft_strncmp(cmd[1], "-n\0", 3))
+		ft_printf("\n");
+	free(tmp);
 }
 
 /* sobreentendiendo que el executer ha spliteado la string de argumentos
