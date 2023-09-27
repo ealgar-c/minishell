@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/08/30 13:36:50 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:27:37 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,18 @@ void	ft_echo(char **cmd)
 	ft_printf("\n");
 }
 
-void	ft_cd(char **cmd)
+/* sobreentendiendo que el executer ha spliteado la string de argumentos
+y que ya le está mandando a mi función el string con la ruta a cambiar
+aprovechando que chdir guarda el código de error en la variable global errno
+utilizo perror para que, además de printear mi mensaje de error, printee
+el error concreto que haya sucedido (directorio inexistente o whatever) */
+void	ft_cd(char *rute)
 {
-	(void)cmd;
-	//hola no esta hecho aun
+	if (chdir((const char)(rute)) == -1)
+	{
+		perrror("Error while changing directory");
+		exit(EXIT_FAILURE);
+	}
 	return ;
 }
 
