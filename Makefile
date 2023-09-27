@@ -1,12 +1,22 @@
 # COMPILER INFO
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+LIBFT_PATH = libft/
+FLAGS = -Wall -Wextra -Werror 
 RM = rm -rf
+INCLUDE_DIRS = include -I $(LIBFT_PATH) -I /opt/homebrew/Cellar/readline/8.2.1/include
+LIBS =  -L$(LIBFT_PATH) -lreadline
+
+SYS	= $(shell uname -s)
+
+ifeq ($(SYS), Darwin)
+INCLUDE_DIRS +=	-I /opt/vagrant/embedded/include
+LIBS	+= -L/opt/vagrant/embedded/lib
+endif
 
 # GENERAL INFO
 NAME = minishell
 SRC_DIR = src/
-SRC = builtins.c executer.c filter.c lexer.c main.c elparser.c 
+SRC = builtins.c executer.c filter.c lexer.c main.c parser.c 
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
@@ -17,12 +27,12 @@ CEND_CODE=\033[0m
 
 all: libft $(NAME)
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) libft/*.o
+	@$(CC) $(FLAGS) $(LIBS) -o $(NAME) $(OBJ) libft/*.o
 	@ echo "-->$(GREEN_CODE) $(NAME) compiled ✅ $(CEND_CODE)<--"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -I $(INCLUDE_DIRS) -c $< -o $@
 
 libft:
 	@make -C libft/

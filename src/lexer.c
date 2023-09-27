@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/25 11:49:47 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:01:21 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ int	ft_token_type(char **str, t_ast_utils *utils, int i)
 
 	if (i == 0)
 		cmd = false;
-	if (ft_strncmp(str[i], "|", 1) == 0)
+	if (ft_strncmp(str[i], "|\0", 2) == 0)
 	{
 		cmd = false;
 		utils->pipes++;
 		return (PIPE);
 	}
-	if (ft_strncmp(str[i], ">", 1) == 0)
+	if (ft_strncmp(str[i], ">\0", 2) == 0)
 		return (GREAT);
-	if (ft_strncmp(str[i], ">>", 2) == 0)
+	if (ft_strncmp(str[i], ">>\0", 3) == 0)
 		return (GREAT_GREAT);
-	if (ft_strncmp(str[i], "<", 1) == 0)
+	if (ft_strncmp(str[i], "<\0", 2) == 0)
 		return (LESS);
-	if (ft_strncmp(str[i], "<<", 2) == 0)
+	if (ft_strncmp(str[i], "<<\0", 3) == 0)
 		return (LESS_LESS);
 	else if (!cmd)
 	{
@@ -85,6 +85,7 @@ void	ft_printlx(t_lexer *root)
 	t_lexer	*tmp;
 
 	tmp = root;
+	ft_printf("LEXER NODES:\n");
 	ft_printf("El numero de pipes es: %i\n", tmp->utils->pipes);
 	while (tmp)
 	{
