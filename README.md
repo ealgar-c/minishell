@@ -2,10 +2,10 @@
 Tan bonito como shell
 
 to do list:
-- <del>ats</del>
-- pipes y <del>redirecciones</del>
+- ~~ats~~
+- pipes y ~~redirecciones~~
 - comillas
-- <del>alerta de command not found</del>
+- ~~alerta de command not found~~
 - implementar pipex con los nodos del ats
 - atajos de teclado
 - implementar el historial
