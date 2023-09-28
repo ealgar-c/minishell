@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 10:43:39 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/28 11:29:21 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:03:15 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@
 la variable a añadir sean correctos, tipo mayúsculas y toda la pesca, pero eso 
 es problema de la eli del futuro  */
 
-t_env	*new_env(char **var, int i)
+t_env	*new_env(char **var)
 {
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
 	env->name = var[0];
-	env->len = i;
 	env->value = ft_strtrim(var[1], """");
 }
 
@@ -51,8 +50,8 @@ int	check_variable(char **var, t_ast_utils *utils)
 
 	ptr = utils->env_root;
 	while (ptr->next)
-	{ //si ya hay una variable con ese nombre, la sobreescribe
-		if (!ft_strncmp(ptr->name, var[0], ptr->len))
+	{ //si ya hay creada una variable con ese nombre, la sobreescribe
+		if (!ft_strncmp(ptr->name, var[0], ft_strlen(var[0])))
 		{
 			ptr->value = var[1];
 			return (1);
@@ -63,18 +62,19 @@ int	check_variable(char **var, t_ast_utils *utils)
 
 void save_variable(char *str, t_ast_utils *utils)
 {
-	int		i;
 	char	**var;
 	t_env	*env;
 
 
-	i = 0;
-	while (str[i] != '=')
-		i++;
 	var = ft_split(str, '=');
+	if (getenv(var[0])) //si es una predefinida
+	{ //no sé si esto está bien realmente
+		ft_printf("The variable %s can't be overwritten\n", var[0]);
+		return ;
+	}
 	if (!check_variable(var, utils)) //si no existe, crea la variable
 	{
-		env = new_env(var, i);
+		env = new_env(var);
 		if (!utils->env_root)
 			utils->env_root = env;
 		else
@@ -88,6 +88,5 @@ void ft_export(char **cmd, t_ast_utils *utils)
 {
 	if (cmd[2])
 		ft_printf("Flags no suported in this case\n");
-// primera comprobación para ver si la variable es de las predefinidas maybe?
 	save_variable(cmd[1], utils);	
 }

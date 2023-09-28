@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/28 11:24:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:03:27 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct	s_env
 {
 	char			*name;
 	char			*value;
-	int				len; //pa comparar con ft_strncmp
 	struct s_env	*next;
 
 }	t_env;
