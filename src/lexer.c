@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 13:01:21 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:56:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ void	ft_lxadd_back(t_lexer **root, t_lexer *new)
 int	ft_token_type(char **str, t_ast_utils *utils, int i)
 {
 	static bool	cmd;
+	static bool	redir;
 
 	if (i == 0)
+	{
+		redir = false;
 		cmd = false;
+	}
 	if (ft_strncmp(str[i], "|\0", 2) == 0)
 	{
 		cmd = false;
@@ -52,18 +56,32 @@ int	ft_token_type(char **str, t_ast_utils *utils, int i)
 		return (PIPE);
 	}
 	if (ft_strncmp(str[i], ">\0", 2) == 0)
+	{
+		redir = true;
 		return (GREAT);
+	}
 	if (ft_strncmp(str[i], ">>\0", 3) == 0)
+	{
+		redir = true;
 		return (GREAT_GREAT);
+	}
 	if (ft_strncmp(str[i], "<\0", 2) == 0)
+	{
+		redir = true;
 		return (LESS);
+	}
 	if (ft_strncmp(str[i], "<<\0", 3) == 0)
+	{
+		redir = true;
 		return (LESS_LESS);
+	}
 	else if (!cmd)
 	{
 		cmd = true;
 		return (CMD);
 	}
+	else if (redir == true)
+		return (REDIR_FILE);
 	else
 		return (ARG);
 }

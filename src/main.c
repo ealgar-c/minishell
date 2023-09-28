@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 12:04:42 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:58:13 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	do_stuff(char *str, char **envp)
 	root = ft_lexer(ft_split(str, ' '));
 	ft_parser(root->utils);
 	//ft_exit(ft_split("exit", ' '));
-	
-	(void)envp;
+	executer(root->utils, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
+	char	*prompt;
 
 	atexit(ft_leakss);
 	(void)envp;
@@ -92,8 +92,11 @@ int	main(int argc, char **argv, char **envp)
 		exit(0);
 	while (1)
 	{
-		str = readline(get_prompt());
+		prompt = get_prompt();
+		ft_printf("%s", prompt);
+		str = readline(NULL);
 		do_stuff(str, envp);
+		free(prompt);
 		free(str);
 	}
 	return (0);

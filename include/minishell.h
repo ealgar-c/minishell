@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/28 12:03:27 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:44:47 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_tokens
 	GREAT_GREAT, // >> APPEND
 	LESS, // < REDIR_IN
 	LESS_LESS, // << HEREDOC
+	REDIR_FILE,
 }	t_tokens;
 
 // parser
@@ -41,6 +42,7 @@ typedef struct s_parser
 	bool			heredoc_flag;
 	int				redir_out;
 	bool			double_out;
+	bool			pipe;
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }		t_parser;
@@ -56,7 +58,6 @@ typedef struct s_ast_utils
 	struct s_lexer	*lexer_root;
 	struct s_parser	*parser_root;
 	struct s_env	*env_root; //esto aún no está inicializado
-
 }	t_ast_utils;
 
 typedef struct s_lexer
@@ -101,8 +102,8 @@ void		ft_env(char **cmd);
 void		ft_filter(char **cmd, char **envp);
 
 // executer.c
-void		execute_process(char **cmd, char **envp);
-void		executer(char **cmd, char **envp);
+void	execute_process(t_parser *parser_node, char **envp);
+void	executer(t_ast_utils *utils, char **envp);
 void		get_cmds(char *str, bool final, char **envp);
 
 // main.c

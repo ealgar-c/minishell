@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/25 13:11:03 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:19:50 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,46 @@ static char	*get_useful_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-void	execute_process(char **cmd, char **envp)
+void	execute_process(t_parser *parser_node, char **envp)
 {
 	char	*path;
-	//char	**cmd_splitted;
-	int		i;
+	char	**cmd;
+	pid_t	pid;
+	int		status;
 
-	i = 0;
-	//cmd_splitted = ft_split(cmd, ' ');
+	cmd = ft_split(parser_node->cmd, ' ');
 	path = get_useful_path(cmd[0], envp);
-	execve(path, cmd, envp);
+
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	else if (pid == 0)
+	{	
+		dup2(parser_node->redir_in, STDIN_FILENO);
+		dup2(parser_node->redir_out, STDOUT_FILENO);
+		if (execve(path, cmd, envp) == -1)
+			ft_printf("%s: command not found\n", cmd[0]);
+	}
+	else
+		waitpid(-1, &status, 0);
 }
 
-void	executer(char **cmd, char **envp)
+void	executer(t_ast_utils *utils, char **envp)
+{
+	t_parser	*parser_tmp;
+
+	parser_tmp = utils->parser_root;
+	while (parser_tmp)
+	{
+		if (parser_tmp->pipe)
+			ft_printf("toy chiquito no se hacer pipes\n");
+		else
+			execute_process(parser_tmp, envp);
+		parser_tmp = parser_tmp->next;
+	}
+}
+
+/* void	executer(char **cmd, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -62,4 +89,4 @@ void	executer(char **cmd, char **envp)
 		execute_process(cmd, envp);
 	else
 		waitpid(-1, &status, 0);
-}
+} */
