@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 15:02:05 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:56:07 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pwd(char **cmd)
 {
 	char	*path;
 
-	if (cmd[1])
+	if (cmd[1]) // sería cmd[2]? 
 		ft_printf("Flags no suported in this case\n");
 	path = malloc(sizeof(char) * 100);
 	path = getcwd(path, 100);
@@ -64,9 +64,9 @@ y que ya le está mandando a mi función el string con la ruta a cambiar
 aprovechando que chdir guarda el código de error en la variable global errno
 utilizo perror para que, además de printear mi mensaje de error, printee
 el error concreto que haya sucedido (directorio inexistente o whatever) */
-void	ft_cd(char *rute)
+void	ft_cd(char *route)
 {
-	if (chdir((const char)(rute)) == -1)
+	if (chdir((const char)(route)) == -1)
 	{
 		perrror("Error while changing directory");
 		exit(EXIT_FAILURE);

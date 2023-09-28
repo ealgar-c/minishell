@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 12:27:35 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:24:14 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_ast_utils
 	int				lexer_len;
 	struct s_lexer	*lexer_root;
 	struct s_parser	*parser_root;
+	struct s_env	*env_root; //esto aún no está inicializado
 
 }	t_ast_utils;
 
@@ -67,6 +68,15 @@ typedef struct s_lexer
 	struct s_lexer		*prev;
 	struct s_lexer		*next;
 }	t_lexer;
+
+typedef struct	s_env
+{
+	char			*name;
+	char			*value;
+	int				len; //pa comparar con ft_strncmp
+	struct s_env	*next;
+
+}	t_env;
 
 // funcs
 
