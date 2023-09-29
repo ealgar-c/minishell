@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 13:56:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:16:24 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,6 @@ t_lexer	*ft_lexer(char **cmdsplit)
 			ft_lxadd_back(&tmp_node->utils->lexer_root, tmp_node);
 		i++;
 	}
-	ft_printlx(utils->lexer_root);
+	// ft_printlx(utils->lexer_root);
 	return (utils->lexer_root);
 }

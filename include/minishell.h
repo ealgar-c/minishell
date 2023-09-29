@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/28 12:44:47 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:00:47 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,16 @@ t_lexer		*ft_lexer(char **cmdsplit);
 // builtins.c
 void		ft_pwd(char **cmd);
 void		ft_exit(char **cmd);
-void		ft_echo(char **cmd);
 void		ft_cd(char **cmd);
 void		ft_export(char **cmd);
 void		ft_unset(char **cmd);
 void		ft_env(char **cmd);
 
+// builtin_echo.c
+void	ft_echo(t_parser *parser_node);
+
 // filter.c
-void		ft_filter(char **cmd, char **envp);
+bool	ft_filter(t_parser *parser_node, char **cmd);
 
 // executer.c
 void	execute_process(t_parser *parser_node, char **envp);

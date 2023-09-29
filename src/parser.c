@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/27 15:38:30 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:16:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ t_parser	*ft_parser(t_ast_utils *utils)
 			check_redir(lexer_ptr, parser);
 		lexer_ptr = lexer_ptr->next;
 	}
-	ft_printparser(utils->parser_root);
+	// ft_printparser(utils->parser_root);
 	return (utils->parser_root);
 }

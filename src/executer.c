@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 14:19:50 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:59:15 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ static char	*get_useful_path(char *cmd, char **envp)
 	return (NULL);
 }
 
+void	child_process(t_parser *prsr_node, char **envp, char **cmd, char *path)
+{
+	dup2(prsr_node->redir_in, STDIN_FILENO);
+	dup2(prsr_node->redir_out, STDOUT_FILENO);
+	if (execve(path, cmd, envp) == -1)
+		ft_printf("%s: command not found\n", cmd[0]);
+}
+
 void	execute_process(t_parser *parser_node, char **envp)
 {
 	char	*path;
@@ -47,19 +55,16 @@ void	execute_process(t_parser *parser_node, char **envp)
 
 	cmd = ft_split(parser_node->cmd, ' ');
 	path = get_useful_path(cmd[0], envp);
-
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	else if (pid == 0)
-	{	
-		dup2(parser_node->redir_in, STDIN_FILENO);
-		dup2(parser_node->redir_out, STDOUT_FILENO);
-		if (execve(path, cmd, envp) == -1)
-			ft_printf("%s: command not found\n", cmd[0]);
+	if (ft_filter(parser_node, cmd) == false)
+	{
+		pid = fork();
+		if (pid == -1)
+			exit(0);
+		else if (pid == 0)
+			child_process(parser_node, envp, cmd, path);
+		else
+			waitpid(-1, &status, 0);
 	}
-	else
-		waitpid(-1, &status, 0);
 }
 
 void	executer(t_ast_utils *utils, char **envp)

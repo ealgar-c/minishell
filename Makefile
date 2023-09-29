@@ -16,7 +16,7 @@ endif
 # GENERAL INFO
 NAME = minishell
 SRC_DIR = src/
-SRC = builtins.c executer.c filter.c lexer.c main.c parser.c 
+SRC = executer.c filter.c lexer.c main.c parser.c builtins.c builtin_echo.c
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

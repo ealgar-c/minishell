@@ -6,13 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/27 14:58:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:51:32 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_array_len(char **str)
+/* int	ft_array_len(char **str)
 {
 	int		i;
 
@@ -35,68 +35,52 @@ static void	ft_free_array(char **str)
 		ptr++;
 	}
 	free(str);
-}
-
-char	*take_usable_path(char *path)
-{
-	char	**path_split;
-	char	*usable_path;
-	int		i;
-
-	i = 0;
-	path_split = ft_split(path, '/');
-	while (path_split[i])
-		i++;
-	usable_path = path_split[i - 1];
-	ft_free_array(path_split);
-	return (usable_path);
-}
-
-char	*get_prompt(void)
-{
-	char	*path;
-	char	*prompt;
-	char	*usable_path;
-
-	path = malloc(sizeof(char) * 100);
-	path = getcwd(path, 100);
-	usable_path = take_usable_path(path);
-	prompt = ft_strjoin(usable_path, ":conchita$ ");
-	free(path);
-	return (prompt);
-}
+} */
 
 void	ft_leakss(void)
 {
 	system("leaks -q minishell");
 }
 
+void	ctrlc_handler(int sign)
+{
+	(void)sign;
+	rl_on_new_line();
+	rl_redisplay();
+	rl_replace_line("", 0);
+	write(1, "\033[K\n", 5);
+	rl_on_new_line();
+	rl_redisplay();
+	rl_replace_line("", 0);
+}
+
 void	do_stuff(char *str, char **envp)
 {
 	t_lexer	*root;
 
-	root = ft_lexer(ft_split(str, ' '));
-	ft_parser(root->utils);
-	//ft_exit(ft_split("exit", ' '));
-	executer(root->utils, envp);
+	if (!str)
+		ft_exit(ft_split("exit", ' '));
+	else if (!(ft_strncmp(str, "\0", 1) == 0))
+	{
+		root = ft_lexer(ft_split(str, ' '));
+		ft_parser(root->utils);
+		executer(root->utils, envp);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
-	char	*prompt;
 
-	atexit(ft_leakss);
 	(void)envp;
 	if (argc != 1 || argv[1])
 		exit(0);
+	signal(SIGINT, ctrlc_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		prompt = get_prompt();
-		ft_printf("%s", prompt);
-		str = readline(NULL);
+		str = readline("conchita$ ");
 		do_stuff(str, envp);
-		free(prompt);
 		free(str);
 	}
 	return (0);
