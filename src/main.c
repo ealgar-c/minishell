@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/28 16:51:32 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:17:09 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ static void	ft_free_array(char **str)
 	}
 	free(str);
 } */
-
-void	ft_leakss(void)
-{
-	system("leaks -q minishell");
-}
 
 void	ctrlc_handler(int sign)
 {

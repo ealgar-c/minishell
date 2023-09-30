@@ -6,23 +6,15 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/29 11:24:55 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:17:29 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_pwd(char **cmd)
+void	ft_leakss(void)
 {
-	char	*path;
-
-	if (cmd[1])
-		ft_printf("Flags no suported in this case\n");
-	path = malloc(sizeof(char) * 100);
-	path = getcwd(path, 100);
-	ft_printf("%s\n", path);
-	free(path);
-	return ;
+	system("leaks -q minishell");
 }
 
 void	ft_exit(char **cmd)
@@ -30,27 +22,9 @@ void	ft_exit(char **cmd)
 	if (cmd[1])
 		ft_printf("Flags no suported in this case\n");
 //	ft_free(whatever);
+	atexit(ft_leakss);
 	ft_printf("exit\n");
 	exit (0);
-}
-
-void	ft_cd(char **cmd)
-{
-	int		i;
-	char	*path;
-
-	i = 1;
-	if (!cmd[1])
-		path = getenv("HOME");
-	else
-	{
-		path = cmd[i];
-		while (cmd[++i])
-			path = ft_strjoin(ft_strjoin(path, " "), cmd[i]);
-	}
-	if (chdir((const char *)(path)) == -1)
-		ft_printf("cd: %s: No such file or directory\n", path);
-	return ;
 }
 
 /*

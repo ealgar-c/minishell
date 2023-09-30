@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/29 13:00:47 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:09:02 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
+// STRUCTS Y ENUM
 typedef enum e_tokens
 {
 	CMD = 0,
@@ -34,7 +35,6 @@ typedef enum e_tokens
 }	t_tokens;
 
 // parser
-
 typedef struct s_parser
 {
 	char			*cmd;
@@ -47,19 +47,22 @@ typedef struct s_parser
 	struct s_parser	*next;
 }		t_parser;
 
-// lexer
 
+// utils
 struct	s_lexer;
 
 typedef struct s_ast_utils
 {
-	int				pipes;
-	int				lexer_len;
-	struct s_lexer	*lexer_root;
-	struct s_parser	*parser_root;
-	struct s_env	*env_root; //esto aún no está inicializado
+	int					pipes;
+	int					lexer_len;
+	struct s_lexer		*lexer_root;
+	struct s_parser		*parser_root;
+	struct s_env		*env_root; //esto aún no está inicializado
+	struct s_ast_utils	*prev;
+	struct s_ast_utils	*next;
 }	t_ast_utils;
 
+// lexer
 typedef struct s_lexer
 {
 	struct s_ast_utils	*utils;
@@ -70,6 +73,7 @@ typedef struct s_lexer
 	struct s_lexer		*next;
 }	t_lexer;
 
+// env
 typedef struct	s_env
 {
 	char			*name;
@@ -78,7 +82,7 @@ typedef struct	s_env
 
 }	t_env;
 
-// funcs
+// FUNCIONES
 
 // parser.c
 t_parser	*ft_parser(t_ast_utils *utils);
@@ -90,23 +94,25 @@ t_ast_utils	*ft_utils_init(void);
 t_lexer		*ft_lexer(char **cmdsplit);
 
 // builtins.c
-void		ft_pwd(char **cmd);
 void		ft_exit(char **cmd);
-void		ft_cd(char **cmd);
 void		ft_export(char **cmd);
 void		ft_unset(char **cmd);
 void		ft_env(char **cmd);
 
-// builtin_echo.c
-void	ft_echo(t_parser *parser_node);
+// builtin_cd.c
+void	ft_cd(t_parser *parser_node);
 
-// filter.c
-bool	ft_filter(t_parser *parser_node, char **cmd);
+// builtin_pwd.c
+void		ft_pwd(t_parser *parser_node);
+
+// builtin_echo.c
+void		ft_echo(t_parser *parser_node);
 
 // executer.c
-void	execute_process(t_parser *parser_node, char **envp);
-void	executer(t_ast_utils *utils, char **envp);
+void		execute_process(t_parser *parser_node, char **envp);
+void		executer(t_ast_utils *utils, char **envp);
 void		get_cmds(char *str, bool final, char **envp);
+void	ft_redirector(t_parser *parser_node);
 
 // main.c
 int			ft_array_len(char **str);
