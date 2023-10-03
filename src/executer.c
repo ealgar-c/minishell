@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/02 18:43:55 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:36:08 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 	else if ((ft_strncmp(cmd[0], "env", 3) == 0))
 		ft_env(cmd); */
 	else if ((ft_strncmp(cmd[0], "exit\0", 5) == 0))
-		ft_exit(cmd);
+		ft_exit(cmd, info);
 	else
 		return (false);
 	return (true);
@@ -60,10 +60,7 @@ static char	*get_useful_path(char *cmd, char **envp)
 		free(path);
 		i++;
 	}
-	i = 0;
-	while (all_paths[i])
-		free(all_paths[i++]);
-	free(all_paths);
+	ft_free(all_paths);
 	return (NULL);
 }
 

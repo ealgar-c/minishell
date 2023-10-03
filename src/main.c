@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/02 18:46:44 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:37:59 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ t_ast_utils	*ft_init_utils(void)
 void	do_stuff(char *str, t_info *info)
 {
 	if (!str)
-		ft_exit(ft_split("exit", ' '));
+		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
 		info->utils = ft_init_utils();
 		ft_lexer(ft_split(str, ' '), info);
 		ft_parser(info);
 		ft_executer(info);
-		free(info->utils);
+		ft_free_utils(info->utils);
 	}
 }
-
 
 t_info	*ft_init_info(char **envp)
 {
@@ -77,6 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = readline("conchita$ ");
 		do_stuff(str, info);
+		add_history(str);
 		free(str);
 	}
 	return (0);

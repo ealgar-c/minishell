@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/02 18:43:20 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:36:29 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -41,6 +42,7 @@ typedef struct s_info
 	struct s_ast_utils	*utils;
 	int					last_exit;
 }	t_info;
+
 // parser
 typedef struct s_parser
 {
@@ -53,7 +55,6 @@ typedef struct s_parser
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }		t_parser;
-
 
 // utils
 struct	s_lexer;
@@ -96,7 +97,7 @@ void	ft_parser(t_info *info);
 void	ft_lexer(char **cmdsplit, t_info *info);
 
 // builtins.c
-void	ft_exit(char **cmd);
+void	ft_exit(char **cmd, t_info *info);
 void	ft_export(char **cmd);
 void	ft_unset(char **cmd);
 void	ft_env(char **cmd);
@@ -116,4 +117,9 @@ void	ft_redirector(t_parser *parser_node);
 
 // main.c
 int		ft_array_len(char **str);
+
+// free_utils.c
+void	ft_free_utils(t_ast_utils *utils);
+void	ft_free(char **str);
+
 #endif

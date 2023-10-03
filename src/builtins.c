@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/30 18:17:29 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:37:23 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	ft_leakss(void)
 	system("leaks -q minishell");
 }
 
-void	ft_exit(char **cmd)
+void	ft_exit(char **cmd, t_info *info)
 {
 	if (cmd[1])
 		ft_printf("Flags no suported in this case\n");
-//	ft_free(whatever);
+	ft_free_utils(info->utils);
+	free(info);
 	atexit(ft_leakss);
 	ft_printf("exit\n");
 	exit (0);
