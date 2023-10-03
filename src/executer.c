@@ -6,20 +6,20 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/30 18:07:59 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:43:55 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static bool	ft_filter(t_parser *parser_node, char **cmd)
+static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
 	if ((ft_strncmp(cmd[0], "echo\0", 5) == 0))
-		ft_echo(parser_node);
+		ft_echo(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "cd\0", 3) == 0))
-		ft_cd(parser_node);
+		ft_cd(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "pwd\0", 4) == 0))
-		ft_pwd(parser_node);
+		ft_pwd(parser_node, info);
 	/* else if ((ft_strncmp(cmd[0], "export", 6) == 0))
 		ft_export(cmd);
 	else if ((ft_strncmp(cmd[0], "unset", 5) == 0))
@@ -67,17 +67,18 @@ static char	*get_useful_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-static void	c_process(t_parser *prsr_node, char **envp, char **cmd, char *path)
+static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
 	ft_redirector(prsr_node);
-	if (execve(path, cmd, envp) == -1)
+	info ->last_exit = execve(path, cmd, info->envp);
+	if (info->last_exit == -1)
 	{
 		ft_printf("%s: command not found\n", cmd[0]);
 		exit(0);
 	}
 }
 
-void	execute_process(t_parser *parser_node, char **envp)
+static void	execute_process(t_info *info, t_parser *parser_node)
 {
 	char	*path;
 	char	**cmd;
@@ -85,30 +86,30 @@ void	execute_process(t_parser *parser_node, char **envp)
 	int		status;
 
 	cmd = ft_split(parser_node->cmd, ' ');
-	path = get_useful_path(cmd[0], envp);
-	if (ft_filter(parser_node, cmd) == false)
+	path = get_useful_path(cmd[0], info->envp);
+	if (ft_filter(parser_node, cmd, info) == false)
 	{
 		pid = fork();
 		if (pid == -1)
 			exit(0);
 		else if (pid == 0)
-			c_process(parser_node, envp, cmd, path);
+			c_process(parser_node, info, cmd, path);
 		else
 			waitpid(-1, &status, 0);
 	}
 }
 
-void	executer(t_ast_utils *utils, char **envp)
+void	ft_executer(t_info *info)
 {
 	t_parser	*parser_tmp;
 
-	parser_tmp = utils->parser_root;
+	parser_tmp = info->utils->parser_root;
 	while (parser_tmp)
 	{
 		if (parser_tmp->pipe)
 			ft_printf("toy chiquito no se hacer pipes\n");
 		else
-			execute_process(parser_tmp, envp);
+			execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
 	}
 }

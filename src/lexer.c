@@ -6,20 +6,20 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/28 14:16:24 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:44:25 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_lexer	*new_lexer_node(char **content, int token, int i, t_ast_utils *utils)
+static t_lexer	*new_lexer_node(char **s, int token, int i, t_ast_utils *utils)
 {
 	t_lexer	*new_node;
 
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
-	new_node->content = content[i];
+	new_node->content = s[i];
 	new_node->i = i;
 	new_node->token = token;
 	new_node->next = NULL;
@@ -28,7 +28,7 @@ t_lexer	*new_lexer_node(char **content, int token, int i, t_ast_utils *utils)
 	return (new_node);
 }
 
-void	ft_lxadd_back(t_lexer **root, t_lexer *new)
+static void	ft_lxadd_back(t_lexer **root, t_lexer *new)
 {
 	t_lexer	*ptr;
 
@@ -39,7 +39,7 @@ void	ft_lxadd_back(t_lexer **root, t_lexer *new)
 	ptr->next->prev = ptr;
 }
 
-int	ft_token_type(char **str, t_ast_utils *utils, int i)
+static int	ft_token_type(char **str, t_ast_utils *utils, int i)
 {
 	static bool	cmd;
 	static bool	redir;
@@ -86,19 +86,7 @@ int	ft_token_type(char **str, t_ast_utils *utils, int i)
 		return (ARG);
 }
 
-t_ast_utils	*ft_utils_init(void)
-{
-	t_ast_utils	*utils;
-
-	utils = malloc(sizeof(t_ast_utils));
-	if (!utils)
-		return (NULL);
-	utils->pipes = 0;
-	utils->lexer_len = 0;
-	return (utils);
-}
-
-void	ft_printlx(t_lexer *root)
+/* static void	ft_printlx(t_lexer *root)
 {
 	t_lexer	*tmp;
 
@@ -113,16 +101,16 @@ void	ft_printlx(t_lexer *root)
 		ft_printf("\n");
 		tmp = tmp->next;
 	}
-}
+} */
 
-t_lexer	*ft_lexer(char **cmdsplit)
+void	ft_lexer(char **cmdsplit, t_info *info)
 {
 	int			i;
 	t_ast_utils	*utils;
 	t_lexer		*tmp_node;
 
 	i = 0;
-	utils = ft_utils_init();
+	utils = info->utils;
 	while (cmdsplit[i])
 	{
 		tmp_node = new_lexer_node(cmdsplit,
@@ -134,5 +122,4 @@ t_lexer	*ft_lexer(char **cmdsplit)
 		i++;
 	}
 	// ft_printlx(utils->lexer_root);
-	return (utils->lexer_root);
 }

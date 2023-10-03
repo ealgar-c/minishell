@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/30 16:11:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:54:52 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)
 		waitpid(-1, &status, 0);
 }
 
-void	ft_echo(t_parser *parser_node)
+void	ft_echo(t_parser *parser_node, t_info *info)
 {
 	int		i;
 	char	*tmp;
@@ -61,7 +61,9 @@ void	ft_echo(t_parser *parser_node)
 			child_creator(parser_node, tmp, true);
 		else
 			child_creator(parser_node, tmp, false);
+		info->last_exit = 0;
 	}
+	else
+		info->last_exit = 1;
 	free(tmp);
-	return ;
 }

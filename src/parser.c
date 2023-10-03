@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/28 14:16:34 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/09/30 18:44:49 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	check_redir(t_lexer *lexer, t_parser *parser)
 
 	token = lexer->token;
 	if (token == GREAT)
-		parser->redir_out = open(lexer->next->content, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		parser->redir_out = open(lexer->next->content,
+				O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	else if (token == LESS)
 		parser->redir_in = open(lexer->next->content, O_RDONLY, 0777);
 	else if (token == LESS_LESS)
@@ -28,7 +29,8 @@ void	check_redir(t_lexer *lexer, t_parser *parser)
 	}
 	else if (token == GREAT_GREAT)
 	{
-		parser->redir_out = open(lexer->next->content, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		parser->redir_out = open(lexer->next->content,
+				O_WRONLY | O_CREAT | O_APPEND, 0777);
 		parser->double_out = true;
 	}
 }
@@ -84,21 +86,22 @@ void	ft_printparser(t_parser *root)
 	ft_printf("\n\n");
 }
 
-t_parser	*ft_parser(t_ast_utils *utils)
+void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;
 	t_parser	*parser;
 
-	lexer_ptr = utils->lexer_root;
+	lexer_ptr = info->utils->lexer_root;
 	while (lexer_ptr)
 	{
 		if (!lexer_ptr->prev)
 		{
 			parser = new_parser_node(lexer_ptr, NULL);
-			utils->parser_root = parser;
+			info->utils->parser_root = parser;
 		}
 		else if (lexer_ptr->token == ARG)
-			parser->cmd = ft_strjoin(ft_strjoin(parser->cmd, " "), lexer_ptr->content);
+			parser->cmd = ft_strjoin(ft_strjoin(parser->cmd, " "),
+					lexer_ptr->content);
 		else if (lexer_ptr->token == PIPE)
 			parser = ft_config_pipe(parser, lexer_ptr);
 		else
@@ -106,5 +109,4 @@ t_parser	*ft_parser(t_ast_utils *utils)
 		lexer_ptr = lexer_ptr->next;
 	}
 	// ft_printparser(utils->parser_root);
-	return (utils->parser_root);
 }
