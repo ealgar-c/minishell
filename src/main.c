@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/03 15:37:59 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:35:09 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,14 @@ void	ctrlc_handler(int sign)
 	rl_replace_line("", 0);
 }
 
-t_ast_utils	*ft_init_utils(void)
-{
-	t_ast_utils	*utils;
-
-	utils = malloc(sizeof(t_ast_utils));
-	if (!utils)
-		return (NULL);
-	utils->pipes = 0;
-	utils->lexer_len = 0;
-	return (utils);
-}
-
 void	do_stuff(char *str, t_info *info)
 {
 	if (!str)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
-		info->utils = ft_init_utils();
-		ft_lexer(ft_split(str, ' '), info);
+		info->utils = ft_utils_init();
+		ft_lexer(str, info);
 		ft_parser(info);
 		ft_executer(info);
 		ft_free_utils(info->utils);

@@ -5,105 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 17:51:19 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/02 18:44:25 by ealgar-c         ###   ########.fr       */
+/*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
+/*   Updated: 2023/10/05 15:33:50 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static t_lexer	*new_lexer_node(char **s, int token, int i, t_ast_utils *utils)
+bool	ft_token_check(char c)
 {
-	t_lexer	*new_node;
-
-	new_node = malloc(sizeof(t_lexer));
-	if (!new_node)
-		return (NULL);
-	new_node->content = s[i];
-	new_node->i = i;
-	new_node->token = token;
-	new_node->next = NULL;
-	new_node->prev = NULL;
-	new_node->utils = utils;
-	return (new_node);
+	if (c == '|' || c == '<' || c == '>')
+		return (true);
+	return (false);
 }
 
-static void	ft_lxadd_back(t_lexer **root, t_lexer *new)
+char	*ft_quote_handling(char *str, int i, int len)
 {
-	t_lexer	*ptr;
+	char	*content;
 
-	ptr = *root;
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-	ptr->next->prev = ptr;
+	while (str[i + len] != '"')
+	{
+		if (str[i + len] == '\0')
+		{
+			ft_printf("Wrong quotes, please fix\n");
+			return (NULL);
+// el return no está bien gestionado, habría que salir del todo, con una nueva promt
+		}
+		len++;
+	}
+//	content = ft_substr(str, i + 1, len - 1); //+1 y -1 para que omita las comillas
+	content = ft_substr(str, i, len);
+// no puedo quitarle las comillas aquí pq si no se jodería al aumentar i en el lexer con i+=strlen
+	return (content);
 }
 
-static int	ft_token_type(char **str, t_ast_utils *utils, int i)
+char	*get_content(char *str, int i)
 {
-	static bool	cmd;
-	static bool	redir;
+	char	*content;
+	int		len;
+	int		j;
 
-	if (i == 0)
-	{
-		redir = false;
-		cmd = false;
-	}
-	if (ft_strncmp(str[i], "|\0", 2) == 0)
-	{
-		cmd = false;
-		utils->pipes++;
-		return (PIPE);
-	}
-	if (ft_strncmp(str[i], ">\0", 2) == 0)
-	{
-		redir = true;
-		return (GREAT);
-	}
-	if (ft_strncmp(str[i], ">>\0", 3) == 0)
-	{
-		redir = true;
-		return (GREAT_GREAT);
-	}
-	if (ft_strncmp(str[i], "<\0", 2) == 0)
-	{
-		redir = true;
-		return (LESS);
-	}
-	if (ft_strncmp(str[i], "<<\0", 3) == 0)
-	{
-		redir = true;
-		return (LESS_LESS);
-	}
-	else if (!cmd)
-	{
-		cmd = true;
-		return (CMD);
-	}
-	else if (redir == true)
-		return (REDIR_FILE);
+	len = 0;
+	j = 0;
+	if (str[i + len] == '"')
+		content = ft_quote_handling(str, i, len);
 	else
-		return (ARG);
+	{
+		while (str[i + len] > 32 && !ft_token_check(str[i + len]))
+			len++;
+		content = ft_substr(str, i, len);
+	}
+	return (content);
 }
 
-/* static void	ft_printlx(t_lexer *root)
+//no estoy liberando content, habría que hacerlo en la función ppal
+t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 {
-	t_lexer	*tmp;
+	t_lexer	*node;
 
-	tmp = root;
-	ft_printf("LEXER NODES:\n");
-	ft_printf("El numero de pipes es: %i\n", tmp->utils->pipes);
-	while (tmp)
-	{
-		ft_printf("\nNODO: %i\n", tmp->i);
-		ft_printf("CONT: %s\n", tmp->content);
-		ft_printf("TOKEN: %i\n", tmp->token);
-		ft_printf("\n");
-		tmp = tmp->next;
-	}
-} */
+	if (str[i] == '|')
+		node = new_lexer_node("|", PIPE, utils);
+	else if (str[i] == '>' && str[i + 1] != '>')
+		node = new_lexer_node(">", GREAT, utils);
+	else if (str[i] == '>' && str[i + 1] == '>') //añadir condición pa que no haya >>>?
+		node = new_lexer_node(">>", GREAT_GREAT, utils);
+	else if (str[i] == '<' && str[i + 1] != '<')
+		node = new_lexer_node("<", LESS, utils);
+	else
+		node = new_lexer_node("<", LESS_LESS, utils);
+	return(node);
+}
 
-void	ft_lexer(char **cmdsplit, t_info *info)
+void	ft_lexer(char *str, t_info *info)
 {
 	int			i;
 	t_ast_utils	*utils;
@@ -111,15 +84,16 @@ void	ft_lexer(char **cmdsplit, t_info *info)
 
 	i = 0;
 	utils = info->utils;
-	while (cmdsplit[i])
+	while (str[i])
 	{
-		tmp_node = new_lexer_node(cmdsplit,
-				ft_token_type(cmdsplit, utils, i), i, utils);
-		if (i == 0)
-			tmp_node->utils->lexer_root = tmp_node;
+		while (str[i] <= 32) // por si hay espacios al principio?
+			i++; //tb podríamos llamar a ft_strtrim antes y a pastar
+		if (!tmp_node || tmp_node->token == PIPE)
+			tmp_node = new_lexer_node(get_content(str, i), CMD, utils);
+		else if (ft_token_check(str[i]))
+			tmp_node = get_token(str, i, utils);
 		else
-			ft_lxadd_back(&tmp_node->utils->lexer_root, tmp_node);
-		i++;
+			tmp_node = new_lexer_node(get_content(str, i), ARG, utils);
+		i += ft_strlen(tmp_node->content);
 	}
-	// ft_printlx(utils->lexer_root);
 }
