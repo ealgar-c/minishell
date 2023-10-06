@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 10:43:39 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/28 12:03:15 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:49:49 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void save_variable(char *str, t_ast_utils *utils)
 	t_env	*env;
 
 
-	var = ft_split(str, '=');
+	var = ft_split(str, '='); //esta mierda hay que cambiarla
+//me dicen por el pinganillo, que hay variables que tienen '=' dentro,
+//si se splitea así nos quedamos sin la mitad del contenido xd
 	if (getenv(var[0])) //si es una predefinida
 	{ //no sé si esto está bien realmente
 		ft_printf("The variable %s can't be overwritten\n", var[0]);
@@ -88,5 +90,5 @@ void ft_export(char **cmd, t_ast_utils *utils)
 {
 	if (cmd[2])
 		ft_printf("Flags no suported in this case\n");
-	save_variable(cmd[1], utils);	
+	save_variable(cmd[1], utils);
 }
