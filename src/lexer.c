@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 15:33:50 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:55:25 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,16 @@ void	ft_lexer(char *str, t_info *info)
 	utils = info->utils;
 	while (str[i])
 	{
-		while (str[i] <= 32) // por si hay espacios al principio?
-			i++; //tb podríamos llamar a ft_strtrim antes y a pastar
+		while (str[i] <= 32)
+			i++;
 		if (!tmp_node || tmp_node->token == PIPE)
 			tmp_node = new_lexer_node(get_content(str, i), CMD, utils);
 		else if (ft_token_check(str[i]))
 			tmp_node = get_token(str, i, utils);
-		else
+		else if (!ft_check_last_node(utils))
 			tmp_node = new_lexer_node(get_content(str, i), ARG, utils);
+		else
+			tmp_node = new_lexer_node(get_content(str, i), REDIR_FILE, utils);
 		i += ft_strlen(tmp_node->content);
 	}
 }

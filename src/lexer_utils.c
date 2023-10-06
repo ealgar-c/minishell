@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 15:29:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:01:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_lexer	*new_lexer_node(char *content, int token, t_ast_utils *utils)
 		ft_lxadd_back(&utils->lexer_root, new_node);
 	else
 		utils->lexer_root = new_node;
-	free(content); //no sé si está bien
+	//free(content); //no sé si está bien
 	return (new_node);
 }
 
@@ -54,4 +54,17 @@ t_ast_utils	*ft_utils_init(void)
 	utils->parser_root = NULL;
 	utils->env_root = NULL;
 	return (utils);
+}
+
+bool	ft_check_last_node(t_ast_utils *utils)
+{
+	t_lexer *lx_node;
+
+	lx_node = utils ->lexer_root;
+	while (lx_node->next)
+		lx_node = lx_node->next;
+	if (lx_node->token == GREAT || lx_node->token == GREAT_GREAT ||
+		lx_node->token == LESS || lx_node->token == LESS_LESS)
+		return (true);
+	return (false);
 }

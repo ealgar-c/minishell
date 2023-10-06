@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/30 18:44:49 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:07:36 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,6 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr)
 	parser = parser->next;
 	parser->redir_in = pipe_fd[1];
 	return (parser);
-}
-
-void	ft_printparser(t_parser *root)
-{
-	t_parser	*tmp;
-
-	tmp = root;
-	ft_printf("\nPARSER NODES:\n");
-	while (tmp)
-	{
-		ft_printf("\nCMD: %s\n", tmp->cmd);
-		if (tmp->pipe == true)
-			ft_printf("es pipe\n");
-		ft_printf("REDIR_IN: %i (flag %i)\n", tmp->redir_in, tmp->heredoc_flag);
-		ft_printf("REDIR_OUT: %i (flag %i)\n", tmp->redir_out, tmp->double_out);
-		tmp = tmp->next;
-	}
-	ft_printf("\n\n");
 }
 
 void	ft_parser(t_info *info)

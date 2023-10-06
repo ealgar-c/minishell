@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/03 15:37:23 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:45:45 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ft_leakss(void)
 
 void	ft_exit(char **cmd, t_info *info)
 {
-	if (cmd[1])
-		ft_printf("Flags no suported in this case\n");
+	/* if (cmd[1])
+		ft_printf("Flags no suported in this case\n"); */
+		(void)cmd;
 	ft_free_utils(info->utils);
 	free(info);
 	atexit(ft_leakss);

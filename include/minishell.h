@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/05 15:31:58 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:01:30 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		ft_lexer(char *str, t_info *info);
 t_ast_utils	*ft_utils_init(void);
 t_lexer		*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void		ft_lxadd_back(t_lexer **root, t_lexer *new);
+bool		ft_check_last_node(t_ast_utils *utils);
 
 // builtins.c
 void		ft_exit(char **cmd, t_info *info);

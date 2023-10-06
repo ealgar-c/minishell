@@ -6,13 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/05 15:36:09 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:43:39 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char *clean_quotes(char *str)
+static char	*clean_quotes(char *str)
 {
 	char	*clean;
 
