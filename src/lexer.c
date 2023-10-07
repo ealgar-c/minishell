@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 15:55:25 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:42:34 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ char	*get_content(char *str, int i)
 {
 	char	*content;
 	int		len;
-	int		j;
 
 	len = 0;
-	j = 0;
 	if (str[i + len] == '"')
 		content = ft_quote_handling(str, i, len);
 	else
