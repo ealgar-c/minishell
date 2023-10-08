@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 16:07:36 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:09:51 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;
 	t_parser	*parser;
+	char 		*tmp;
 
 	lexer_ptr = info->utils->lexer_root;
 	while (lexer_ptr)
@@ -82,13 +83,15 @@ void	ft_parser(t_info *info)
 			info->utils->parser_root = parser;
 		}
 		else if (lexer_ptr->token == ARG)
-			parser->cmd = ft_strjoin(ft_strjoin(parser->cmd, " "),
-					lexer_ptr->content);
+		{
+			tmp = ft_strjoin(parser->cmd, " ");
+			parser->cmd = ft_strjoin(tmp, lexer_ptr->content);
+			free(tmp);
+		}
 		else if (lexer_ptr->token == PIPE)
 			parser = ft_config_pipe(parser, lexer_ptr);
 		else
 			check_redir(lexer_ptr, parser);
 		lexer_ptr = lexer_ptr->next;
 	}
-	// ft_printparser(utils->parser_root);
 }

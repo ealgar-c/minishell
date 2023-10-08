@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 16:01:57 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:23:16 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ t_lexer	*new_lexer_node(char *content, int token, t_ast_utils *utils)
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	new_node->utils = utils;
-	if (utils->lexer_root) //he metido esto aquí para ahorrar en líneas pero no sé si es una gilipollez
+	if (utils->lexer_root)
 		ft_lxadd_back(&utils->lexer_root, new_node);
 	else
 		utils->lexer_root = new_node;
-	//free(content); //no sé si está bien
 	return (new_node);
 }
 
@@ -58,7 +57,7 @@ t_ast_utils	*ft_utils_init(void)
 
 bool	ft_check_last_node(t_ast_utils *utils)
 {
-	t_lexer *lx_node;
+	t_lexer	*lx_node;
 
 	lx_node = utils ->lexer_root;
 	while (lx_node->next)

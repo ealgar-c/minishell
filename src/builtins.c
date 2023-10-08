@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/05 16:45:45 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:32:11 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	ft_leakss(void)
 
 void	ft_exit(char **cmd, t_info *info)
 {
-	/* if (cmd[1])
-		ft_printf("Flags no suported in this case\n"); */
-		(void)cmd;
+	if (cmd[1]) //realmente no, si es un numero es lo que tenemos que usar en exit
+		ft_printf("exit: numeric argument required\n");
 	ft_free_utils(info->utils);
 	free(info);
 	atexit(ft_leakss);

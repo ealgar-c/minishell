@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/05 15:55:25 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:20:51 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 		node = new_lexer_node("|", PIPE, utils);
 	else if (str[i] == '>' && str[i + 1] != '>')
 		node = new_lexer_node(">", GREAT, utils);
-	else if (str[i] == '>' && str[i + 1] == '>') //añadir condición pa que no haya >>>?
+	else if (str[i] == '>' && str[i + 1] == '>')
 		node = new_lexer_node(">>", GREAT_GREAT, utils);
 	else if (str[i] == '<' && str[i + 1] != '<')
 		node = new_lexer_node("<", LESS, utils);

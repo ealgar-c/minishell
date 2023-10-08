@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/03 15:36:08 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:15:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static char	*get_useful_path(char *cmd, char **envp)
 	{
 		path = ft_strjoin(ft_strjoin(all_paths[i], "/"), cmd);
 		if (access(path, X_OK) == 0)
+		{	
+			ft_free(all_paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
@@ -94,6 +97,8 @@ static void	execute_process(t_info *info, t_parser *parser_node)
 		else
 			waitpid(-1, &status, 0);
 	}
+	ft_free(cmd);
+	free(path);
 }
 
 void	ft_executer(t_info *info)
