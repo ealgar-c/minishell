@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/05 16:01:30 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 00:58:56 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef enum e_tokens
 // info
 typedef struct s_info
 {
-	char				**envp;
+	struct s_env		*env_root;
 	struct s_ast_utils	*utils;
 	int					last_exit;
 }	t_info;
@@ -103,9 +103,10 @@ bool		ft_check_last_node(t_ast_utils *utils);
 
 // builtins.c
 void		ft_exit(char **cmd, t_info *info);
-void		ft_export(char **cmd);
 void		ft_unset(char **cmd);
-void		ft_env(char **cmd);
+
+//builtin_env.c
+void		ft_env(t_parser *parser_node, t_info *info);
 
 // builtin_cd.c
 void		ft_cd(t_parser *parser_node, t_info *info);
@@ -115,6 +116,9 @@ void		ft_pwd(t_parser *parser_node, t_info *info);
 
 // builtin_echo.c
 void		ft_echo(t_parser *parser_node, t_info *info);
+
+// builtin_export.c
+void		ft_export(t_parser *parser_node, t_info *info);
 
 // executer.c
 void		ft_executer(t_info *info);
@@ -126,5 +130,11 @@ int			ft_array_len(char **str);
 // free_utils.c
 void		ft_free_utils(t_ast_utils *utils);
 void		ft_free(char **str);
+
+// extensor.c
+char		*check_extensor(char *content, t_info *info);
+
+// enviroment.c
+t_env		*save_envp(char **envp);
 
 #endif

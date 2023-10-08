@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/08 16:09:51 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:49:10 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	ft_parser(t_info *info)
 		else if (lexer_ptr->token == ARG)
 		{
 			tmp = ft_strjoin(parser->cmd, " ");
-			parser->cmd = ft_strjoin(tmp, lexer_ptr->content);
+			parser->cmd = ft_strjoin(tmp,
+					check_extensor(lexer_ptr->content, info));
 			free(tmp);
 		}
 		else if (lexer_ptr->token == PIPE)

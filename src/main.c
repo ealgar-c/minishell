@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/08 19:27:37 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 00:46:37 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	ft_printparser(t_parser *root)
 	t_parser *tmp = root;
 	int		i = 0;
 
-		ft_printf("\n");
-		ft_printf("PARSER:\n");
-		ft_printf("\n");
+	ft_printf("\n");
+	ft_printf("PARSER:\n");
+	ft_printf("\n");
 	while (tmp)
 	{
 		ft_printf("node %i\n", i);
@@ -85,7 +85,7 @@ t_info	*ft_init_info(char **envp)
 	info = malloc(sizeof(t_info));
 	if (!info)
 		return (NULL);
-	info->envp = envp;
+	info->env_root = save_envp(envp);
 	info->last_exit = 0;
 	return (info);
 }

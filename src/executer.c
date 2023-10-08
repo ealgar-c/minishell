@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/08 19:48:04 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 01:01:37 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 	/* else if ((ft_strncmp(cmd[0], "export", 6) == 0))
 		ft_export(cmd);
 	else if ((ft_strncmp(cmd[0], "unset", 5) == 0))
-		ft_unset(cmd);
+		ft_unset(cmd); */
 	else if ((ft_strncmp(cmd[0], "env", 3) == 0))
-		ft_env(cmd); */
+		ft_env(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "exit\0", 5) == 0))
 		ft_exit(cmd, info);
 	else
@@ -41,29 +41,32 @@ void	ft_redirector(t_parser *parser_node)
 		dup2(parser_node->redir_out, STDOUT_FILENO);
 }
 
-static char	*get_useful_path(char *cmd, char **envp)
+static char	*get_useful_path(char *cmd, t_env *env_root)
 {
-	int		i;
+	t_env	*tmp;
+	char	**paths;
 	char	*path;
-	char	**all_paths;
+	int		i;
+	char	*tmp_str;
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	all_paths = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (all_paths[i])
+	tmp = env_root;
+	while (ft_strncmp(tmp->name, "PATH=", 5) != 0)
+		tmp = tmp->next;
+	paths = ft_split(tmp->value, ':');
+	i = -1;
+	while (paths[++i])
 	{
-		path = ft_strjoin(ft_strjoin(all_paths[i], "/"), cmd);
+		tmp_str = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(tmp_str, cmd);
+		free(tmp_str);
 		if (access(path, X_OK) == 0)
-		{	
-			ft_free(all_paths);
+		{
+			ft_free(paths);
 			return (path);
 		}
 		free(path);
-		i++;
 	}
-	ft_free(all_paths);
+	ft_free(paths);
 	return (NULL);
 }
 
@@ -86,7 +89,7 @@ static void	execute_process(t_info *info, t_parser *parser_node)
 	int		status;
 
 	cmd = ft_split(parser_node->cmd, ' ');
-	path = get_useful_path(cmd[0], info->envp);
+	path = get_useful_path(cmd[0], info->env_root);
 	if (ft_filter(parser_node, cmd, info) == false)
 	{
 		pid = fork();

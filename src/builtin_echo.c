@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/05 15:43:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:55:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)
 	pid_t	pid;
 	int		status;
 
-/* 	if (str[0] == '"' && str[ft_strlen(str) - 1] == '"')
-		str = ft_substr(str, 1, ft_strlen(str) - 2); */
 	pid = fork();
 	if (pid == -1)
 		exit (0);

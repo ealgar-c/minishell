@@ -1,49 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 10:43:39 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/07 13:14:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/09 01:02:56 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* typedef struct	s_env
-{
-	char			*name;
-	int				len; //pa comparar con ft_strncmp
-	char			*value;
-	struct s_env	*next;
-
-}	t_env;
- */
-
-/* a lo mejor habría que añadir una comprobación de que el nombre y el contenido de
-la variable a añadir sean correctos, tipo mayúsculas y toda la pesca, pero eso 
-es problema de la eli del futuro  */
-
-t_env	*new_env(char *name, char *value)
-{
-	t_env	*env;
-
-	env = malloc(sizeof(t_env));
-	env->name = name;
-	env->value = value;
-}
-
-void	env_add_back(t_env **root, t_env *new)
-{
-	t_env	*ptr;
-
-	ptr = *root;
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-}
 int	check_variable(char *name, char *value, t_ast_utils *utils)
 {
 	t_env *ptr;
@@ -80,19 +48,19 @@ void save_variable(char *name, char *value, t_ast_utils *utils)
 	}	
 }
 
-void ft_export(char **cmd, t_ast_utils *utils)
+void	ft_export(t_parser *parser_node, t_info *info)
 {
 	char *name;
 	char *value;
 	int i;
 
-	if (cmd[2])
+	if (parser_node->cmd[2])
 		ft_printf("Flags no suported in this case\n");
 	i = 0;
-	while (cmd[1][i] != '=')
+	while (parser_node->cmd[1][i] != '=')
 		i++;
-	name = ft_substr(cmd[1], 0, i);
-	value = clean_quotes(ft_substr(cmd[1], i + 1, ft_strlen(cmd[1])));
+	name = ft_substr(parser_node->cmd[1], 0, i);
+	value = clean_quotes(ft_substr(parser_node->cmd[1], i + 1, ft_strlen(parser_node->cmd[1])));
 	save_variable(name, value, utils);
 	free(name);
 	free(value);
