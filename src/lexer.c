@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/08 16:20:51 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/08 18:56:20 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ char	*get_content(char *str, int i)
 {
 	char	*content;
 	int		len;
-	int		j;
 
 	len = 0;
-	j = 0;
 	if (str[i + len] == '"')
 		content = ft_quote_handling(str, i, len);
 	else

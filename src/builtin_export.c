@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 10:43:39 by erivero-          #+#    #+#             */
-/*   Updated: 2023/09/28 12:03:15 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/07 13:14:14 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 la variable a añadir sean correctos, tipo mayúsculas y toda la pesca, pero eso 
 es problema de la eli del futuro  */
 
-t_env	*new_env(char **var)
+t_env	*new_env(char *name, char *value)
 {
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
-	env->name = var[0];
-	env->value = ft_strtrim(var[1], """");
+	env->name = name;
+	env->value = value;
 }
 
 void	env_add_back(t_env **root, t_env *new)
@@ -44,49 +44,60 @@ void	env_add_back(t_env **root, t_env *new)
 		ptr = ptr->next;
 	ptr->next = new;
 }
-int	check_variable(char **var, t_ast_utils *utils)
+int	check_variable(char *name, char *value, t_ast_utils *utils)
 {
 	t_env *ptr;
 
 	ptr = utils->env_root;
 	while (ptr->next)
 	{ //si ya hay creada una variable con ese nombre, la sobreescribe
-		if (!ft_strncmp(ptr->name, var[0], ft_strlen(var[0])))
+		if (!ft_strncmp(ptr->name, name, ft_strlen(name)))
 		{
-			ptr->value = var[1];
+			ptr->value = value;
 			return (1);
 		}
 	}
 	return (0);
 }
 
-void save_variable(char *str, t_ast_utils *utils)
+void save_variable(char *name, char *value, t_ast_utils *utils)
 {
-	char	**var;
 	t_env	*env;
 
 
-	var = ft_split(str, '=');
-	if (getenv(var[0])) //si es una predefinida
+	if (getenv(name)) //si es una predefinida
 	{ //no sé si esto está bien realmente
-		ft_printf("The variable %s can't be overwritten\n", var[0]);
+		ft_printf("The variable %s can't be overwritten\n", name);
 		return ;
 	}
-	if (!check_variable(var, utils)) //si no existe, crea la variable
+	if (!check_variable(name, value, utils)) //si no existe, crea la variable
 	{
-		env = new_env(var);
+		env = new_env(name, value);
 		if (!utils->env_root)
 			utils->env_root = env;
 		else
 			env_add_back(utils->env_root, env);
 	}	
-	free(var);
 }
-
 
 void ft_export(char **cmd, t_ast_utils *utils)
 {
+	char *name;
+	char *value;
+	int i;
+
 	if (cmd[2])
 		ft_printf("Flags no suported in this case\n");
-	save_variable(cmd[1], utils);	
+	i = 0;
+	while (cmd[1][i] != '=')
+		i++;
+	name = ft_substr(cmd[1], 0, i);
+	value = clean_quotes(ft_substr(cmd[1], i + 1, ft_strlen(cmd[1])));
+	save_variable(name, value, utils);
+	free(name);
+	free(value);
 }
+/* Me han dicho que hay envp que contienen el caracter '='.
+Para no pillarme los dedos he cambiado el sistema de spliteo, 
+de forma que ya no llamo a split con '=', sino que creo dos substrings
+separándolas por el primer '=' que encuentre, y obviando los demás */
