@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 01:01:37 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:55:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_useful_path(char *cmd, t_env *env_root)
 	char	*tmp_str;
 
 	tmp = env_root;
-	while (ft_strncmp(tmp->name, "PATH=", 5) != 0)
+	while (ft_strncmp(tmp->name, "PATH", 4) != 0)
 		tmp = tmp->next;
 	paths = ft_split(tmp->value, ':');
 	i = -1;
@@ -70,13 +70,47 @@ static char	*get_useful_path(char *cmd, t_env *env_root)
 	return (NULL);
 }
 
+char	**env_to_array(t_info *info)
+{
+	int		len;
+	t_env	*tmp;
+	char	**ret;
+	char	*tmp_str;
+
+	len = 0;
+	tmp = info->env_root;
+	while (tmp)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	ret = malloc((sizeof(char *) * len) + 1);
+	tmp = info->env_root;
+	len = 0;
+	while (tmp)
+	{
+		tmp_str = ft_strjoin(tmp->name, "=");
+		ret[len] = ft_strjoin(tmp_str, tmp->value);
+		free(tmp_str);
+		tmp = tmp->next;
+		len++;
+	}
+	ret[len] = NULL;
+	return (ret);
+}
+
 static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
+	char	**envp;
+
+	envp = env_to_array(info);
 	ft_redirector(prsr_node);
-	info ->last_exit = execve(path, cmd, info->envp);
+	info ->last_exit = execve(path, cmd, envp);
+	ft_free(envp);
 	if (info->last_exit == -1)
 	{
 		ft_printf("%s: command not found\n", cmd[0]);
+		info->last_exit = 127;
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/09 14:19:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:30:45 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,17 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	{
 		i = 2;
 		while (parser_node->cmd[i++])
-			ft_printf("export: `%s': not a valid identifier\n", parser_node->cmd[i]);
+		ft_printf("export: `%s': not a valid identifier\n", parser_node->cmd[i]);
 	}
 	if (parser_node->cmd[1])
-			split_variable(parser_node->cmd[1], info->utils);
+		split_variable(parser_node->cmd[1], info->utils);
 	else //si no recibe argumentos, printea la lista de todas
 	{
 		ptr = sort_list(info->utils->env_root, ft_strncmp);
 		q = 34; //no se me ocurre cómo gestionar las comillas si no pq se buggea
 		while (ptr->next)
 		{
-			ft_printf("%s=%c%s%c\n",ptr->name, q, ptr->value, q);
+			ft_printf("%s=%c%s%c\n", ptr->name, q, ptr->value, q);
 			ptr = ptr->next;
 		}
 	}
