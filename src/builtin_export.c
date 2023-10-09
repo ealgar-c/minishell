@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/09 14:30:45 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:27:31 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static void save_variable(char *name, char *value, t_ast_utils *utils)
 	} */
 	if (!check_variable(name, value, utils)) //si no existe, crea la variable
 	{
-		env = new_env(name, value);
+		env = ft_new_env_node(name, value);
 		if (!utils->env_root)
 			utils->env_root = env;
 		else
-			env_add_back(utils->env_root, env);
+			env_add_back(&utils->env_root, env);
 	}	
 }
 
@@ -54,6 +54,7 @@ static void split_variable(char *variable, t_ast_utils *utils)
 	char	*name;
 	char	*value;
 
+	i = 0;
 	while (variable[i] != '=')
 		i++;
 	name = ft_substr(variable, 0, i);
@@ -62,8 +63,9 @@ static void split_variable(char *variable, t_ast_utils *utils)
 	free(name);
 	free(value);
 }
+//int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
-t_env	*sort_list(t_env* lst, int (*ft_strncmp)(char *, char *, int))
+t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t))
 {
 	t_env	*tmp;
 	char	*name_cpy;
@@ -94,17 +96,19 @@ t_env	*sort_list(t_env* lst, int (*ft_strncmp)(char *, char *, int))
 void	ft_export(t_parser *parser_node, t_info *info)
 {
 	t_env	*ptr;
+	char	**cmd;
 	char	q;
 	int		i;
 
-	if (parser_node->cmd[2])
+	cmd = ft_split(parser_node->cmd, 32);
+	if (cmd[2])
 	{
 		i = 2;
 		while (parser_node->cmd[i++])
-		ft_printf("export: `%s': not a valid identifier\n", parser_node->cmd[i]);
+		ft_printf("export: `%s': not a valid identifier\n", cmd[i]);
 	}
-	if (parser_node->cmd[1])
-		split_variable(parser_node->cmd[1], info->utils);
+	if (cmd[1])
+		split_variable(cmd[1], info->utils);
 	else //si no recibe argumentos, printea la lista de todas
 	{
 		ptr = sort_list(info->utils->env_root, ft_strncmp);
@@ -115,4 +119,5 @@ void	ft_export(t_parser *parser_node, t_info *info)
 			ptr = ptr->next;
 		}
 	}
+	free(cmd);
 }

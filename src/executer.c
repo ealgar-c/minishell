@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 15:55:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:02:52 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 		ft_cd(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "pwd\0", 4) == 0))
 		ft_pwd(parser_node, info);
-	/* else if ((ft_strncmp(cmd[0], "export", 6) == 0))
-		ft_export(cmd);
-	else if ((ft_strncmp(cmd[0], "unset", 5) == 0))
+	else if ((ft_strncmp(cmd[0], "export", 6) == 0))
+		ft_export(parser_node, info);
+/* 	else if ((ft_strncmp(cmd[0], "unset", 5) == 0))
 		ft_unset(cmd); */
 	else if ((ft_strncmp(cmd[0], "env", 3) == 0))
 		ft_env(parser_node, info);

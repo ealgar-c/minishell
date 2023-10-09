@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 00:58:56 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:10:47 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		ft_pwd(t_parser *parser_node, t_info *info);
 
 // builtin_echo.c
 void		ft_echo(t_parser *parser_node, t_info *info);
+char		*clean_quotes(char *str);
 
 // builtin_export.c
 void		ft_export(t_parser *parser_node, t_info *info);
@@ -136,5 +137,8 @@ char		*check_extensor(char *content, t_info *info);
 
 // enviroment.c
 t_env		*save_envp(char **envp);
+t_env	*ft_new_env_node(char *name, char *value);
+void	env_add_back(t_env **root, t_env *new);
+
 
 #endif
