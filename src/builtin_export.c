@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/10 14:20:35 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:35:45 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ static void save_variable(char *name, char *value, t_info *info)
 	{
 		ft_printf("hola, he hecho cosas\n");
 		env = ft_new_env_node(name, value);
-		if (!info->env_root)
+/* 		if (!info->env_root)
 			info->env_root = env;
-		else
-			env_add_back(&info->env_root, env);
-	}	
+		else */
+		env_add_back(&info->env_root, env);
+		ft_printf("Variable named: %s, has been saved\n", env->name);
+	}
 }
 
 static void split_variable(char *variable, t_info *info)
@@ -121,14 +122,6 @@ t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t
 	lst = tmp;
 	return (lst);
 } */
-/* int			ft_array_len(char **str)
-{
-	int	i = 0;
-
-	while (str[i])
-		i++;
-	return (i);
-} */
 
 void	ft_export(t_parser *parser_node, t_info *info)
 {
@@ -138,7 +131,6 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	int		i;
 
 	cmd = ft_split(parser_node->cmd, 32);
-//	ft_printf("el número de cmd es: %i\n", ft_array_len(cmd));
 	if (cmd[2])
 	{
 		i = 1;
