@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 18:48:19 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:07:10 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 
 	envp = env_to_array(info);
 	ft_redirector(prsr_node);
+	int i = 0;
+	while (cmd[i++])
+		ft_printf("%s\n", cmd[i]);
+	ft_printf("el path es %s\n", path);
 	info ->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)
