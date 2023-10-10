@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/08 18:56:20 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:48:45 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,17 @@ char	*ft_quote_handling(char *str, int i, int len)
 {
 	char	*content;
 
-	while (str[i + len] != '"')
+	len++;
+	while (str[i + len] != 34)
 	{
 		if (str[i + len] == '\0')
 		{
 			ft_printf("Wrong quotes, please fix\n");
 			return (NULL);
-// el return no está bien gestionado, habría que salir del todo, con una nueva promt
 		}
 		len++;
 	}
-//	content = ft_substr(str, i + 1, len - 1); //+1 y -1 para que omita las comillas
-	content = ft_substr(str, i, len);
-// no puedo quitarle las comillas aquí pq si no se jodería al aumentar i en el lexer con i+=strlen
+	content = ft_substr(str, i, len + 1);
 	return (content);
 }
 
@@ -45,8 +43,10 @@ char	*get_content(char *str, int i)
 	int		len;
 
 	len = 0;
-	if (str[i + len] == '"')
+	if (str[i + len] == 34)
+	{
 		content = ft_quote_handling(str, i, len);
+	}
 	else
 	{
 		while (str[i + len] > 32 && !ft_token_check(str[i + len]))
@@ -71,7 +71,7 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 		node = new_lexer_node("<", LESS, utils);
 	else
 		node = new_lexer_node("<", LESS_LESS, utils);
-	return(node);
+	return (node);
 }
 
 void	ft_lexer(char *str, t_info *info)
@@ -84,7 +84,7 @@ void	ft_lexer(char *str, t_info *info)
 	utils = info->utils;
 	while (str[i])
 	{
-		while (str[i] <= 32)
+		while (str[i] <= 32 && str[i] != '\0')
 			i++;
 		if (!tmp_node || tmp_node->token == PIPE)
 			tmp_node = new_lexer_node(get_content(str, i), CMD, utils);
