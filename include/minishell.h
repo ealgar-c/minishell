@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:10:47 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:46:21 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_info
 {
 	struct s_env		*env_root;
 	struct s_ast_utils	*utils;
-	int					last_exit;
+	int					exit_status;
 }	t_info;
 
 // parser
@@ -129,7 +129,7 @@ void		ft_redirector(t_parser *parser_node);
 int			ft_array_len(char **str);
 
 // free_utils.c
-void		ft_free_utils(t_ast_utils *utils);
+void		ft_free_utils(t_info *info, bool mode);
 void		ft_free(char **str);
 
 // extensor.c
@@ -137,8 +137,8 @@ char		*check_extensor(char *content, t_info *info);
 
 // enviroment.c
 t_env		*save_envp(char **envp);
-t_env	*ft_new_env_node(char *name, char *value);
-void	env_add_back(t_env **root, t_env *new);
+t_env		*ft_new_env_node(char *name, char *value);
+void		env_add_back(t_env **root, t_env *new);
 
 
 #endif

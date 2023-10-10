@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:29:52 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 		child_creator(parser_node, tmp, true);
 	else
 		child_creator(parser_node, tmp, false);
-	info->last_exit = 0;
+	info->exit_status = 0;
 	free(tmp);
 }

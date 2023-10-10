@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 00:46:37 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:34:45 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ void	ft_printparser(t_parser *root)
 
 void	do_stuff(char *str, t_info *info)
 {
+	info->utils = ft_utils_init();
 	if (!str)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
-		info->utils = ft_utils_init();
 		ft_lexer(str, info);
 		// ft_printlx(info->utils->lexer_root);
 		ft_parser(info);
 		// ft_printparser(info->utils->parser_root);
 		ft_executer(info);
-		ft_free_utils(info->utils);
+		ft_free_utils(info, false);
 	}
 }
 
@@ -86,7 +86,7 @@ t_info	*ft_init_info(char **envp)
 	if (!info)
 		return (NULL);
 	info->env_root = save_envp(envp);
-	info->last_exit = 0;
+	info->exit_status = 0;
 	return (info);
 }
 

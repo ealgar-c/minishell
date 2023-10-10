@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:45 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/02 18:48:31 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_pwd_exec(t_info *info)
 	path = getcwd(path, 100);
 	ft_printf("%s\n", path);
 	free(path);
-	info->last_exit = 1;
+	info->exit_status = 1;
 }
 
 void	ft_pwd(t_parser *parser_node, t_info *info)

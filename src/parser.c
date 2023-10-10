@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/08 20:49:10 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:17:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev)
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
-	new_node->cmd = lexer->content;
+	new_node->cmd = ft_strdup(lexer->content);
 	new_node->redir_in = STDIN_FILENO;
 	new_node->redir_out = STDOUT_FILENO;
 	new_node->heredoc_flag = false;

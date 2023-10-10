@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/08 19:41:05 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:51:39 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,44 @@ void	ft_free_parser(t_ast_utils *utils)
 		while (par_tmp)
 		{
 			next_par_tmp = par_tmp->next;
-			// free(par_tmp->cmd); no se porque con el exit se raya porque no lle ha alojado memoria o algo ns
+			free(par_tmp->cmd);
 			free(par_tmp);
 			par_tmp = next_par_tmp;
 		}
 	}
 }
 
-void	ft_free_utils(t_ast_utils *utils)
+void	ft_free_env(t_env *root)
 {
-	if (utils)
+	t_env	*env_tmp;
+	t_env	*next_env_tmp;
+
+	if (root)
 	{
-		ft_free_lexer(utils);
-		ft_free_parser(utils);
-		free(utils);
+		env_tmp = root;
+		while (env_tmp)
+		{
+			next_env_tmp = env_tmp->next;
+			free(env_tmp->name);
+			free(env_tmp->value);
+			free(env_tmp);
+			env_tmp = next_env_tmp;
+		}
+	}
+}
+
+void	ft_free_utils(t_info *info, bool mode)
+{
+	if (info->utils)
+	{
+		ft_free_lexer(info->utils);
+		ft_free_parser(info->utils);
+		free(info->utils);
+		if (mode == true)
+		{
+			ft_free_env(info->env_root);
+			//free(info);
+		}
 	}
 }
 

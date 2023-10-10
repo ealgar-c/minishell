@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:02:52 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:48:19 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 		ft_pwd(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "export", 6) == 0))
 		ft_export(parser_node, info);
-/* 	else if ((ft_strncmp(cmd[0], "unset", 5) == 0))
-		ft_unset(cmd); */
 	else if ((ft_strncmp(cmd[0], "env", 3) == 0))
 		ft_env(parser_node, info);
 	else if ((ft_strncmp(cmd[0], "exit\0", 5) == 0))
@@ -105,12 +103,12 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 
 	envp = env_to_array(info);
 	ft_redirector(prsr_node);
-	info ->last_exit = execve(path, cmd, envp);
+	info ->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
-	if (info->last_exit == -1)
+	if (info->exit_status == -1)
 	{
 		ft_printf("%s: command not found\n", cmd[0]);
-		info->last_exit = 127;
+		info->exit_status = 127;
 		exit(0);
 	}
 }
@@ -123,7 +121,10 @@ static void	execute_process(t_info *info, t_parser *parser_node)
 	int		status;
 
 	cmd = ft_split(parser_node->cmd, ' ');
-	path = get_useful_path(cmd[0], info->env_root);
+	if (ft_isalnum(cmd[0][0]) != 0)
+		path = get_useful_path(cmd[0], info->env_root);
+	else
+		path = ft_strdup(cmd[0]);
 	if (ft_filter(parser_node, cmd, info) == false)
 	{
 		pid = fork();

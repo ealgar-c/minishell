@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/09/30 18:51:58 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_cd(t_parser *parser_node, t_info *info)
 	if (chdir((const char *)(path)) == -1)
 	{
 		ft_printf("cd: %s: No such file or directory\n", path);
-		info->last_exit = 1;
+		info->exit_status = 1;
 	}
 	else
-		info->last_exit = 0;
+		info->exit_status = 0;
 }
