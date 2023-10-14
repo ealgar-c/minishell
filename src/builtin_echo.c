@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/14 11:27:48 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*clean_quotes(char *str)
+/* char	*clean_quotes(char *str)
 {
 	char	*clean;
 
-	if (str[0] == '"')
+	if (str[0] == 34 || str[0] == 39)
 	{
 		clean = ft_substr(str, 1, ft_strlen(str) - 2);
 		return (clean);
 	}
 	return (str);
+} */
+
+char	*clean_quotes(char *content)
+{
+	return (ft_strtrim(content, "\"\'"));
 }
 
 static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)

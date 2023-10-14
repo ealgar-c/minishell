@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/10 19:48:45 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/14 11:17:19 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ bool	ft_token_check(char c)
 	return (false);
 }
 
-char	*ft_quote_handling(char *str, int i, int len)
+char	*ft_quote_handling(char *str, int i, int len, char q)
 {
 	char	*content;
 
 	len++;
-	while (str[i + len] != 34)
+	while (str[i + len] != q)
 	{
 		if (str[i + len] == '\0')
 		{
@@ -43,9 +43,9 @@ char	*get_content(char *str, int i)
 	int		len;
 
 	len = 0;
-	if (str[i + len] == 34)
+	if (str[i + len] == 34 || str[i + len] == 39)
 	{
-		content = ft_quote_handling(str, i, len);
+		content = ft_quote_handling(str, i, len, str[i + len]);
 	}
 	else
 	{

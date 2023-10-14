@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/10 14:35:45 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:14:57 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,34 +122,55 @@ t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t
 	lst = tmp;
 	return (lst);
 } */
+bool	input_checker(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(arg[i]))
+	{
+		ft_printf("export: `%s': not a valid identifier\n", arg[i]);	
+		return (false);
+	}
+	while (arg[i])	
+	{
+		if (ft_isalnum(arg[i]) || arg[i] == '_')
+			i++;
+		else
+		{
+			ft_printf("export: `%s': not a valid identifier\n", arg[i]);	
+			return (false);
+		}
+	}
+	return (true);
+}
 
 void	ft_export(t_parser *parser_node, t_info *info)
 {
 	t_env	*ptr;
 	char	**cmd;
-	char	q;
 	int		i;
 
 	cmd = ft_split(parser_node->cmd, 32);
-	if (cmd[2])
-	{
-		i = 1;
-		while (cmd[i])
-			ft_printf("export: `%s': not a valid identifier\n", cmd[i++]);
-	}
-	else if (cmd[1])
-		split_variable(cmd[1], info);
 	if (!cmd[1])
 	{
 //		ptr = sort_list(info->env_root, ft_strncmp);
 		ptr = info->env_root;
-		q = 34; //no se me ocurre cómo gestionar las comillas si no pq se buggea
 		if (!ptr)
 			return ;
 		while (ptr)
 		{
-			ft_printf("declare -x %s=%c%s%c\n", ptr->name, q, ptr->value, q);
+			ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
 			ptr = ptr->next;
+		}
+	}
+	else
+	{
+		i = 1;
+		while (cmd[i++])
+		{
+			if (input_checker(cmd[i]))
+				split_variable(cmd[i], info);
 		}
 	}
 	free(cmd);
