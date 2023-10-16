@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/14 16:03:11 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/16 13:57:29 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ char		*clean_quotes(char *str);
 
 // builtin_export.c
 void		ft_export(t_parser *parser_node, t_info *info);
+// builtin_unset.c
+void ft_unset(t_parser *parser_node, t_info *info);
 
 // executer.c
 void		ft_executer(t_info *info);
@@ -141,6 +143,8 @@ char		*check_extensor(char *content, t_info *info);
 t_env		*save_envp(char **envp);
 t_env		*ft_new_env_node(char *name, char *value);
 void		env_add_back(t_env **root, t_env *new);
+char	*ft_get_env_name(char *fullenv);
+char	*ft_get_env_value(char *fullenv);
 
 
 #endif
