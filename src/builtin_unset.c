@@ -6,15 +6,14 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/14 12:32:04 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:03:18 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 //esto es provisional pq hasta que no se arregle export está sujeto a cambios
-//sería conveniente enlazar la lista con el previo
-void del_variable(t_env	*node)
+static void del_variable(t_env	*node)
 {
 	node->prev->next = node->next;
 	node->next->prev = node->prev;

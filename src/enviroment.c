@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enviroment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:59:10 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 00:46:59 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:00:19 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_env	*ft_new_env_node(char *name, char *value)
 		return (NULL);
 	env->name = name;
 	env->value = value;
+	env->next->prev = env;
 	return (env);
 }
 

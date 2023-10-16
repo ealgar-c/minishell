@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/14 12:14:57 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:45:07 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ int	check_variable(char *name, char *value, t_info *info)
 	return (0);
 }
 
-static void save_variable(char *name, char *value, t_info *info)
+static void save_variable(char *variable, t_info *info)
 {
 	t_env	*env;
+	char	*name;
+	char	*value;
 
+	name = ft_get_env_name(variable);
+	value = ft_get_env_value(variable);
 	if (!check_variable(name, value, info)) //si no existe, crea la variable
 	{
-		ft_printf("hola, he hecho cosas\n");
+//		ft_printf("hola, he hecho cosas\n");
 		env = ft_new_env_node(name, value);
 /* 		if (!info->env_root)
 			info->env_root = env;
@@ -49,7 +53,7 @@ static void save_variable(char *name, char *value, t_info *info)
 	}
 }
 
-static void split_variable(char *variable, t_info *info)
+/* static void split_variable(char *variable, t_info *info)
 {
 	int		i;
 	char	*name;
@@ -60,14 +64,14 @@ static void split_variable(char *variable, t_info *info)
 		i++;
 	name = ft_substr(variable, 0, i);
 	value = clean_quotes(ft_substr(variable, i + 1, ft_strlen(variable)));
-	ft_printf("name is: %s\nvalue is: %s\n", name, value);
+//	ft_printf("name is: %s\nvalue is: %s\n", name, value);
 	save_variable(name, value, info);
 	free(name);
 	free(value);
-}
+} */
 //int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
-t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t))
+/* t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t))
 {
 	t_env	*tmp;
 	char	*name_cpy;
@@ -93,36 +97,37 @@ t_env	*sort_list(t_env* lst, int (*ft_strncmp)(const char *,const char *, size_t
 	}
 	lst = tmp;
 	return (lst);
-}
-/* t_env	*sort_list(t_env* lst)
+} */
+t_env	*sort_list(t_env* lst)
 {
-	t_env	*tmp;
-	char	*name_cpy;
-	char	*value_cpy;
+	t_env	*root;
+	t_env	*swap;
 
-	tmp = lst;
-	ft_printf("todo bien?\n");
+	root = lst;
+	swap = ft_new_env_node(NULL, NULL);
 	while (lst->next != NULL)
 	{
 		if (lst->next && ft_strncmp(lst->name, lst->next->name, ft_strlen(lst->name)) > 0)
 		{
-			name_cpy = ft_strdup(lst->name);
-			value_cpy = ft_strdup(lst->value);
+			swap->name = lst->name;
+			swap->value = lst->value;
 			lst->name = lst->next->name;
 			lst->value = lst->next->value;
-			lst->next->name = name_cpy;
-			lst->next->value = value_cpy;
-			lst = tmp;
-			free(name_cpy);
-			free(value_cpy);
+			lst->next->name = swap->name;
+			lst->next->value = swap->value;
+			lst = root;
 		}
 		else
 			lst = lst->next;
 	}
-	lst = tmp;
+	lst = root;
+	free(swap->name);
+	free(swap->value);
+	free(swap);
 	return (lst);
-} */
-bool	input_checker(char *arg)
+}
+
+static bool	input_checker(char *arg)
 {
 	int	i;
 
@@ -156,8 +161,6 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	{
 //		ptr = sort_list(info->env_root, ft_strncmp);
 		ptr = info->env_root;
-		if (!ptr)
-			return ;
 		while (ptr)
 		{
 			ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
@@ -170,8 +173,8 @@ void	ft_export(t_parser *parser_node, t_info *info)
 		while (cmd[i++])
 		{
 			if (input_checker(cmd[i]))
-				split_variable(cmd[i], info);
+				save_variable(cmd[i], info);
 		}
 	}
-	free(cmd);
+	ft_free(cmd);
 }
