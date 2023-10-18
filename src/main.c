@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/10 18:46:05 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:39:53 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 	info = ft_init_info(envp);
 	while (1)
 	{
-		str = readline("conchita$ ");
+		str = readline("\033[0;32mconchita$ \033[0m");
 		do_stuff(str, info);
 		add_history(str);
 		free(str);
