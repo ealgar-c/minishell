@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/16 15:03:58 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:10:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	int		i;
 
 	cmd = ft_split(parser_node->cmd, 32);
+	i = 0;
 	if (!cmd[1])
 	{
 		ptr = sort_list(info->env_root);

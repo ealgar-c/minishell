@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/16 14:55:24 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:11:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 		i++;
 //	tmp = clean_quotes(cmd[i]);
 	tmp = cmd[i]; //por alguna razón estaba borrando dos veces las comillas, no entiendo
- 	ft_printf("tmp es: %s\n\n", tmp);
 	while (cmd[++i])
 		tmp = ft_strjoin(ft_strjoin(tmp, " "), clean_quotes(cmd[i]));
 	if (ft_strncmp(cmd[1], "-n\0", 3))
