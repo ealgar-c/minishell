@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 12:52:41 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:24:53 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 	char	*tmp;
 	char	**cmd;
 
-	cmd = ft_split(parser_node->cmd, ' ');
+	cmd = parser_node->cmd;
 	i = 1;
 	if (!ft_strcmp(cmd[i], "-n"))
 		i++;

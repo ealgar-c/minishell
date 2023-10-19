@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/16 13:57:29 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:20:24 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,16 @@ typedef struct s_info
 }	t_info;
 
 // parser
+typedef struct s_parser_args
+{
+	char					*str;
+	struct s_parser_args	*next;
+}	t_parser_args;
+
 typedef struct s_parser
 {
-	char			*cmd;
+	t_parser_args	*tmp_arg;
+	char			**cmd;
 	int				redir_in;
 	bool			heredoc_flag;
 	int				redir_out;
@@ -55,7 +62,6 @@ typedef struct s_parser
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }		t_parser;
-
 // utils
 struct	s_lexer;
 
@@ -93,58 +99,65 @@ typedef struct s_env
 // parser.c
 void		ft_parser(t_info *info);
 
+// parser_arguments_utils.c
+t_parser_args	*par_newargnode(char *content);
+void			get_arguments(t_lexer *lex, t_parser *par);
+void			get_final_cmd(t_parser *node);
+
 // lexer.c
-void		ft_lexer(char *str, t_info *info);
+void			ft_lexer(char *str, t_info *info);
 
 // lexer_utils.c
-t_ast_utils	*ft_utils_init(void);
-t_lexer		*new_lexer_node(char *content, int token, t_ast_utils *utils);
-void		ft_lxadd_back(t_lexer **root, t_lexer *new);
-bool		ft_check_last_node(t_ast_utils *utils);
+t_ast_utils		*ft_utils_init(void);
+t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
+void			ft_lxadd_back(t_lexer **root, t_lexer *new);
+bool			ft_check_last_node(t_ast_utils *utils);
 
 // builtins.c
-void		ft_exit(char **cmd, t_info *info);
+void			ft_exit(char **cmd, t_info *info);
+
 //void		ft_unset(char **cmd);
-void		ft_unset(t_parser *parser_node, t_info *info);
+void			ft_unset(t_parser *parser_node, t_info *info);
 
 //builtin_env.c
-void		ft_env(t_parser *parser_node, t_info *info);
+void			ft_env(t_parser *parser_node, t_info *info);
 
 // builtin_cd.c
-void		ft_cd(t_parser *parser_node, t_info *info);
+void			ft_cd(t_parser *parser_node, t_info *info);
 
 // builtin_pwd.c
-void		ft_pwd(t_parser *parser_node, t_info *info);
+void			ft_pwd(t_parser *parser_node, t_info *info);
 
 // builtin_echo.c
-void		ft_echo(t_parser *parser_node, t_info *info);
-char		*clean_quotes(char *str);
+void			ft_echo(t_parser *parser_node, t_info *info);
+char			*clean_quotes(char *str);
 
 // builtin_export.c
-void		ft_export(t_parser *parser_node, t_info *info);
+void			ft_export(t_parser *parser_node, t_info *info);
+
 // builtin_unset.c
-void ft_unset(t_parser *parser_node, t_info *info);
+void			ft_unset(t_parser *parser_node, t_info *info);
 
 // executer.c
-void		ft_executer(t_info *info);
-void		ft_redirector(t_parser *parser_node);
+void			ft_executer(t_info *info);
+void			ft_redirector(t_parser *parser_node);
 
 // main.c
-int			ft_array_len(char **str);
+int				ft_array_len(char **str);
 
 // free_utils.c
-void		ft_free_utils(t_info *info, bool mode);
-void		ft_free(char **str);
+void			ft_free_utils(t_info *info, bool mode);
+void			ft_free(char **str);
 
 // extensor.c
-char		*check_extensor(char *content, t_info *info);
+char			*check_extensor(char *content, t_info *info);
 
 // enviroment.c
-t_env		*save_envp(char **envp);
-t_env		*ft_new_env_node(char *name, char *value);
-void		env_add_back(t_env **root, t_env *new);
-char	*ft_get_env_name(char *fullenv);
-char	*ft_get_env_value(char *fullenv);
+t_env			*save_envp(char **envp);
+t_env			*ft_new_env_node(char *name, char *value);
+void			env_add_back(t_env **root, t_env *new);
+char			*ft_get_env_name(char *fullenv);
+char			*ft_get_env_value(char *fullenv);
 
 
 #endif

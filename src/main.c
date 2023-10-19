@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/18 19:39:53 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:30:29 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_printparser(t_parser *root)
 {
 	t_parser *tmp = root;
 	int		i = 0;
+	int		j;
 
 	ft_printf("\n");
 	ft_printf("PARSER:\n");
@@ -51,7 +52,12 @@ void	ft_printparser(t_parser *root)
 	while (tmp)
 	{
 		ft_printf("node %i\n", i);
-		ft_printf("cont: %s\n", tmp->cmd);
+		j = 0;
+		while (tmp->cmd[j])
+		{
+			ft_printf("cont %i: %s\n", j, tmp->cmd[j]);
+			j++;
+		}
 		ft_printf("redir in: %i\n", tmp->redir_in);
 		ft_printf("redir out: %i\n", tmp->redir_in);
 		if (tmp->pipe)
@@ -70,11 +76,11 @@ void	do_stuff(char *str, t_info *info)
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
 		ft_lexer(str, info);
-		//ft_printlx(info->utils->lexer_root);
+		// ft_printlx(info->utils->lexer_root);
 		ft_parser(info);
-		//ft_printparser(info->utils->parser_root);
+		// ft_printparser(info->utils->parser_root);
 		ft_executer(info);
-		ft_free_utils(info, false);
+		// ft_free_utils(info, false);
 	}
 }
 

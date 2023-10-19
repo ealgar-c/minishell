@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 12:54:40 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:25:44 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	char	**cmd;
 	int		i;
 
-	cmd = ft_split(parser_node->cmd, 32);
+	cmd = parser_node->cmd;
 	i = 1; //si es 0 guardo la variable "export" xd
 	if (!cmd[1])
 	{

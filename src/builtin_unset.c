@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 12:54:59 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:25:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void ft_unset(t_parser *parser_node, t_info *info)
 	int		i;
 
 	i = 1;
-	name = ft_split(parser_node->cmd, 32);
+	name = parser_node->cmd;
 	while (name[i])
 	{
 		ptr = info->env_root;

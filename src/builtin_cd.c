@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:25:17 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_cd(t_parser *parser_node, t_info *info)
 	char	*path;
 	char	**cmd;
 
-	cmd = ft_split(parser_node->cmd, ' ');
+	cmd = parser_node->cmd;
 	i = 1;
 	if (!cmd[1])
 		path = getenv("HOME");

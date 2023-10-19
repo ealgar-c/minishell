@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 12:00:54 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:22:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev)
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
-	new_node->cmd = ft_strdup(lexer->content);
+	new_node->tmp_arg = par_newargnode(lexer->content);
 	new_node->redir_in = STDIN_FILENO;
 	new_node->redir_out = STDOUT_FILENO;
 	new_node->heredoc_flag = false;
@@ -62,6 +62,7 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr)
 	lexer_ptr = lexer_ptr->next;
 	parser->redir_out = pipe_fd[0];
 	parser->pipe = true;
+	get_final_cmd(parser);
 	parser->next = new_parser_node(lexer_ptr, parser);
 	parser = parser->next;
 	parser->redir_in = pipe_fd[1];
@@ -72,7 +73,6 @@ void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;
 	t_parser	*parser;
-	char		*tmp;
 
 	lexer_ptr = info->utils->lexer_root;
 	while (lexer_ptr)
@@ -83,16 +83,12 @@ void	ft_parser(t_info *info)
 			info->utils->parser_root = parser;
 		}
 		else if (lexer_ptr->token == ARG)
-		{
-			tmp = ft_strjoin(parser->cmd, " ");
-			parser->cmd = ft_strjoin(tmp,
-					check_extensor(lexer_ptr->content, info));
-			free(tmp);
-		}
+			get_arguments(lexer_ptr, info->utils->parser_root);
 		else if (lexer_ptr->token == PIPE)
 			parser = ft_config_pipe(parser, lexer_ptr);
 		else
 			check_redir(lexer_ptr, parser);
 		lexer_ptr = lexer_ptr->next;
 	}
+	get_final_cmd(parser);
 }

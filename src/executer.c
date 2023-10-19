@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 12:57:52 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:22:13 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,29 +115,26 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	}
 }
 
-static void	execute_process(t_info *info, t_parser *parser_node)
+static void	execute_process(t_info *info, t_parser *parser)
 {
 	char	*path;
-	char	**cmd;
 	pid_t	pid;
 	int		status;
 
-	cmd = ft_split(parser_node->cmd, ' ');
-	if (ft_isalnum(cmd[0][0]) != 0)
-		path = get_useful_path(cmd[0], info->env_root);
+	if (ft_isalnum(parser->cmd[0][0]) != 0)
+		path = get_useful_path(parser->cmd[0], info->env_root);
 	else
-		path = ft_strdup(cmd[0]);
-	if (ft_filter(parser_node, cmd, info) == false)
+		path = ft_strdup(parser->cmd[0]);
+	if (ft_filter(parser, parser->cmd, info) == false)
 	{
 		pid = fork();
 		if (pid == -1)
 			exit(0);
 		else if (pid == 0)
-			c_process(parser_node, info, cmd, path);
+			c_process(parser, info, parser->cmd, path);
 		else
 			waitpid(-1, &status, 0);
 	}
-	ft_free(cmd);
 	free(path);
 }
 
