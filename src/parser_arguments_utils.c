@@ -6,11 +6,24 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 13:31:10 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:06:18 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	ft_copyarg(char *dest, char *orig)
+{
+	int	i;
+
+	i = 0;
+	while (orig[i])
+	{
+		dest[i] = orig[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
 
 void	get_final_cmd(t_parser *node)
 {
@@ -29,7 +42,8 @@ void	get_final_cmd(t_parser *node)
 	tmp = node->tmp_arg;
 	while (tmp)
 	{
-		node->cmd[i] = tmp->str;
+		node->cmd[i] = malloc(sizeof(char) * ft_strlen(tmp->str) + 1);
+		ft_copyarg(node->cmd[i], tmp->str);
 		tmp = tmp->next;
 		i++;
 	}

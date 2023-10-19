@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 13:22:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:12:21 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	char	**envp;
 
 	envp = env_to_array(info);
+	ft_extend_and_quotes(cmd, info);
 	ft_redirector(prsr_node);
 	info ->exit_status = execve(path, cmd, envp);
 	ft_free(envp);

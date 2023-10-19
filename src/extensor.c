@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 12:58:32 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:58:58 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,57 @@ static char	*get_env(char *env, t_info *info)
 	t_env	*tmp;
 
 	tmp = info->env_root;
-
-	while (ft_strcmp(env, tmp->name) != 0)
+	if (ft_strcmp(env, "$") == 0)
+		return (ft_itoa(info->exit_status));
+	else if (ft_strcmp(env, "0") == 0)
+		return ("conchita");
+	while (ft_strcmp(env, tmp->name) != 0 && tmp)
 		tmp = tmp->next;
+	if (!tmp)
+		return (NULL);
 	return (tmp->value);
 }
 
+char	*get_extended(char *to_extend, char *orig, int i)
+{
+	char	*prev;
+
+	if (i == 0)
+		return (to_extend);
+	prev = ft_substr(orig, 0, i);
+	if (to_extend == NULL)
+		return (prev);
+	return (free(prev), ft_strjoin(prev, to_extend));
+}
+
+char	*check_extensor(char *content, t_info *info, int quoted)
+{
+	int		i;
+	char	*to_extend;
+
+	i = 0;
+	to_extend = NULL;
+	while (content[i])
+	{
+		if (content[i] == '$' && quoted != SINGLE)
+		{
+			to_extend = get_env(ft_substr(content, i + 1,
+						ft_strlen(content) - i + 1), info);
+			break ;
+		}
+		else if (content[0] == '~' && quoted == NONE)
+		{
+			to_extend = get_env("HOME", info);
+			break ;
+		}
+		else
+			i++;
+	}
+	if (to_extend == NULL && !content[i])
+		return (content);
+	return (get_extended(to_extend, content, i));
+}
+/* 
 char	*check_extensor(char *content, t_info *info)
 {
 	char	*env;
@@ -45,7 +90,6 @@ char	*check_extensor(char *content, t_info *info)
 		env = ft_strtrim(content, "~");
 		return (ft_strjoin(ret_env, env));
 	}
-	else if (content[0] == 34)
-		return (check_extensor(clean_quotes(content), info)); //creo que esto está mal porque sólo checkearía el primer caracter tras las comillas
 	return (content);
 }
+ */

@@ -6,30 +6,18 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 13:24:53 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:54:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*clean_quotes(char *str)
-{
-	char	*clean;
-
-	if (str[0] == 34 || str[0] == 39)
-	{
-		clean = ft_substr(str, 1, ft_strlen(str) - 2);
-		return (clean);
-	}
-	return (str);
-}
 
 /* char	*clean_quotes(char *content)
 {
 	return (ft_strtrim(content, "\"\'"));
 } */
 
-static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)
+static void	child_creator(t_parser *parser_node, bool nl_flag, int i)
 {
 	pid_t	pid;
 	int		status;
@@ -40,7 +28,11 @@ static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)
 	else if (pid == 0)
 	{
 		ft_redirector(parser_node);
-		ft_printf("%s", str);
+		while (parser_node->cmd[i])
+		{
+			ft_printf("%s", parser_node->cmd[i]);
+			i++;
+		}
 		if (nl_flag == true)
 			ft_printf("\n");
 		exit(0);
@@ -52,20 +44,13 @@ static void	child_creator(t_parser *parser_node, char *str, bool nl_flag)
 void	ft_echo(t_parser *parser_node, t_info *info)
 {
 	int		i;
-	char	*tmp;
-	char	**cmd;
 
-	cmd = parser_node->cmd;
 	i = 1;
-	if (!ft_strcmp(cmd[i], "-n"))
+	if (!ft_strcmp(parser_node->cmd[i], "-n"))
 		i++;
-	tmp = cmd[i];
-	while (cmd[++i])
-		tmp = ft_strjoin(ft_strjoin(tmp, " "), clean_quotes(cmd[i]));
-	if (ft_strcmp(cmd[1], "-n\0"))
-		child_creator(parser_node, tmp, true);
+	if (ft_strcmp(parser_node->cmd[1], "-n"))
+		child_creator(parser_node, true, i);
 	else
-		child_creator(parser_node, tmp, false);
+		child_creator(parser_node, false, i);
 	info->exit_status = 0;
-	free(tmp);
 }

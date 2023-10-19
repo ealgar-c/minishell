@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 13:20:24 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:10:15 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-// STRUCTS Y ENUM
+// ENUM
 typedef enum e_tokens
 {
 	CMD = 0,
@@ -35,6 +35,14 @@ typedef enum e_tokens
 	REDIR_FILE,
 }	t_tokens;
 
+typedef enum e_quoted
+{
+	NONE = 0,
+	SINGLE,
+	DOUBLE,
+}	t_quoted;
+
+// STRUCTS
 // info
 typedef struct s_info
 {
@@ -97,7 +105,7 @@ typedef struct s_env
 // FUNCIONES
 
 // parser.c
-void		ft_parser(t_info *info);
+void			ft_parser(t_info *info);
 
 // parser_arguments_utils.c
 t_parser_args	*par_newargnode(char *content);
@@ -130,7 +138,6 @@ void			ft_pwd(t_parser *parser_node, t_info *info);
 
 // builtin_echo.c
 void			ft_echo(t_parser *parser_node, t_info *info);
-char			*clean_quotes(char *str);
 
 // builtin_export.c
 void			ft_export(t_parser *parser_node, t_info *info);
@@ -150,7 +157,7 @@ void			ft_free_utils(t_info *info, bool mode);
 void			ft_free(char **str);
 
 // extensor.c
-char			*check_extensor(char *content, t_info *info);
+char			*check_extensor(char *content, t_info *info, int quoted);
 
 // enviroment.c
 t_env			*save_envp(char **envp);
@@ -159,5 +166,8 @@ void			env_add_back(t_env **root, t_env *new);
 char			*ft_get_env_name(char *fullenv);
 char			*ft_get_env_value(char *fullenv);
 
+// extend_and_quote.c
+void			ft_extend_and_quotes(char **cmd, t_info *info);
+char			*clean_quotes(char *str);
 
 #endif
