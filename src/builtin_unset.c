@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/16 10:38:01 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:54:59 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ft_unset(t_parser *parser_node, t_info *info)
 		ptr = info->env_root;
 		while(ptr)
 		{
-			if (!ft_strncmp(name[i], ptr->name, ft_strlen(name[i])))
+			if (!ft_strcmp(name[i], ptr->name))
 			{
 				del_variable(ptr);
 				break ;

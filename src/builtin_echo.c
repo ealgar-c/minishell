@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 11:56:54 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:52:41 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 
 	cmd = ft_split(parser_node->cmd, ' ');
 	i = 1;
-	if (!ft_strncmp(cmd[i], "-n\0", 3))
+	if (!ft_strcmp(cmd[i], "-n"))
 		i++;
 	tmp = cmd[i];
 	while (cmd[++i])
 		tmp = ft_strjoin(ft_strjoin(tmp, " "), clean_quotes(cmd[i]));
-	if (ft_strncmp(cmd[1], "-n\0", 3))
+	if (ft_strcmp(cmd[1], "-n\0"))
 		child_creator(parser_node, tmp, true);
 	else
 		child_creator(parser_node, tmp, false);

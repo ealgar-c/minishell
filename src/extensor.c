@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/14 11:33:02 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:58:32 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*get_env(char *env, t_info *info)
 
 	tmp = info->env_root;
 
-	while (ft_strncmp(env, tmp->name, ft_strlen(env)) != 0)
+	while (ft_strcmp(env, tmp->name) != 0)
 		tmp = tmp->next;
 	return (tmp->value);
 }
@@ -31,7 +31,7 @@ char	*check_extensor(char *content, t_info *info)
 	ret_env = NULL;
 	if (content[0] == '$')
 	{
-		if (ft_strncmp(content, "$?\0", 3) == 0)
+		if (ft_strcmp(content, "$?") == 0)
 		{
 			return (ft_itoa(info->exit_status));
 		}

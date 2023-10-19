@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 12:34:05 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:54:40 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_env	*sort_list(t_env* lst)
 	swap = ft_new_env_node(NULL, NULL);
 	while (lst->next != NULL)
 	{
-		if (lst->next && ft_strncmp(lst->name, lst->next->name, ft_strlen(lst->name)) > 0)
+		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
 		{
 			swap->name = lst->name;
 			swap->value = lst->value;
@@ -115,8 +115,8 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	if (!cmd[1])
 	{
 		ptr = sort_list(info->env_root);
-		if (!ptr)
-			return ;
+/* 		if (!ptr) en principio esta condición no hace falta (y así entra en líneas xd)
+			return ; */
 		while (ptr)
 		{
 			ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);

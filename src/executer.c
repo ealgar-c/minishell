@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/16 15:02:13 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:57:52 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
-	if ((ft_strncmp(cmd[0], "echo\0", 5) == 0))
+	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "cd\0", 3) == 0))
+	else if ((ft_strcmp(cmd[0], "cd") == 0))
 		ft_cd(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "pwd\0", 4) == 0))
+	else if ((ft_strcmp(cmd[0], "pwd") == 0))
 		ft_pwd(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "export\0", 7) == 0))
+	else if ((ft_strcmp(cmd[0], "export") == 0))
 		ft_export(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "env\0", 4) == 0))
+	else if ((ft_strcmp(cmd[0], "env") == 0))
 		ft_env(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "unset\0", 6) == 0))
+	else if ((ft_strcmp(cmd[0], "unset\0") == 0))
 		ft_unset(parser_node, info);
-	else if ((ft_strncmp(cmd[0], "exit\0", 5) == 0))
+	else if ((ft_strcmp(cmd[0], "exit\0") == 0))
 		ft_exit(cmd, info);
 	else
 		return (false);
@@ -50,7 +50,7 @@ static char	*get_useful_path(char *cmd, t_env *env_root)
 	char	*tmp_str;
 
 	tmp = env_root;
-	while (ft_strncmp(tmp->name, "PATH\0", 5) != 0)
+	while (ft_strcmp(tmp->name, "PATH") != 0)
 		tmp = tmp->next;
 	paths = ft_split(tmp->value, ':');
 	i = -1;
