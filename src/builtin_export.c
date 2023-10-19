@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 11:36:16 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:34:05 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_variable(char *name, char *value, t_info *info)
 		return (0); //la lista ya habrá sido creada, al menos para las envp, pero por ahora no, creo
 	while (ptr)
 	{ //si ya hay creada una variable con ese nombre, la sobreescribe
-		if (!ft_strncmp(ptr->name, name, ft_strlen(ptr->name)))
+		if (!ft_strcmp(ptr->name, name))
 		{
 			ptr->value = value;
 			return (1);
@@ -111,7 +111,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	int		i;
 
 	cmd = ft_split(parser_node->cmd, 32);
-	i = 0;
+	i = 1; //si es 0 guardo la variable "export" xd
 	if (!cmd[1])
 	{
 		ptr = sort_list(info->env_root);
@@ -119,7 +119,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 			return ;
 		while (ptr)
 		{
-			ft_printf("declare -x %s=\"%s\" %d\n", ptr->name, ptr->value);
+			ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
 			ptr = ptr->next;
 		}
 	}
@@ -129,7 +129,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 		{
 			if (input_checker(ft_get_env_name(cmd[i])))
 				save_variable(cmd[i], info);
-			break ;
+			i++;
 		}
 	}
 	ft_free(cmd);
