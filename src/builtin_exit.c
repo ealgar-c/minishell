@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 18:04:01 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:06:01 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,19 @@ void	ft_leakss(void)
 
 void	ft_exit(char **cmd, t_info *info)
 {
-	if (cmd[1]) //realmente no, si es un numero es lo que tenemos que usar en exit
-		ft_printf("exit: numeric argument required\n");
+	int	exit_arg;
+
+	exit_arg = 0;
+	ft_printf("exit\n");
+	if (cmd[1])
+	{
+		if (ft_isalpha(cmd[1][0]))
+			ft_printf("exit: numeric argument required\n");
+		else
+			exit_arg = ft_atoi(cmd[1]);
+	}
 	ft_free_utils(info, true);
 	free(info);
-	ft_printf("exit\n");
 	atexit(ft_leakss);
-	exit (0);
+	exit (exit_arg);
 }

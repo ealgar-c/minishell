@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/18 19:11:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:56:54 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*clean_quotes(char *str)
 	if (str[0] == 34 || str[0] == 39)
 	{
 		clean = ft_substr(str, 1, ft_strlen(str) - 2);
-//		ft_printf("la string limpia es: %s\n", clean);
 		return (clean);
 	}
 	return (str);
@@ -60,8 +59,7 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 	i = 1;
 	if (!ft_strncmp(cmd[i], "-n\0", 3))
 		i++;
-//	tmp = clean_quotes(cmd[i]);
-	tmp = cmd[i]; //por alguna razón estaba borrando dos veces las comillas, no entiendo
+	tmp = cmd[i];
 	while (cmd[++i])
 		tmp = ft_strjoin(ft_strjoin(tmp, " "), clean_quotes(cmd[i]));
 	if (ft_strncmp(cmd[1], "-n\0", 3))

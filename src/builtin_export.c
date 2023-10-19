@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/18 19:10:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:36:16 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 			return ;
 		while (ptr)
 		{
-			ft_printf("declare -x %s=\"%s\" %d\n", ptr->name, ptr->value, i);
+			ft_printf("declare -x %s=\"%s\" %d\n", ptr->name, ptr->value);
 			ptr = ptr->next;
 		}
 	}
@@ -129,8 +129,8 @@ void	ft_export(t_parser *parser_node, t_info *info)
 		{
 			if (input_checker(ft_get_env_name(cmd[i])))
 				save_variable(cmd[i], info);
+			break ;
 		}
 	}
 	ft_free(cmd);
 }
-

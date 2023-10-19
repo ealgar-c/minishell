@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/09 18:17:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:00:54 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;
 	t_parser	*parser;
-	char 		*tmp;
+	char		*tmp;
 
 	lexer_ptr = info->utils->lexer_root;
 	while (lexer_ptr)

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/08 16:23:16 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:01:25 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ bool	ft_check_last_node(t_ast_utils *utils)
 	lx_node = utils ->lexer_root;
 	while (lx_node->next)
 		lx_node = lx_node->next;
-	if (lx_node->token == GREAT || lx_node->token == GREAT_GREAT ||
-		lx_node->token == LESS || lx_node->token == LESS_LESS)
+	if (lx_node->token == GREAT || lx_node->token == GREAT_GREAT)
+		return (true);
+	if (lx_node->token == LESS || lx_node->token == LESS_LESS)
 		return (true);
 	return (false);
 }
