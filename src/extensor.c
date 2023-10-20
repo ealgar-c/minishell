@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 15:58:58 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:34:55 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static char	*get_env(char *env, t_info *info)
 	t_env	*tmp;
 
 	tmp = info->env_root;
-	if (ft_strcmp(env, "$") == 0)
-		return (ft_itoa(info->exit_status));
+	if (ft_strcmp(env, "?") == 0)
+		return (ft_strdup(ft_itoa(info->exit_status)));
 	else if (ft_strcmp(env, "0") == 0)
-		return ("conchita");
+		return (ft_strdup("conchita"));
 	while (ft_strcmp(env, tmp->name) != 0 && tmp)
 		tmp = tmp->next;
 	if (!tmp)

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 16:09:45 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:28:19 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*clean_quotes(char *str)
 {
 	char	*clean;
 
-	clean = ft_substr(str, 1, ft_strlen(str) - 2);
+	clean = ft_substr(str, 1, ft_strlen(str) - 2); // de aquí
 	return (clean);
 }
 
@@ -39,7 +39,7 @@ void	ft_extend_and_quotes(char **cmd, t_info *info)
 	{
 		quoted = check_quotes(cmd[i]);
 		if (quoted != NONE)
-			cmd[i] = clean_quotes(cmd[i]);
+			cmd[i] = clean_quotes(cmd[i]); // los leaks salen de esta funcion
 		cmd[i] = check_extensor(cmd[i], info, quoted);
 		i++;
 	}

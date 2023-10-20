@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 16:12:21 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:27:13 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	ft_executer(t_info *info)
 	parser_tmp = info->utils->parser_root;
 	while (parser_tmp)
 	{
+		ft_extend_and_quotes(parser_tmp->cmd, info);
 		if (parser_tmp->pipe)
 			ft_printf("toy chiquito no se hacer pipes\n");
 		else
