@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 13:25:44 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:43:56 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,13 @@ t_env	*sort_list(t_env* lst)
 void	ft_export(t_parser *parser_node, t_info *info)
 {
 	t_env	*ptr;
-	char	**cmd;
 	int		i;
 
-	cmd = parser_node->cmd;
 	i = 1; //si es 0 guardo la variable "export" xd
-	if (!cmd[1])
+	if (!parser_node->cmd[1])
 	{
 		ptr = sort_list(info->env_root);
-/* 		if (!ptr) en principio esta condición no hace falta (y así entra en líneas xd)
+/* 		if (!ptr) en principio esta condición no hace falta
 			return ; */
 		while (ptr)
 		{
@@ -125,12 +123,11 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	}
 	else
 	{
-		while (cmd[i])
+		while (parser_node->cmd[i])
 		{
-			if (input_checker(ft_get_env_name(cmd[i])))
-				save_variable(cmd[i], info);
+			if (input_checker(ft_get_env_name(parser_node->cmd[i])))
+				save_variable(parser_node->cmd[i], info);
 			i++;
 		}
 	}
-	ft_free(cmd);
 }
