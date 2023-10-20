@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 17:51:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:18:26 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,27 @@ void	ft_free_lexer(t_ast_utils *utils)
 	}
 }
 
+void	ft_free_parserargs(t_parser_args *root)
+{
+	t_parser_args	*arg_tmp;
+	t_parser_args	*next_arg_tmp;
+
+	if (root)
+	{
+		arg_tmp = root;
+		while (arg_tmp)
+		{
+			next_arg_tmp = arg_tmp->next;
+			free(arg_tmp);
+			arg_tmp = next_arg_tmp;
+		}
+	}
+}
+
 void	ft_free_parser(t_ast_utils *utils)
 {
-	t_parser	*par_tmp;
-	t_parser	*next_par_tmp;
+	t_parser		*par_tmp;
+	t_parser		*next_par_tmp;
 
 	if (utils->parser_root)
 	{
@@ -42,7 +59,8 @@ void	ft_free_parser(t_ast_utils *utils)
 		while (par_tmp)
 		{
 			next_par_tmp = par_tmp->next;
-			free(par_tmp->cmd);
+			ft_free_parserargs(par_tmp->tmp_arg);
+			ft_free(par_tmp->cmd);
 			free(par_tmp);
 			par_tmp = next_par_tmp;
 		}
