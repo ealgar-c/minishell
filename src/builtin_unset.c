@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 13:25:57 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:59:25 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,34 @@
 
 static void del_variable(t_env	*node)
 {
-	node->prev->next = node->next;
-	node->next->prev = node->prev;
+	if (node->prev)
+		node->prev->next = node->next;
+	if (node->next)
+		node->next->prev = node->prev;
 	free(node->name);
 	free(node->value);
-	free(node->next);
-	free(node->prev);
 	free(node);
 }
 
 void ft_unset(t_parser *parser_node, t_info *info)
 {
-	char **name;
 	t_env	*ptr;
 	int		i;
 
 	i = 1;
-	name = parser_node->cmd;
-	while (name[i])
+	ft_printf("la variable a borrar es: %s\n", parser_node->cmd[i]);
+	if (!parser_node->cmd[i])
+		return ;
+	while (parser_node->cmd[i])
 	{
+		ft_printf("iteración número: %i\n", i);
 		ptr = info->env_root;
+		if (!ptr)
+			return ;
+		ft_printf("el puntero ha sido creado\n");
 		while(ptr)
 		{
-			if (!ft_strcmp(name[i], ptr->name))
+			if (!ft_strcmp(parser_node->cmd[i], ptr->name))
 			{
 				del_variable(ptr);
 				break ;
@@ -47,5 +52,4 @@ void ft_unset(t_parser *parser_node, t_info *info)
 		}
 		i++;
 	}
-	ft_free(name);
 }

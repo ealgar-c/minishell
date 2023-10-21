@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 13:17:09 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:17:54 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_env(t_parser *parser_node, t_info *info)
 
 	if (parser_node->cmd[1])
 	{
-		ft_printf("Env does not accept arguments in this shell\n");
+		ft_printf("env does not accept arguments in this shell\n");
 		return ;
 	}
 	else
