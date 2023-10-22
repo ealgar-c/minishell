@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/20 12:43:56 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:52:29 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_variable(char *name, char *value, t_info *info)
 {
 	t_env *ptr;
-	int i = 1;
+//	int i = 1;
 
 	ptr = info->env_root;
 	if (!ptr) //sin esta condición hace segmentation fault, aunque para cuando se llame a esta función en la shell
@@ -28,7 +28,7 @@ int	check_variable(char *name, char *value, t_info *info)
 			return (1);
 		}
 		ptr = ptr->next;
-		i++;
+//		i++;
 	}
 	return (0);
 }
@@ -48,31 +48,33 @@ static void save_variable(char *variable, t_info *info)
 			info->env_root = env;
 		else */
 		env_add_back(&info->env_root, env);
-//		ft_printf("Variable named: %s, has been saved\n", env->name);
+//		ft_printf("Variable named: \'%s\', has been saved\n", env->name);
 	}
 }
 
 static bool	input_checker(char *arg)
 {
-	int	i;
+	int		i;
+	char	*name;
 
 	i = 0;
-	if (ft_isdigit(arg[i]))
+	name = ft_get_env_name(arg);
+	if (ft_isdigit(name[i]))
 	{
 		ft_printf("export: `%s': not a valid identifier\n", arg);
-		return (false);
+		return (free(name), false);
 	}
-	while (arg[i])
+	while (name[i])
 	{
-		if (ft_isalnum(arg[i]) || arg[i] == '_')
+		if (ft_isalnum(name[i]) || name[i] == '_')
 			i++;
 		else
 		{
-			ft_printf("export: `%s': not a valid identifier\n", arg);
-			return (false);
+			ft_printf("export: `%s': not a valid identifier\n", name);
+			return (free(name), false);
 		}
 	}
-	return (true);
+	return (free(name), true);
 }
 
 t_env	*sort_list(t_env* lst)
@@ -98,11 +100,12 @@ t_env	*sort_list(t_env* lst)
 			lst = lst->next;
 	}
 	lst = root;
-	free(swap->name);
-	free(swap->value);
 	free(swap);
+/* 	free(swap->name); estaba liberando de más
+	free(swap->value); */
 	return (lst);
 }
+
 
 void	ft_export(t_parser *parser_node, t_info *info)
 {
@@ -125,7 +128,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	{
 		while (parser_node->cmd[i])
 		{
-			if (input_checker(ft_get_env_name(parser_node->cmd[i])))
+			if (input_checker(parser_node->cmd[i]))
 				save_variable(parser_node->cmd[i], info);
 			i++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 18:57:56 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/22 10:37:13 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_lexer(char *str, t_info *info)
 
 	i = 0;
 	utils = info->utils;
+	tmp_node = NULL; //sin esto en mi portatil petaba y en 42 no me explicas?????
 	while (str[i])
 	{
 		while (str[i] <= 32 && str[i] != '\0')
