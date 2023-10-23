@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 12:01:25 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:24:41 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_lexer	*new_lexer_node(char *content, int token, t_ast_utils *utils)
 {
 	t_lexer	*new_node;
 
+	if (content == NULL)
+		return (NULL);
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 15:26:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:18:11 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ void	do_stuff(char *str, t_info *info)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
-		ft_lexer(str, info);
+		if (!ft_lexer(str, info))
+		{
+			ft_free_utils(info, false);
+			return ;
+		}
 		// ft_printlx(info->utils->lexer_root);
 		ft_parser(info);
 		// ft_printparser(info->utils->parser_root);

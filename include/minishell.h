@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 16:10:15 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:25:30 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef enum e_tokens
 	CMD = 0,
 	ARG,
 	PIPE,
-	GREAT, // > REDIR_OUT
-	GREAT_GREAT, // >> APPEND
-	LESS, // < REDIR_IN
-	LESS_LESS, // << HEREDOC
+	GREAT,
+	GREAT_GREAT,
+	LESS,
+	LESS_LESS,
 	REDIR_FILE,
 }	t_tokens;
 
@@ -78,7 +78,7 @@ typedef struct s_ast_utils
 	int					pipes;
 	struct s_lexer		*lexer_root;
 	struct s_parser		*parser_root;
-	struct s_env		*env_root; //esto aún no está inicializado
+	struct s_env		*env_root;
 }	t_ast_utils;
 
 // lexer
@@ -113,7 +113,7 @@ void			get_arguments(t_lexer *lex, t_parser *par);
 void			get_final_cmd(t_parser *node);
 
 // lexer.c
-void			ft_lexer(char *str, t_info *info);
+bool			ft_lexer(char *str, t_info *info);
 
 // lexer_utils.c
 t_ast_utils		*ft_utils_init(void);
