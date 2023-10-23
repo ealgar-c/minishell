@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/23 18:25:30 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:39:26 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,10 @@ void			ft_unset(t_parser *parser_node, t_info *info);
 
 // executer.c
 void			ft_executer(t_info *info);
+bool			ft_filter(t_parser *parser_node, char **cmd, t_info *info);
 void			ft_redirector(t_parser *parser_node);
+char			**env_to_array(t_info *info);
+char			*get_useful_path(char *cmd, t_env *env_root);
 
 // main.c
 int				ft_array_len(char **str);
@@ -170,4 +173,6 @@ char			*ft_get_env_value(char *fullenv);
 void			ft_extend_and_quotes(char **cmd, t_info *info);
 char			*clean_quotes(char *str);
 
+// pipex.c
+void			ft_pipex(t_parser *first_node, t_info *info);
 #endif

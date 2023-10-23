@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/19 13:22:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:35:51 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,16 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev)
 
 t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr)
 {
-	int	pipe_fd[2];
-
-	if (pipe(pipe_fd) != 0)
-		return (NULL);
 	lexer_ptr = lexer_ptr->next;
-	parser->redir_out = pipe_fd[0];
+	parser->redir_out = -1;
+	parser->redir_in = -1;
 	parser->pipe = true;
 	get_final_cmd(parser);
 	parser->next = new_parser_node(lexer_ptr, parser);
 	parser = parser->next;
-	parser->redir_in = pipe_fd[1];
+	parser->pipe = true;
+	parser->redir_out = -1;
+	parser->redir_in = -1;
 	return (parser);
 }
 

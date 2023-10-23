@@ -6,13 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 15:27:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:39:13 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
+bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
 	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
@@ -41,7 +41,7 @@ void	ft_redirector(t_parser *parser_node)
 		dup2(parser_node->redir_out, STDOUT_FILENO);
 }
 
-static char	*get_useful_path(char *cmd, t_env *env_root)
+char	*get_useful_path(char *cmd, t_env *env_root)
 {
 	t_env	*tmp;
 	char	**paths;
@@ -148,7 +148,7 @@ void	ft_executer(t_info *info)
 	{
 		ft_extend_and_quotes(parser_tmp->cmd, info);
 		if (parser_tmp->pipe)
-			ft_printf("toy chiquito no se hacer pipes\n");
+			ft_pipex(parser_tmp, info);
 		else
 			execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
