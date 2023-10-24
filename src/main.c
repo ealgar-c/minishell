@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/23 18:18:11 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:47:26 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_printparser(t_parser *root)
 			j++;
 		}
 		ft_printf("redir in: %i\n", tmp->redir_in);
-		ft_printf("redir out: %i\n", tmp->redir_in);
+		ft_printf("redir out: %i\n", tmp->redir_out);
 		if (tmp->pipe)
 			ft_printf("is pipe\n");
 		ft_printf("\n");

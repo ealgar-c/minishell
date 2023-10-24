@@ -6,14 +6,57 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/23 18:39:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/24 23:49:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	ft_socorro(t_parser *node);
+
+static void	config_pipes(t_parser *parser, int mode)
+{
+	int	fd[2];
+
+	if (mode == 0)
+	{
+		ft_printf("entrada en modo 0\n");
+		if (parser->pipe)
+		{
+			pipe(fd);
+			parser->redir_out = fd[1];
+			parser->next->redir_in = fd[0]; // aqui
+		}
+		ft_socorro(parser);
+	}
+	else
+	{
+		ft_printf("entrada en modo 1\n");
+		if (parser->pipe)
+		{
+			ft_printf("cerrando la entrada del siguiente\n");
+			close(parser->next->redir_in);
+		}
+		if (parser->prev)
+		{
+			if (parser->prev->pipe)
+			{
+				ft_printf("cerrando la salida del anterior\n");
+				close (parser->prev->redir_out);
+			}
+		}
+	}
+}
+
 bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
+	if (parser_node->pipe)
+		config_pipes(parser_node, 1);
+	if (parser_node->prev)
+	{
+		if (parser_node->prev->pipe)
+			config_pipes(parser_node, 1);
+	}
 	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "cd") == 0))
@@ -99,12 +142,28 @@ char	**env_to_array(t_info *info)
 	return (ret);
 }
 
+void	ft_socorro(t_parser *node)
+{
+	ft_printf("--- NUEVO NODO ---\n");
+	ft_printf("comando: %s\n", node->cmd[0]);
+	ft_printf("fd de entrada: %i\n", node->redir_in);
+	ft_printf("fd de salida: %i\n", node->redir_out);
+	if (node->pipe)
+		ft_printf("es el primer nodo de una pipe\n");
+	if (node->prev)
+	{
+		if (node->prev->pipe)
+			ft_printf("es el segundo nodo de una pipe\n");
+	}
+}
+
 static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
 	char	**envp;
 
 	envp = env_to_array(info);
 	ft_extend_and_quotes(cmd, info);
+	ft_socorro(prsr_node);
 	ft_redirector(prsr_node);
 	info ->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
@@ -114,6 +173,7 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 		info->exit_status = 127;
 		exit(0);
 	}
+	exit(0);
 }
 
 static void	execute_process(t_info *info, t_parser *parser)
@@ -122,10 +182,13 @@ static void	execute_process(t_info *info, t_parser *parser)
 	pid_t	pid;
 	int		status;
 
+	if (parser->pipe)
+		config_pipes(parser, 0);
 	if (ft_isalnum(parser->cmd[0][0]) != 0)
 		path = get_useful_path(parser->cmd[0], info->env_root);
 	else
 		path = ft_strdup(parser->cmd[0]);
+		
 	if (ft_filter(parser, parser->cmd, info) == false)
 	{
 		pid = fork();
@@ -147,10 +210,7 @@ void	ft_executer(t_info *info)
 	while (parser_tmp)
 	{
 		ft_extend_and_quotes(parser_tmp->cmd, info);
-		if (parser_tmp->pipe)
-			ft_pipex(parser_tmp, info);
-		else
-			execute_process(info, parser_tmp);
+		execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
 	}
 }
@@ -168,3 +228,5 @@ void	ft_executer(t_info *info)
 	else
 		waitpid(-1, &status, 0);
 } */
+
+// cat Makefile | wc -l

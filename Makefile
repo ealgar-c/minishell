@@ -19,7 +19,7 @@ SRC_DIR = src/
 SRC = free_utils.c executer.c lexer.c main.c parser.c\
 	builtin_exit.c builtin_echo.c builtin_pwd.c builtin_cd.c lexer_utils.c\
 	extensor.c enviroment.c builtin_env.c builtin_export.c builtin_unset.c\
-	parser_arguments_utils.c extend_and_quote.c pipex.c
+	parser_arguments_utils.c extend_and_quote.c
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
