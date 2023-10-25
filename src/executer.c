@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/24 23:49:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:31:12 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ static void	execute_process(t_info *info, t_parser *parser)
 		path = get_useful_path(parser->cmd[0], info->env_root);
 	else
 		path = ft_strdup(parser->cmd[0]);
-		
 	if (ft_filter(parser, parser->cmd, info) == false)
 	{
 		pid = fork();
