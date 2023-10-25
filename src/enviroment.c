@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:59:10 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 12:45:05 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:30:47 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_get_env_name(char *fullenv)
 	int	i;
 
 	i = 0;
-	while (fullenv[i] != '=' && fullenv[i] != ' ')
+	while (fullenv[i] && fullenv[i] != '=' && fullenv[i] != ' ')
 		i++;
 	return (ft_substr(fullenv, 0, i));
 }
@@ -52,7 +52,7 @@ char	*ft_get_env_value(char *fullenv)
 	int	i;
 
 	i = 0;
-	while (fullenv[i] != '=' && fullenv[i] != ' ')
+	while (fullenv[i] && fullenv[i] != '=' && fullenv[i] != ' ')
 		i++;
 	return (ft_substr(fullenv, i + 1, ft_strlen(fullenv) - i));
 }

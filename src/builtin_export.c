@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/22 11:52:29 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:27:41 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ int	check_variable(char *name, char *value, t_info *info)
 	{ //si ya hay creada una variable con ese nombre, la sobreescribe
 		if (!ft_strcmp(ptr->name, name))
 		{
+			free(ptr->name);
+			free(ptr->value);
+			ptr->name = name;
 			ptr->value = value;
 			return (1);
 		}
 		ptr = ptr->next;
 //		i++;
 	}
+//	ft_printf("a total of %i variables where checked\n", i);
 	return (0);
 }
 
@@ -111,7 +115,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 {
 	t_env	*ptr;
 	int		i;
-
+//	("la primera variable a guardar es: \'%s\'\n", parser_node->cmd[1]);
 	i = 1; //si es 0 guardo la variable "export" xd
 	if (!parser_node->cmd[1])
 	{
@@ -126,10 +130,13 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	}
 	else
 	{
+//		ft_printf("antes del bucle\n");
 		while (parser_node->cmd[i])
 		{
 			if (input_checker(parser_node->cmd[i]))
 				save_variable(parser_node->cmd[i], info);
+/* 				env_add_back(&info->env_root, ft_new_env_node(ft_get_env_name(parser_node->cmd[i]),
+						ft_get_env_value(parser_node->cmd[i]))); */
 			i++;
 		}
 	}
