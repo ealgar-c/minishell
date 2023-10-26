@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/25 16:31:12 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:30:08 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 
 void	ft_redirector(t_parser *parser_node)
 {
+	if (parser_node->redir_in < 0)
+		ctrlc_handler(SIGINT);
+	if (parser_node->heredoc_flag)
+		ft_printf("heredoc limit is: %s", parser_node->heredoc);
 	if (parser_node->redir_in != -1)
 		dup2(parser_node->redir_in, STDIN_FILENO);
 	if (parser_node->redir_out != -1)

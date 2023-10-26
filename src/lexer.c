@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/23 18:12:04 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:41:36 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 	else if (str[i] == '<' && str[i + 1] != '<')
 		node = new_lexer_node("<", LESS, utils);
 	else
-		node = new_lexer_node("<", LESS_LESS, utils);
+		node = new_lexer_node("<<", LESS_LESS, utils);
 	return (node);
 }
 

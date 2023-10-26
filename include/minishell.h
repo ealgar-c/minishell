@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/24 17:34:42 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:13:40 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_parser
 	char			**cmd;
 	int				redir_in;
 	bool			heredoc_flag;
+	char			*heredoc;
 	int				redir_out;
 	bool			double_out;
 	bool			pipe;
@@ -103,6 +104,7 @@ typedef struct s_env
 }	t_env;
 
 // FUNCIONES
+void	ctrlc_handler(int sign);
 
 // parser.c
 void			ft_parser(t_info *info);

@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/25 13:27:41 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:50:05 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,23 +120,21 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	if (!parser_node->cmd[1])
 	{
 		ptr = sort_list(info->env_root);
-/* 		if (!ptr) en principio esta condición no hace falta
-			return ; */
 		while (ptr)
 		{
-			ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
+			if (ptr->value[0])
+				ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
+			else
+				ft_printf("declare -x %s\n", ptr->name);
 			ptr = ptr->next;
 		}
 	}
 	else
 	{
-//		ft_printf("antes del bucle\n");
 		while (parser_node->cmd[i])
 		{
 			if (input_checker(parser_node->cmd[i]))
 				save_variable(parser_node->cmd[i], info);
-/* 				env_add_back(&info->env_root, ft_new_env_node(ft_get_env_name(parser_node->cmd[i]),
-						ft_get_env_value(parser_node->cmd[i]))); */
 			i++;
 		}
 	}
