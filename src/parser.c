@@ -6,13 +6,36 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/26 15:30:42 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:58:14 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	check_redir(t_lexer *lexer, t_parser *parser)
+bool	check_redir(t_lexer *lexer, t_parser *parser)
+{
+	int token;
+
+	token = 0;
+	if (lexer->token > 1 && lexer->token < 7) //si el token es una redirección
+		token = lexer->token;
+	if (token && !lexer->next) //si después de la redirección no hay nada en bash se printea:
+	{
+		ft_printf("syntax error near unexpected token `newline'\n");
+		parser->redir_in = -1;
+		return (false);
+	}
+	else if (token && lexer->next->token > 1 && lexer->next->token < 7)
+	{
+	//	ft_printf("token is %i, and next is %i\n", token, next);
+		ft_printf("syntax error near unexpected token `%s'\n", lexer->content);
+		parser->redir_in = -1; //para mandar cntrl+c al ejecutor
+		return (false);
+	}
+	return (true);
+}
+
+void	get_redir(t_lexer *lexer, t_parser *parser)
 {
 	int	token;
 
@@ -87,7 +110,10 @@ void	ft_parser(t_info *info)
 		else if (lexer_ptr->token == PIPE)
 			parser = ft_config_pipe(parser, lexer_ptr);
 		else
-			check_redir(lexer_ptr, parser);
+		{
+			if (check_redir(lexer_ptr, parser))
+				get_redir(lexer_ptr, parser);
+		}
 		lexer_ptr = lexer_ptr->next;
 	}
 	get_final_cmd(parser);

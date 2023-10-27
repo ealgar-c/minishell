@@ -6,7 +6,7 @@
 
 t_signals	g_signals; */
 
-void	sigint_handler(int sig)
+/* void	sigint_handler(int sig)
 {
 	if (!g_signals->builtin)
 	{
@@ -30,4 +30,4 @@ void	sigint_handler(int sig)
 		rl_redisplay();
 		rl_replace_line("", 0);
 	}
-}
+} */

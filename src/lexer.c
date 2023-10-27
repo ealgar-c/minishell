@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/26 14:41:36 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:26:29 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,20 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 	return (node);
 }
 
+/* void print_lexer(t_info *info)
+{
+	t_lexer	*ptr;
+	
+	ptr = info->utils->lexer_root;
+	while(ptr)
+	{
+		ft_printf("*** NUEVO NODO ***\n");
+		ft_printf("content is: %s\n", ptr->content);
+		ft_printf("token is: %i\n", ptr->token);
+		ptr = ptr->next;
+	}
+} */
+
 bool	ft_lexer(char *str, t_info *info)
 {
 	int			i;
@@ -111,7 +125,7 @@ bool	ft_lexer(char *str, t_info *info)
 		while (str[i] <= 32 && str[i])
 			i++;
 		if (!str[i])
-			return (true);
+			return (false); //con true hace segmentation fault cuando le mandas solo espacios
 		if (!tmp_node || tmp_node->token == PIPE)
 			tmp_node = new_lexer_node(get_content(str, i, CMD), CMD, utils);
 		else if (ft_token_check(str[i]))
@@ -124,5 +138,6 @@ bool	ft_lexer(char *str, t_info *info)
 			return (false);
 		i += ft_strlen(tmp_node->content);
 	}
+//	print_lexer(info);
 	return (true);
 }
