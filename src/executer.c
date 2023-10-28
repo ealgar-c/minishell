@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/28 10:45:32 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:19:18 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_socorro(t_parser *node);
 
 static void	config_pipes(t_parser *parser, int mode)
 {
@@ -27,7 +26,6 @@ static void	config_pipes(t_parser *parser, int mode)
 			parser->redir_out = fd[1];
 			parser->next->redir_in = fd[0]; // aqui
 		}
-		ft_socorro(parser);
 	}
 	else
 	{
@@ -135,28 +133,12 @@ char	**env_to_array(t_info *info)
 	return (ret);
 }
 
-void	ft_socorro(t_parser *node)
-{
-	ft_printf("--- NUEVO NODO ---\n");
-	ft_printf("comando: %s\n", node->cmd[0]);
-	ft_printf("fd de entrada: %i\n", node->redir_in);
-	ft_printf("fd de salida: %i\n", node->redir_out);
-	if (node->pipe)
-		ft_printf("es el primer nodo de una pipe\n");
-	if (node->prev)
-	{
-		if (node->prev->pipe)
-			ft_printf("es el segundo nodo de una pipe\n");
-	}
-}
-
 static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
 	char	**envp;
 
 	envp = env_to_array(info);
 	ft_extend_and_quotes(cmd, info);
-	ft_socorro(prsr_node);
 	ft_redirector(prsr_node);
 	info->exit_status = execve(path, cmd, envp);
 	ft_free(envp);

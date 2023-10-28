@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/28 17:07:24 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:33:33 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ bool	ft_lexer(char *str, t_info *info)
 			return (true);
 		if (ft_token_check(str[i]))
 			tmp_node = get_token(str, i, utils);
-		else if (!tmp_node || tmp_node->token == PIPE || getcmd == true)
+		else if ((!tmp_node || tmp_node->token == PIPE || getcmd == true))
 		{
 			tmp_node = new_lexer_node(get_content(str, i, CMD), CMD, utils);
 			getcmd = false;
