@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/28 12:44:03 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:40:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,27 @@ void	do_stuff(char *str, t_info *info)
 			ft_free_utils(info, false);
 			return ;
 		}
-		// ft_printlx(info->utils->lexer_root);
 		ft_parser(info);
-		// ft_printparser(info->utils->parser_root);
 		ft_executer(info);
+		ft_free_utils(info, false);
+	}
+}
+// LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
+void	shownodes(char *str, t_info *info)
+{
+	info->utils = ft_utils_init();
+	if (!str || ft_strcmp(str, "exit") == 0)
+		ft_exit(ft_split("exit", ' '), info);
+	else if (!(ft_strncmp(str, "\0", 1) == 0))
+	{
+		if (!ft_lexer(str, info))
+		{
+			ft_free_utils(info, false);
+			return ;
+		}
+		ft_parser(info);
+		ft_printlx(info->utils->lexer_root);
+		ft_printparser(info->utils->parser_root);
 		ft_free_utils(info, false);
 	}
 }
@@ -104,9 +121,40 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_info	*info;
+	int		mode;
 
-	if (argc != 1 || argv[1])
-		exit(0);
+	(void)argc;
+	if (argv[1] && ft_strcmp(argv[1], "-n") == 0)
+		mode = 1;
+	else
+		mode = 0;
+	signal(SIGINT, ctrlc_handler);
+	signal(SIGQUIT, SIG_IGN);
+	info = ft_init_info(envp);
+	g_signals.heredoc = false;
+	while (1)
+	{
+		str = readline("\033[0;32mconchita$ \033[0m");
+		if (mode == 0)
+			do_stuff(str, info);
+		else if (mode == 1)
+			shownodes(str, info);
+		add_history(str);
+		free(str);
+	}
+	return (0);
+}
+
+// EL MAIN DE ABAJO ES EL ORIGINAL
+/* 
+int	main(int argc, char **argv, char **envp)
+{
+	char	*str;
+	t_info	*info;
+	int		mode;
+
+	 if (argc != 1 || argv[1])
+		exit(0); 
 	signal(SIGINT, ctrlc_handler);
 	signal(SIGQUIT, SIG_IGN);
 	info = ft_init_info(envp);
@@ -122,3 +170,4 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // test cmd: cat Makefile | wc -l >outfile
+ */

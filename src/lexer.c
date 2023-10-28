@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/28 13:30:03 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:29:24 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,25 +116,32 @@ bool	ft_lexer(char *str, t_info *info)
 	int			i;
 	t_ast_utils	*utils;
 	t_lexer		*tmp_node;
+	bool		getcmd;
 
 	i = 0;
 	utils = info->utils;
 	tmp_node = NULL; //sin esto en mi portatil petaba y en 42 no me explicas?????
+	getcmd = false;
 	while (str[i])
 	{
 		while (str[i] <= 32 && str[i])
 			i++;
 		if (!str[i])
-			return (true); //con true hace segmentation fault cuando le mandas solo espacios
-		// con false deja de funcionar si hay espacios después de un comando :D
-		if (!tmp_node || tmp_node->token == PIPE)
-			tmp_node = new_lexer_node(get_content(str, i, CMD), CMD, utils);
-		else if (ft_token_check(str[i]))
+			return (true);
+		if (ft_token_check(str[i]))
 			tmp_node = get_token(str, i, utils);
+		else if (!tmp_node || tmp_node->token == PIPE || getcmd == true)
+		{
+			tmp_node = new_lexer_node(get_content(str, i, CMD), CMD, utils);
+			getcmd = false;
+		}
 		else if (!ft_check_last_node(utils))
 			tmp_node = new_lexer_node(get_content(str, i, ARG), ARG, utils);
 		else
+		{
 			tmp_node = new_lexer_node(get_content(str, i, REDIR_FILE), REDIR_FILE, utils);
+			getcmd = true;
+		}
 		if (tmp_node == NULL)
 			return (false);
 		i += ft_strlen(tmp_node->content);
