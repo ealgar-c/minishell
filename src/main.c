@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/25 18:51:11 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:44:03 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ctrlc_handler(int sign)
+/* void	ctrlc_handler(int sign)
 {
 	(void)sign;
 	rl_on_new_line();
@@ -22,7 +22,7 @@ void	ctrlc_handler(int sign)
 	rl_on_new_line();
 	rl_redisplay();
 	rl_replace_line("", 0);
-}
+} */
 
 void	ft_printlx(t_lexer *root)
 {
@@ -110,6 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, ctrlc_handler);
 	signal(SIGQUIT, SIG_IGN);
 	info = ft_init_info(envp);
+	g_signals.heredoc = false;
 	while (1)
 	{
 		str = readline("\033[0;32mconchita$ \033[0m");

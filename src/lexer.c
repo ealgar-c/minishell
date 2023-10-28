@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/27 11:26:29 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:30:03 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ bool	ft_lexer(char *str, t_info *info)
 		while (str[i] <= 32 && str[i])
 			i++;
 		if (!str[i])
-			return (false); //con true hace segmentation fault cuando le mandas solo espacios
+			return (true); //con true hace segmentation fault cuando le mandas solo espacios
+		// con false deja de funcionar si hay espacios después de un comando :D
 		if (!tmp_node || tmp_node->token == PIPE)
 			tmp_node = new_lexer_node(get_content(str, i, CMD), CMD, utils);
 		else if (ft_token_check(str[i]))

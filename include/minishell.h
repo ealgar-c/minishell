@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/26 15:13:40 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:43:37 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,14 @@ typedef struct s_env
 
 }	t_env;
 
+typedef struct s_signals
+{
+//	bool	builtin;
+	bool	heredoc;
+}	t_signals;
+
+t_signals	g_signals;
+
 // FUNCIONES
 void	ctrlc_handler(int sign);
 
@@ -123,6 +131,9 @@ t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void			ft_lxadd_back(t_lexer **root, t_lexer *new);
 bool			ft_check_last_node(t_ast_utils *utils);
 
+// redirections.c
+
+	void	ft_redirector(t_parser *parser_node);
 // builtins.c
 void			ft_exit(char **cmd, t_info *info);
 

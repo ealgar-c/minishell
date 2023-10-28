@@ -1,24 +1,31 @@
-/* typedef struct s_signals
-{
-	bool	builtin;
-	bool	heredoc;
-}	t_signals;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 12:37:46 by erivero-          #+#    #+#             */
+/*   Updated: 2023/10/28 12:45:50 by erivero-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_signals	g_signals; */
+#include "../include/minishell.h"
 
-/* void	sigint_handler(int sig)
+void	ctrlc_handler(int sig)
 {
-	if (!g_signals->builtin)
+	(void)sig;
+/* 	if (!g_signals.builtin)
 	{
 		write(1, "\033[K\n", 5);
 		rl_replace_line("", 0);
-		g_signals->builtin = true;
-	}
-	else if (g_signals->heredoc)
+		g_signals.builtin = true;
+	} */
+	if (g_signals.heredoc)
 	{
 		write(1, "\033[K\n", ft_strlen("\033[K\n"));
 		close(0);
-		g_signals->heredoc = false;
+		g_signals.heredoc = false;
 	}
 	else
 	{
@@ -30,4 +37,4 @@ t_signals	g_signals; */
 		rl_redisplay();
 		rl_replace_line("", 0);
 	}
-} */
+}

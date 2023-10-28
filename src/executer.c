@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/26 15:30:08 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:45:32 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,6 @@ bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 	return (true);
 }
 
-void	ft_redirector(t_parser *parser_node)
-{
-	if (parser_node->redir_in < 0)
-		ctrlc_handler(SIGINT);
-	if (parser_node->heredoc_flag)
-		ft_printf("heredoc limit is: %s", parser_node->heredoc);
-	if (parser_node->redir_in != -1)
-		dup2(parser_node->redir_in, STDIN_FILENO);
-	if (parser_node->redir_out != -1)
-		dup2(parser_node->redir_out, STDOUT_FILENO);
-}
 
 char	*get_useful_path(char *cmd, t_env *env_root)
 {
@@ -169,7 +158,7 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	ft_extend_and_quotes(cmd, info);
 	ft_socorro(prsr_node);
 	ft_redirector(prsr_node);
-	info ->exit_status = execve(path, cmd, envp);
+	info->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)
 	{
