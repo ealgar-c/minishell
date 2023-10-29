@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/28 12:54:34 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:48:15 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int ft_heredoc(t_parser *parser)
 void	ft_redirector(t_parser *parser_node)
 {
 	if (parser_node->redir_in < 0)
+	{
+		g_signals.builtin = true; //parche provisional para que no se buggee
 		ctrlc_handler(SIGINT);
+	}
 	if (parser_node->heredoc_flag)
 		dup2(ft_heredoc(parser_node), STDIN_FILENO);
 	if (parser_node->redir_in != -1)
