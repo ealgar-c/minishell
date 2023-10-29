@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/28 12:43:37 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:22:03 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_env
 
 typedef struct s_signals
 {
-//	bool	builtin;
+	bool	builtin;
 	bool	heredoc;
 }	t_signals;
 
@@ -126,6 +126,12 @@ void			get_final_cmd(t_parser *node);
 bool			ft_lexer(char *str, t_info *info);
 
 // lexer_utils.c
+bool	ft_token_check(char c);
+char	*ft_add_space(char *str, int s, char *content, char q);
+char	*ft_quote_handling(char *str, int i, int len, char q, int token);
+
+
+// lexer_list_utils.c
 t_ast_utils		*ft_utils_init(void);
 t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void			ft_lxadd_back(t_lexer **root, t_lexer *new);
