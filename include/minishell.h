@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 12:22:03 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:36:43 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ typedef struct s_signals
 {
 	bool	builtin;
 	bool	heredoc;
+	bool	error;
 }	t_signals;
 
 t_signals	g_signals;
 
 // FUNCIONES
-void	ctrlc_handler(int sign);
+void			ctrlc_handler(int sign);
 
 // parser.c
 void			ft_parser(t_info *info);
@@ -123,13 +124,12 @@ void			get_arguments(t_lexer *lex, t_parser *par);
 void			get_final_cmd(t_parser *node);
 
 // lexer.c
-bool			ft_lexer(char *str, t_info *info);
+void			ft_lexer(char *str, t_info *info);
 
 // lexer_utils.c
-bool	ft_token_check(char c);
-char	*ft_add_space(char *str, int s, char *content, char q);
-char	*ft_quote_handling(char *str, int i, int len, char q, int token);
-
+bool			ft_token_check(char c);
+char			*ft_add_space(char *str, int s, char *content, char q);
+char			*ft_quote_handling(char *str, int i, int len, char q, int token);
 
 // lexer_list_utils.c
 t_ast_utils		*ft_utils_init(void);
@@ -139,7 +139,7 @@ bool			ft_check_last_node(t_ast_utils *utils);
 
 // redirections.c
 
-	void	ft_redirector(t_parser *parser_node);
+void			ft_redirector(t_parser *parser_node);
 // builtins.c
 void			ft_exit(char **cmd, t_info *info);
 
@@ -194,4 +194,11 @@ char			*clean_quotes(char *str);
 
 // pipex.c
 void			ft_pipex(t_parser *first_node, t_info *info);
+
+//errors.c
+void			ft_error_handling(int error, char *str, t_info	*info);
+
+// pipes_config.c
+void			config_pipes(t_parser *parser, int mode);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/23 17:34:36 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:16:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static void	child_creator(t_parser *parser_node, bool nl_flag, int i)
 		exit (0);
 	else if (pid == 0)
 	{
+		if (parser_node->pipe)
+			config_pipes(parser_node->next, 2);
+		if (parser_node->prev && parser_node->prev->pipe)
+			config_pipes(parser_node->prev, 1);
 		ft_redirector(parser_node);
 		while (parser_node->cmd[i])
 		{

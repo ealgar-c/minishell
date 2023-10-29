@@ -3,39 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/28 17:02:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:04:49 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-bool	check_redir(t_lexer *lexer, t_parser *parser)
+void	check_redir(t_lexer *lexer, t_info *info)
 {
 	int token;
 
 	token = 0;
 	if (lexer->token > 1 && lexer->token < 7) //si el token es una redirección
 		token = lexer->token;
-	if (token && !lexer->next) //si después de la redirección no hay nada en bash se printea:
-	{
-		ft_printf("syntax error near unexpected token `newline'\n");
-		parser->redir_in = -1;
-		return (false);
-	}
+	if (token && !lexer->next)
+		ft_error_handling(1, "newline", info);
 	else if (token && lexer->next->token > 1 && lexer->next->token < 7)
-	{
-	//	ft_printf("token is %i, and next is %i\n", token, next);
-		ft_printf("syntax error near unexpected token `%s'\n", lexer->content);
-		parser->redir_in = -1; //para mandar cntrl+c al ejecutor
-		return (false);
-	}
-	return (true);
+		ft_error_handling(1, lexer->content, info);
 }
 
-void	get_redir(t_lexer *lexer, t_parser *parser)
+void	get_redir(t_lexer *lexer, t_parser *parser, t_info *info)
 {
 	int	token;
 
@@ -47,7 +37,7 @@ void	get_redir(t_lexer *lexer, t_parser *parser)
 	{
 		parser->redir_in = open(lexer->next->content, O_RDONLY, 0777);
 		if (parser->redir_in < 0)
-			ft_printf("%s: No such file or directory\n", lexer->next->content);
+			ft_error_handling(2, lexer->next->content, info);
 	}
 	else if (token == LESS_LESS)
 	{
@@ -63,7 +53,7 @@ void	get_redir(t_lexer *lexer, t_parser *parser)
 	}
 }
 
-t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev)
+t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev, t_info *info)
 {
 	t_parser	*new_node;
 	t_lexer		*tmp_lex;
@@ -85,18 +75,19 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev)
 	new_node->next = NULL;
 	if (lexer->token != CMD)
 	{
-		if (check_redir(lexer, new_node))
-			get_redir(lexer, new_node);
+		check_redir(lexer, info);
+		if (!g_signals.error)
+			get_redir(lexer, new_node, info);
 	}
 	return (new_node);
 }
 
-t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr)
+t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 {
 	lexer_ptr = lexer_ptr->next;
 	parser->pipe = true;
 	get_final_cmd(parser);
-	parser->next = new_parser_node(lexer_ptr, parser);
+	parser->next = new_parser_node(lexer_ptr, parser, info);
 	parser = parser->next;
 	return (parser);
 }
@@ -107,21 +98,22 @@ void	ft_parser(t_info *info)
 	t_parser	*parser;
 
 	lexer_ptr = info->utils->lexer_root;
-	while (lexer_ptr)
+	while (lexer_ptr && !g_signals.error)
 	{
 		if (!lexer_ptr->prev)
 		{
-			parser = new_parser_node(lexer_ptr, NULL);
+			parser = new_parser_node(lexer_ptr, NULL, info);
 			info->utils->parser_root = parser;
 		}
 		else if (lexer_ptr->token == ARG)
 			get_arguments(lexer_ptr, info->utils->parser_root);
 		else if (lexer_ptr->token == PIPE)
-			parser = ft_config_pipe(parser, lexer_ptr);
+			parser = ft_config_pipe(parser, lexer_ptr, info);
 		else if (lexer_ptr->token != CMD)
 		{
-			if (check_redir(lexer_ptr, parser))
-				get_redir(lexer_ptr, parser);
+			check_redir(lexer_ptr, info);
+			if (!g_signals.error)
+				get_redir(lexer_ptr, parser, info);
 		}
 		lexer_ptr = lexer_ptr->next;
 	}

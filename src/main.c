@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 12:47:33 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:08:25 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,13 @@ void	do_stuff(char *str, t_info *info)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
-		if (!ft_lexer(str, info))
-		{
+		ft_lexer(str, info);
+		if (!g_signals.error)
+			ft_parser(info);
+		if (!g_signals.error)
+			ft_executer(info);
+		if (!g_signals.error)
 			ft_free_utils(info, false);
-			return ;
-		}
-		ft_parser(info);
-		ft_executer(info);
-		ft_free_utils(info, false);
 	}
 }
 // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
@@ -93,9 +92,10 @@ void	shownodes(char *str, t_info *info)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
-		if (!ft_lexer(str, info))
+		ft_lexer(str, info);
+		if (g_signals.error)
 		{
-			ft_free_utils(info, false);
+	//		ft_free_utils(info, false);
 			return ;
 		}
 		ft_parser(info);

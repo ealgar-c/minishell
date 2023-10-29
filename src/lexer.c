@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/29 14:48:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:58:09 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ bool	ft_lexer_list(char *str, int i, t_ast_utils *utils, t_lexer *tmp_node, bool
 	return (true);
 }
 
-bool	ft_lexer(char *str, t_info *info)
+
+void ft_lexer(char *str, t_info *info)
 {
 	int			i;
 	t_ast_utils	*utils;
 	t_lexer		*tmp_node;
 	bool		getcmd;
-	bool		ret;
+	bool		ret = true;
 	char		*line;
 
 	i = 0;
@@ -106,15 +107,15 @@ bool	ft_lexer(char *str, t_info *info)
 	tmp_node = NULL; //sin esto en mi portatil petaba y en 42 no me explicas?????
 	getcmd = false;
 	line = ft_strtrim(str, " ");
+	g_signals.error = false;
 	if (!line[i])
-		return (false);
+		ft_error_handling(0, NULL, info);
 	if (line[i] == '|' || line[ft_strlen(line) - 1] == '|')
-	{
-		ft_printf("syntax error near unexpected token \'|\'\n");
-		return (false);
-	}
-	ret = ft_lexer_list(line, i, utils, tmp_node, getcmd);
+		ft_error_handling(1, "|", info);
+	else if (!g_signals.error)
+		ret = ft_lexer_list(line, i, utils, tmp_node, getcmd);
+	else if(!ret)
+		ft_error_handling(0, NULL, info);
 	free(line);
 //	print_lexer(info);
-	return (ret);
 }

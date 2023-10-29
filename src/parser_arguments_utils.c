@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_arguments_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 15:06:18 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:06:31 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,26 @@ void	get_final_cmd(t_parser *node)
 	t_parser_args	*tmp;
 
 	i = 1;
-	tmp = node->tmp_arg;
-	while (tmp)
+	if (!g_signals.error)
 	{
-		tmp = tmp->next;
-		i++;
+		tmp = node->tmp_arg;
+		while (tmp)
+		{
+			tmp = tmp->next;
+			i++;
+		}
+		node->cmd = malloc(sizeof(char *) * i);
+		i = 0;
+		tmp = node->tmp_arg;
+		while (tmp)
+		{
+			node->cmd[i] = malloc(sizeof(char) * ft_strlen(tmp->str) + 1);
+			ft_copyarg(node->cmd[i], tmp->str);
+			tmp = tmp->next;
+			i++;
+		}
+		node->cmd[i] = NULL;
 	}
-	node->cmd = malloc(sizeof(char *) * i);
-	i = 0;
-	tmp = node->tmp_arg;
-	while (tmp)
-	{
-		node->cmd[i] = malloc(sizeof(char) * ft_strlen(tmp->str) + 1);
-		ft_copyarg(node->cmd[i], tmp->str);
-		tmp = tmp->next;
-		i++;
-	}
-	node->cmd[i] = NULL;
 }
 
 t_parser_args	*par_newargnode(char *content)
@@ -80,6 +83,9 @@ void	get_arguments(t_lexer *lex, t_parser *par)
 {
 	t_parser_args	*tmp;
 
-	tmp = lxargs_getactual(par);
-	tmp->next = par_newargnode(lex->content);
+	if (!g_signals.error)
+	{
+		tmp = lxargs_getactual(par);
+		tmp->next = par_newargnode(lex->content);	
+	}
 }

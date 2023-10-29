@@ -3,57 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 12:52:19 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:31:43 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	config_pipes(t_parser *parser, int mode)
-{
-	int	fd[2];
-
-	if (mode == 0)
-	{
-		ft_printf("entrada en modo 0\n");
-		if (parser->pipe)
-		{
-			pipe(fd);
-			parser->redir_out = fd[1];
-			parser->next->redir_in = fd[0]; // aqui
-		}
-	}
-	else
-	{
-		ft_printf("entrada en modo 1\n");
-		if (parser->pipe)
-		{
-			ft_printf("cerrando la entrada del siguiente\n");
-			close(parser->next->redir_in);
-		}
-		if (parser->prev)
-		{
-			if (parser->prev->pipe)
-			{
-				ft_printf("cerrando la salida del anterior\n");
-				close (parser->prev->redir_out);
-			}
-		}
-	}
-}
-
 bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
-	if (parser_node->pipe)
-		config_pipes(parser_node, 1);
-	if (parser_node->prev)
-	{
-		if (parser_node->prev->pipe)
-			config_pipes(parser_node, 1);
-	}
 	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "cd") == 0))
@@ -72,7 +32,6 @@ bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 		return (false);
 	return (true);
 }
-
 
 char	*get_useful_path(char *cmd, t_env *env_root)
 {
@@ -169,6 +128,10 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 
 	envp = env_to_array(info);
 	ft_extend_and_quotes(cmd, info);
+	if (prsr_node->pipe)
+		config_pipes(prsr_node->next, 2);
+	if (prsr_node->prev && prsr_node->prev->pipe)
+		config_pipes(prsr_node->prev, 1);
 	ft_redirector(prsr_node);
 //	print_cmd(cmd);
 	new_cmd = ft_prepare_cmd(cmd);
@@ -199,14 +162,19 @@ static void	execute_process(t_info *info, t_parser *parser)
 	g_signals.builtin = ft_filter(parser, parser->cmd, info);
 	if (g_signals.builtin == false)
 	{
-
 		pid = fork();
 		if (pid == -1)
 			exit(0);
 		else if (pid == 0)
 			c_process(parser, info, parser->cmd, path);
 		else
+		{
+			if (parser->pipe)
+				config_pipes(parser->next, 2);
+			if (parser->prev && parser->prev->pipe)
+				config_pipes(parser->prev, 1);
 			waitpid(-1, &status, 0);
+		}
 		g_signals.builtin = true; //si no se queda en false y se rompe ctrl+c
 	}
 	free(path);
@@ -219,8 +187,10 @@ void	ft_executer(t_info *info)
 	parser_tmp = info->utils->parser_root;
 	while (parser_tmp)
 	{
+		ft_printf("entrando en %s\n", parser_tmp->cmd[0]);
 		ft_extend_and_quotes(parser_tmp->cmd, info);
 		execute_process(info, parser_tmp);
+		ft_printf("saliendo de %s\n", parser_tmp->cmd[0]);
 		parser_tmp = parser_tmp->next;
 	}
 }
