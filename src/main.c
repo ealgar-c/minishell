@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 12:17:01 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:47:33 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	info = ft_init_info(envp);
 	g_signals.heredoc = false;
-	g_signals.builtin = false;
+	g_signals.builtin = true;
 	while (1)
 	{
 		str = readline("\033[0;32mconchita$ \033[0m");

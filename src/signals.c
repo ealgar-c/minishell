@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:46 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/29 12:21:59 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:46:23 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 void	ctrlc_handler(int sig)
 {
 	(void)sig;
-/* 	if (!g_signals.builtin)
+	if (!g_signals.builtin && !g_signals.heredoc)
 	{
+		ft_printf("\033[0;34mholi modo ehpesia\n \033[0m");
 		write(1, "\033[K\n", 5);
 		rl_replace_line("", 0);
 		g_signals.builtin = true;
-	} */
-	if (g_signals.heredoc)
+	}
+	else if (g_signals.heredoc)
 	{
-		write(1, "\033[K\n", ft_strlen("\033[K\n"));
+		write(1, "\033[K\n", 5);
 		close(0);
 		g_signals.heredoc = false;
 	}

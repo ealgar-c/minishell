@@ -6,12 +6,11 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 12:22:50 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:52:19 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 static void	config_pipes(t_parser *parser, int mode)
 {
@@ -197,8 +196,10 @@ static void	execute_process(t_info *info, t_parser *parser)
 		path = get_useful_path(parser->cmd[0], info->env_root);
 	else
 		path = ft_strdup(parser->cmd[0]);
-	if (ft_filter(parser, parser->cmd, info) == false)
+	g_signals.builtin = ft_filter(parser, parser->cmd, info);
+	if (g_signals.builtin == false)
 	{
+
 		pid = fork();
 		if (pid == -1)
 			exit(0);
@@ -206,6 +207,7 @@ static void	execute_process(t_info *info, t_parser *parser)
 			c_process(parser, info, parser->cmd, path);
 		else
 			waitpid(-1, &status, 0);
+		g_signals.builtin = true; //si no se queda en false y se rompe ctrl+c
 	}
 	free(path);
 }
