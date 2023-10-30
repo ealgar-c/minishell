@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/29 17:04:49 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/30 12:52:22 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev, t_info *info)
 		return (NULL);
 	tmp_lex = lexer;
 	while (tmp_lex && tmp_lex->token != CMD)
-		tmp_lex = tmp_lex->next;
-	new_node->tmp_arg = par_newargnode(tmp_lex->content);
+		tmp_lex = tmp_lex->next;	
+	new_node->tmp_arg = par_newargnode(tmp_lex);
 	new_node->redir_in = STDIN_FILENO;
 	new_node->redir_out = STDOUT_FILENO;
 	new_node->heredoc = NULL;

@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:09:04 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/29 16:21:27 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/30 09:10:05 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ char	*ft_quote_handling(char *str, int i, int len, char q, int token)
 	while (str[i + len] != q)
 	{
 		if (str[i + len] == '\0')
-		{
-			ft_printf("Wrong quotes, please fix\n");
 			return (NULL);
-		}
 		len++;
 	}
 	content = ft_substr(str, i, len + 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 21:31:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:33:26 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 {
+//	ft_redirector(parser_node);
 	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "cd") == 0))
@@ -132,7 +133,7 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 		config_pipes(prsr_node->next, 2);
 	if (prsr_node->prev && prsr_node->prev->pipe)
 		config_pipes(prsr_node->prev, 1);
-	ft_redirector(prsr_node);
+	ft_redirector(prsr_node, info);
 //	print_cmd(cmd);
 	new_cmd = ft_prepare_cmd(cmd);
 	ft_free(cmd);

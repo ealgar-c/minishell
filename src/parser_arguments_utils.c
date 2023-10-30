@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 17:06:31 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:15:32 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,15 @@ void	get_final_cmd(t_parser *node)
 	}
 }
 
-t_parser_args	*par_newargnode(char *content)
+t_parser_args	*par_newargnode(t_lexer *tmp)
 {
 	t_parser_args	*new_node;
+	char		*content;
 
+	if (tmp)
+		content = tmp->content;
+	else
+		return (NULL);	
 	new_node = malloc(sizeof(t_parser_args));
 	if (!new_node)
 		return (NULL);
@@ -86,6 +91,6 @@ void	get_arguments(t_lexer *lex, t_parser *par)
 	if (!g_signals.error)
 	{
 		tmp = lxargs_getactual(par);
-		tmp->next = par_newargnode(lex->content);	
+		tmp->next = par_newargnode(lex);	
 	}
 }

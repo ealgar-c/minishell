@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/22 11:33:06 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:19:58 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	ft_check_cd_error(char *path)
 void	ft_cd(t_parser *parser_node, t_info *info)
 {
 	char	*path;
-/* 	bool	to_free; comento esto porque si no no compila (unused variable)
 
-	to_free = false; */
 	if (!parser_node->cmd[1])
 		path = ft_strdup(getenv("HOME"));
 	else if (parser_node->cmd[1][ft_strlen(parser_node->cmd[1] - 1)] == ' ')

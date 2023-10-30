@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/29 17:07:04 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:31:48 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void ft_heredoc_loop(int fd, char *delim)
 	free(line);
 }
 
-int ft_heredoc(t_parser *parser)
+int ft_heredoc(t_parser *parser, t_info	*info)
 {
 	int	pipefd[2];
 
 	pipe(pipefd); // parchear por si falla?
+	if (pipefd < 0)
+		ft_error_handling(3, NULL, info);
 	g_signals.heredoc = true;
 	ft_heredoc_loop(pipefd[1], parser->heredoc);
 	close(pipefd[1]);
@@ -42,11 +44,11 @@ int ft_heredoc(t_parser *parser)
 	return(pipefd[0]);
 }
 
-void	ft_redirector(t_parser *parser_node)
+void	ft_redirector(t_parser *parser_node, t_info *info)
 {
 	if (parser_node->heredoc_flag)
-		dup2(ft_heredoc(parser_node), STDIN_FILENO);
-	if (parser_node->redir_in != -1)
+		dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
+	else if (parser_node->redir_in != -1)
 		dup2(parser_node->redir_in, STDIN_FILENO);
 	if (parser_node->redir_out != -1)
 		dup2(parser_node->redir_out, STDOUT_FILENO);

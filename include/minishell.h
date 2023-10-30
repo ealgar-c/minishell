@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 19:36:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:34:24 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void			ctrlc_handler(int sign);
 void			ft_parser(t_info *info);
 
 // parser_arguments_utils.c
-t_parser_args	*par_newargnode(char *content);
+t_parser_args	*par_newargnode(t_lexer *tmp);
 void			get_arguments(t_lexer *lex, t_parser *par);
 void			get_final_cmd(t_parser *node);
 
@@ -139,7 +139,9 @@ bool			ft_check_last_node(t_ast_utils *utils);
 
 // redirections.c
 
-void			ft_redirector(t_parser *parser_node);
+void			ft_redirector(t_parser *parser_node, t_info *info);
+int 			ft_heredoc(t_parser *parser, t_info	*info);
+
 // builtins.c
 void			ft_exit(char **cmd, t_info *info);
 
@@ -167,7 +169,6 @@ void			ft_unset(t_parser *parser_node, t_info *info);
 // executer.c
 void			ft_executer(t_info *info);
 bool			ft_filter(t_parser *parser_node, char **cmd, t_info *info);
-void			ft_redirector(t_parser *parser_node);
 char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
 
