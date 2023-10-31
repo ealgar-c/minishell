@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/31 14:13:52 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:10:01 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ t_info	*ft_init_info(char **envp)
 		return (NULL);
 	info->env_root = save_envp(envp);
 	info->exit_status = 0;
+	info->STDIN_CPY = dup(STDIN_FILENO);
+	info->STDIN_CPY = dup(STDOUT_FILENO);
 	return (info);
 }
 

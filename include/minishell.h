@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/31 14:13:18 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:12:43 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_info
 	struct s_env		*env_root;
 	struct s_ast_utils	*utils;
 	int					exit_status;
+	int					STDIN_CPY;
+	int					STDOUT_CPY;
 }	t_info;
 
 // parser
@@ -141,6 +143,7 @@ bool			ft_check_last_node(t_ast_utils *utils);
 // redirections.c
 
 void			ft_redirector(t_parser *parser_node, t_info *info);
+void			ft_redirector_back(t_parser *parser_node, t_info *info);
 int				ft_heredoc(t_parser *parser, t_info	*info);
 
 // builtins.c

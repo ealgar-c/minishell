@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/30 13:31:48 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:13:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,10 @@ void	ft_redirector(t_parser *parser_node, t_info *info)
 		dup2(parser_node->redir_in, STDIN_FILENO);
 	if (parser_node->redir_out != -1)
 		dup2(parser_node->redir_out, STDOUT_FILENO);
+}
+
+void	ft_redirector_back(t_parser *parser_node, t_info *info)
+{
+	dup2(info->STDIN_CPY, parser_node->redir_in);
+	dup2(info->STDOUT_CPY, parser_node->redir_out);
 }
