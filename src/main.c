@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/29 17:08:25 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:13:52 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_printparser(t_parser *root)
 
 void	do_stuff(char *str, t_info *info)
 {
-	info->utils = ft_utils_init();
+	info->utils = ft_utils_init(info);
 	if (!str)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
@@ -87,7 +87,7 @@ void	do_stuff(char *str, t_info *info)
 // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
 void	shownodes(char *str, t_info *info)
 {
-	info->utils = ft_utils_init();
+	info->utils = ft_utils_init(info);
 	if (!str || ft_strcmp(str, "exit") == 0)
 		ft_exit(ft_split("exit", ' '), info);
 	else if (!(ft_strncmp(str, "\0", 1) == 0))

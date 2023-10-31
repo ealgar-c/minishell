@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/30 13:34:24 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:13:18 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_ast_utils
 	struct s_lexer		*lexer_root;
 	struct s_parser		*parser_root;
 	struct s_env		*env_root;
+	struct s_info		*info;
 }	t_ast_utils;
 
 // lexer
@@ -132,7 +133,7 @@ char			*ft_add_space(char *str, int s, char *content, char q);
 char			*ft_quote_handling(char *str, int i, int len, char q, int token);
 
 // lexer_list_utils.c
-t_ast_utils		*ft_utils_init(void);
+t_ast_utils		*ft_utils_init(t_info *info);
 t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void			ft_lxadd_back(t_lexer **root, t_lexer *new);
 bool			ft_check_last_node(t_ast_utils *utils);
@@ -140,7 +141,7 @@ bool			ft_check_last_node(t_ast_utils *utils);
 // redirections.c
 
 void			ft_redirector(t_parser *parser_node, t_info *info);
-int 			ft_heredoc(t_parser *parser, t_info	*info);
+int				ft_heredoc(t_parser *parser, t_info	*info);
 
 // builtins.c
 void			ft_exit(char **cmd, t_info *info);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lexer_list_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/28 17:28:08 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:13:31 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_lexer	*new_lexer_node(char *content, int token, t_ast_utils *utils)
 	return (new_node);
 }
 
-t_ast_utils	*ft_utils_init(void)
+t_ast_utils	*ft_utils_init(t_info *info)
 {
 	t_ast_utils	*utils;
 
@@ -54,6 +54,7 @@ t_ast_utils	*ft_utils_init(void)
 	utils->lexer_root = NULL;
 	utils->parser_root = NULL;
 	utils->env_root = NULL;
+	utils->info = info;
 	return (utils);
 }
 
