@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/30 13:15:35 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:19:14 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	return (ft_strtrim(content, "\"\'"));
 } */
 
-static void	child_creator(t_parser *parser_node, bool nl_flag, int i)
+static void	child_creator(t_parser *parser_node, bool nl_flag, int i, t_info *info)
 {
 	pid_t	pid;
 	int		status;
@@ -31,7 +31,7 @@ static void	child_creator(t_parser *parser_node, bool nl_flag, int i)
 			config_pipes(parser_node->next, 2);
 		if (parser_node->prev && parser_node->prev->pipe)
 			config_pipes(parser_node->prev, 1);
-		ft_redirector(parser_node);
+		ft_redirector(parser_node, info);
 		while (parser_node->cmd[i])
 		{
 			ft_printf("%s", parser_node->cmd[i]);
@@ -58,8 +58,8 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0)
 		i++;
 	if (ft_strcmp(parser_node->cmd[1], "-n " ) != 0)
-		child_creator(parser_node, true, i);
+		child_creator(parser_node, true, i, info);
 	else
-		child_creator(parser_node, false, i);
+		child_creator(parser_node, false, i, info);
 	info->exit_status = 0;
 }

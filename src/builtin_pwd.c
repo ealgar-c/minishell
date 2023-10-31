@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:45 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/09 16:54:01 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:19:46 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_pwd(t_parser *parser_node, t_info *info)
 		exit (0);
 	else if (pid == 0)
 	{
-		ft_redirector(parser_node);
+		ft_redirector(parser_node, info);
 		ft_pwd_exec(info);
 		exit(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 13:17:54 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:19:25 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_env(t_parser *parser_node, t_info *info)
 		exit (0);
 	else if (pid == 0)
 	{
-		ft_redirector(parser_node);
+		ft_redirector(parser_node, info);
 		ft_env_exec(info);
 		exit(0);
 	}
