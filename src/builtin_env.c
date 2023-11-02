@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/31 14:19:25 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:16:25 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,14 @@ static void	ft_env_exec(t_info *info)
 
 void	ft_env(t_parser *parser_node, t_info *info)
 {
-	pid_t	pid;
-	int		status;
-
 	if (parser_node->cmd[1])
 	{
-		ft_printf("env does not accept arguments in this shell\n");
+		ft_printf("No arguments supported\n");
+		info->exit_status = 1;
 		return ;
 	}
-	else
-	pid = fork();
-	if (pid == -1)
-		exit (0);
-	else if (pid == 0)
-	{
-		ft_redirector(parser_node, info);
-		ft_env_exec(info);
-		exit(0);
-	}
-	else
-		waitpid(-1, &status, 0);
-	return ;
+	ft_redirector(parser_node, info);
+	ft_env_exec(info);
+	ft_redirector_back(info);
+	info->exit_status = 0;
 }

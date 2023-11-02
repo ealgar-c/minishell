@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/02 10:48:21 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:08:23 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_heredoc_loop(int fd, char *delim)
 			&& !ft_strncmp(delim, line, ft_strlen(line - 1)))
 			break ;
 		write(fd, line, ft_strlen(line));
+		free(line);
 	}
 	free(line);
 }

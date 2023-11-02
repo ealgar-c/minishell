@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/26 14:50:05 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:23:11 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	int		i;
 //	("la primera variable a guardar es: \'%s\'\n", parser_node->cmd[1]);
 	i = 1; //si es 0 guardo la variable "export" xd
+	info->exit_status = 0;
 	if (!parser_node->cmd[1])
 	{
 		ptr = sort_list(info->env_root);
@@ -135,6 +136,8 @@ void	ft_export(t_parser *parser_node, t_info *info)
 		{
 			if (input_checker(parser_node->cmd[i]))
 				save_variable(parser_node->cmd[i], info);
+			else
+				info->exit_status = 1;
 			i++;
 		}
 	}
