@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:45 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/31 14:19:46 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:54:07 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,12 @@ static void	ft_pwd_exec(t_info *info)
 	path = getcwd(path, 100);
 	ft_printf("%s\n", path);
 	free(path);
-	info->exit_status = 1;
+	info->exit_status = 0;
 }
 
 void	ft_pwd(t_parser *parser_node, t_info *info)
 {
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		exit (0);
-	else if (pid == 0)
-	{
-		ft_redirector(parser_node, info);
-		ft_pwd_exec(info);
-		exit(0);
-	}
-	else
-		waitpid(-1, &status, 0);
-	return ;
+	ft_redirector(parser_node, info);
+	ft_pwd_exec(info);
+	ft_redirector_back(info);
 }

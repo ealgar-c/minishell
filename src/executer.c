@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/30 13:33:26 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:52:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,8 @@ void	ft_executer(t_info *info)
 	parser_tmp = info->utils->parser_root;
 	while (parser_tmp)
 	{
-		ft_printf("entrando en %s\n", parser_tmp->cmd[0]);
 		ft_extend_and_quotes(parser_tmp->cmd, info);
 		execute_process(info, parser_tmp);
-		ft_printf("saliendo de %s\n", parser_tmp->cmd[0]);
 		parser_tmp = parser_tmp->next;
 	}
 }

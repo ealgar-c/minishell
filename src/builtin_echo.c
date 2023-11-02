@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/31 14:19:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:52:08 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,6 @@
 {
 	return (ft_strtrim(content, "\"\'"));
 } */
-
-static void	child_creator(t_parser *parser_node, bool nl_flag, int i, t_info *info)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		exit (0);
-	else if (pid == 0)
-	{
-		if (parser_node->pipe)
-			config_pipes(parser_node->next, 2);
-		if (parser_node->prev && parser_node->prev->pipe)
-			config_pipes(parser_node->prev, 1);
-		ft_redirector(parser_node, info);
-		while (parser_node->cmd[i])
-		{
-			ft_printf("%s", parser_node->cmd[i]);
-			i++;
-		}
-		if (nl_flag == true)
-			ft_printf("\n");
-		exit(0);
-	}
-	else
-		waitpid(-1, &status, 0);
-}
 
 void	ft_echo(t_parser *parser_node, t_info *info)
 {
@@ -55,11 +27,20 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 		write(1, "\n", 1);
 		return ;
 	}
+	if (parser_node->pipe)
+		config_pipes(parser_node->next, 2);
+	if (parser_node->prev && parser_node->prev->pipe)
+		config_pipes(parser_node->prev, 1);
+	ft_redirector(parser_node, info);
 	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0)
 		i++;
+	while (parser_node->cmd[i])
+	{
+		ft_printf("%s", parser_node->cmd[i]);
+		i++;
+	}
 	if (ft_strcmp(parser_node->cmd[1], "-n " ) != 0)
-		child_creator(parser_node, true, i, info);
-	else
-		child_creator(parser_node, false, i, info);
+		ft_printf("\n");
+	ft_redirector_back(info);
 	info->exit_status = 0;
 }
