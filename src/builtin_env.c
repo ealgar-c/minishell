@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 11:16:25 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:59:24 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	ft_env(t_parser *parser_node, t_info *info)
 		info->exit_status = 1;
 		return ;
 	}
-	ft_redirector(parser_node, info);
+	if (parser_node->pipe || (parser_node->prev && parser_node->prev->pipe))
+		ft_redirector_builtinpipes(parser_node, info);
+	else
+		ft_redirector(parser_node, info);
 	ft_env_exec(info);
 	ft_redirector_back(info);
 	info->exit_status = 0;

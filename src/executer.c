@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 16:02:43 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:34:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,8 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	if (prsr_node->prev && prsr_node->prev->pipe)
 		config_pipes(prsr_node->prev, 1);
 	ft_redirector(prsr_node, info);
-	write(info->STDOUT_CPY, "socorro1\n", 9);
 	new_cmd = ft_prepare_cmd(cmd);
 	ft_free(cmd);
-	write(info->STDOUT_CPY, "socorro2\n", 9);
 	info->exit_status = execve(path, new_cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)
@@ -170,9 +168,9 @@ static void	execute_process(t_info *info, t_parser *parser)
 		else
 		{
 			if (parser->pipe)
-				config_pipes(parser->next, 2);
+				config_pipes(parser, 1);
 			if (parser->prev && parser->prev->pipe)
-				config_pipes(parser->prev, 1);
+				config_pipes(parser, 2);
 			waitpid(-1, &info->exit_status, 0);
 			if (WIFEXITED(info->exit_status))
 				info->exit_status = WEXITSTATUS(info->exit_status);
@@ -193,7 +191,6 @@ void	ft_executer(t_info *info)
 		execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
 	}
-	ft_printf("hola\n");
 }
 
 /* void	executer(char **cmd, char **envp)

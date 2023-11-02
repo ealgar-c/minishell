@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 10:45:38 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:54:19 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ bool			ft_check_last_node(t_ast_utils *utils);
 // redirections.c
 
 void			ft_redirector(t_parser *parser_node, t_info *info);
+void			ft_redirector_builtinpipes(t_parser *parser_node, t_info *info);
 void			ft_redirector_back(t_info *info);
 int				ft_heredoc(t_parser *parser, t_info	*info);
 
