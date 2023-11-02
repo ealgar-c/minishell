@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 10:52:34 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:02:43 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,25 +134,24 @@ static void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	if (prsr_node->prev && prsr_node->prev->pipe)
 		config_pipes(prsr_node->prev, 1);
 	ft_redirector(prsr_node, info);
-//	print_cmd(cmd);
+	write(info->STDOUT_CPY, "socorro1\n", 9);
 	new_cmd = ft_prepare_cmd(cmd);
 	ft_free(cmd);
+	write(info->STDOUT_CPY, "socorro2\n", 9);
 	info->exit_status = execve(path, new_cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)
 	{
 		ft_printf("%s: command not found\n", new_cmd[0]);
 		info->exit_status = 127;
-		exit(0);
 	}
-	exit(0);
+	exit(info->exit_status);
 }
 
 static void	execute_process(t_info *info, t_parser *parser)
 {
 	char	*path;
 	pid_t	pid;
-	int		status;
 
 	if (parser->pipe)
 		config_pipes(parser, 0);
@@ -174,9 +173,11 @@ static void	execute_process(t_info *info, t_parser *parser)
 				config_pipes(parser->next, 2);
 			if (parser->prev && parser->prev->pipe)
 				config_pipes(parser->prev, 1);
-			waitpid(-1, &status, 0);
+			waitpid(-1, &info->exit_status, 0);
+			if (WIFEXITED(info->exit_status))
+				info->exit_status = WEXITSTATUS(info->exit_status);
 		}
-		g_signals.builtin = true; //si no se queda en false y se rompe ctrl+c
+		g_signals.builtin = true;
 	}
 	free(path);
 }
@@ -192,6 +193,7 @@ void	ft_executer(t_info *info)
 		execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
 	}
+	ft_printf("hola\n");
 }
 
 /* void	executer(char **cmd, char **envp)
