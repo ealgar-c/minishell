@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/30 11:21:35 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:41:16 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcm
 		if (tmp_node == NULL)
 			return (false);
 		i += ft_strlen(tmp_node->content);
-		if (!str[i])			
-			return (true);		
+		if (!str[i])
+			return (true);
 	}
 	return (true);
 }
@@ -118,6 +118,9 @@ void ft_lexer(char *str, t_info *info)
 		ret = ft_lexer_list(line, i, info, tmp_node, getcmd);
 	else if(!ret)
 		ft_error_handling(0, NULL, info);
+	tmp_node = info->utils->lexer_root;
+	if (tmp_node->token > 1 && tmp_node->token < 7 && !tmp_node->next) // si lo primero es redir y no hay nada después
+		ft_error_handling(1, "newline", info);
 	free(line);
 //	print_lexer(info);
 }
