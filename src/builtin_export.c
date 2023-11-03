@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/02 11:23:11 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:33:08 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	int		i;
 //	("la primera variable a guardar es: \'%s\'\n", parser_node->cmd[1]);
 	i = 1; //si es 0 guardo la variable "export" xd
+	ft_redirector(parser_node, info);
 	info->exit_status = 0;
 	if (!parser_node->cmd[1])
 	{

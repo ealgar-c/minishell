@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 18:55:15 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:32:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 		write(1, "\n", 1);
 		return ;
 	}
-	if (parser_node->pipe || (parser_node->prev && parser_node->prev->pipe))
-		ft_redirector_builtinpipes(parser_node, info);
-	else
-		ft_redirector(parser_node, info);
+	ft_redirector(parser_node, info);
 	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0)
 		i++;
 	while (parser_node->cmd[i])

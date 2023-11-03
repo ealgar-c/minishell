@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/02 18:54:05 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:32:33 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,6 @@ int	ft_heredoc(t_parser *parser, t_info	*info)
 	return (pipefd[0]);
 }
 
-void	ft_redirector(t_parser *parser_node, t_info *info)
-{
-	if (parser_node->heredoc_flag)
-		dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
-	else if (parser_node->redir_in != -1)
-		dup2(parser_node->redir_in, STDIN_FILENO);
-	if (parser_node->redir_out != -1)
-		dup2(parser_node->redir_out, STDOUT_FILENO);
-}
-
 void	ft_redirector_builtinpipes(t_parser *parser_node, t_info *info)
 {
 	if (parser_node->heredoc_flag)
@@ -70,6 +60,22 @@ void	ft_redirector_builtinpipes(t_parser *parser_node, t_info *info)
 		close(parser_node->redir_out);
 	}
 }
+
+void	ft_redirector(t_parser *parser_node, t_info *info)
+{
+	if (parser_node->pipe || (parser_node->prev && parser_node->prev->pipe))
+		ft_redirector_builtinpipes(parser_node, info);
+	else
+	{
+		if (parser_node->heredoc_flag)
+			dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
+		else if (parser_node->redir_in != -1)
+			dup2(parser_node->redir_in, STDIN_FILENO);
+		if (parser_node->redir_out != -1)
+			dup2(parser_node->redir_out, STDOUT_FILENO);
+	}
+}
+
 
 void	ft_redirector_back(t_info *info)
 {
