@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/30 10:15:32 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:55:14 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ void	get_arguments(t_lexer *lex, t_parser *par)
 	if (!g_signals.error)
 	{
 		tmp = lxargs_getactual(par);
-		tmp->next = par_newargnode(lex);	
+		tmp->next = par_newargnode(lex);
 	}
 }

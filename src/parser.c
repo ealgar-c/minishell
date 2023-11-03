@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/30 12:52:22 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:24:04 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	check_redir(t_lexer *lexer, t_info *info)
 		ft_error_handling(1, "newline", info);
 	else if (token && lexer->next->token > 1 && lexer->next->token < 7)
 		ft_error_handling(1, lexer->content, info);
+/* 	else if (token == PIPE && lexer->prev->token == PIPE)
+		ft_error_handling(42, "conchita cannot handle double pipes", info); */
 }
 
 void	get_redir(t_lexer *lexer, t_parser *parser, t_info *info)
@@ -92,7 +94,7 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 	return (parser);
 }
 
-void	ft_parser(t_info *info)
+/* void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;
 	t_parser	*parser;
@@ -113,6 +115,33 @@ void	ft_parser(t_info *info)
 		{
 			check_redir(lexer_ptr, info);
 			if (!g_signals.error)
+				get_redir(lexer_ptr, parser, info);
+		}
+		lexer_ptr = lexer_ptr->next;
+	}
+	get_final_cmd(parser);
+} */
+void	ft_parser(t_info *info)
+{
+	t_lexer		*lexer_ptr;
+	t_parser	*parser;
+
+	lexer_ptr = info->utils->lexer_root;
+	while (lexer_ptr && !g_signals.error)
+	{
+		check_redir(lexer_ptr, info);
+		if (!lexer_ptr->prev && !g_signals.error)
+		{
+			parser = new_parser_node(lexer_ptr, NULL, info);
+			info->utils->parser_root = parser;
+		}
+		else if (lexer_ptr->token == ARG && !g_signals.error)
+			get_arguments(lexer_ptr, info->utils->parser_root);
+		else if (lexer_ptr->token != CMD && !g_signals.error)
+		{
+			if (lexer_ptr->token == PIPE)
+				parser = ft_config_pipe(parser, lexer_ptr, info);
+			else
 				get_redir(lexer_ptr, parser, info);
 		}
 		lexer_ptr = lexer_ptr->next;

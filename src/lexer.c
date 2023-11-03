@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 13:02:33 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:21:22 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*get_content(char *str, int i, int token, t_info *info)
 	}
 	else
 	{
-		while (str[i + len] > 32 && !ft_token_check(str[i + len]) 
+		while (str[i + len] && str[i + len] != 32 
+			&& !ft_token_check(str[i + len])
 			&& str[i + len] != 34 && str[i + len] != 39)
 			len++;
 		content = ft_substr(str, i, len);
@@ -132,7 +133,7 @@ void	ft_lexer(char *str, t_info *info)
 	else if(!ret)
 		ft_error_handling(0, NULL, info);
 	tmp_node = info->utils->lexer_root;
-	if (tmp_node->token > 1 && tmp_node->token < 7 && !tmp_node->next) // si lo primero es redir y no hay nada después
+	if (!g_signals.error && tmp_node->token > 2 && tmp_node->token < 7 && !tmp_node->next) // si lo primero es redir y no hay nada después
 		ft_error_handling(1, "newline", info);
 	free(line);
 //	print_lexer(info);
