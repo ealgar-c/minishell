@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/20 15:34:55 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:53:47 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 static char	*get_env(char *env, t_info *info)
 {
 	t_env	*tmp;
+	char	*tmp_env;
 
 	tmp = info->env_root;
-	if (ft_strcmp(env, "?") == 0)
-		return (ft_strdup(ft_itoa(info->exit_status)));
-	else if (ft_strcmp(env, "0") == 0)
-		return (ft_strdup("conchita"));
-	while (ft_strcmp(env, tmp->name) != 0 && tmp)
+	tmp_env = ft_strtrim(env, " ");
+	if (ft_strcmp(tmp_env, "?") == 0)
+		return (free(tmp_env), ft_strdup(ft_itoa(info->exit_status)));
+	else if (ft_strcmp(tmp_env, "0") == 0)
+		return (free(tmp_env), ft_strdup("conchita"));
+	while (tmp && ft_strcmp(tmp_env, tmp->name) != 0)
 		tmp = tmp->next;
 	if (!tmp)
-		return (NULL);
-	return (tmp->value);
+		return (free(tmp_env), NULL);
+	if (env[ft_strlen(env) - 1] == 32) //si al final había un espacio lo vuelve a poner
+		return (free(tmp_env), ft_strjoin(tmp->value, " "));
+	return (free(tmp_env), tmp->value);
 }
 
 char	*get_extended(char *to_extend, char *orig, int i)
