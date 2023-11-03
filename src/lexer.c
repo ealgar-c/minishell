@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/02 13:41:16 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:02:33 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,21 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 	}
 } */
 
-bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcmd) //creo que norminette acepta 5 arg por función
+bool	cmd_conditions(t_lexer *tmp, bool getcmd)
+{
+	if (!tmp)
+		return (true);
+	if (tmp->token != ARG)
+	{
+		if (tmp->token == PIPE)
+			return (true);
+		else if (getcmd == true && tmp->token != REDIR_FILE)
+			return (true);
+	}
+	return (false);
+}
+
+bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcmd)
 {
 	while (str[i])
 	{
@@ -75,7 +89,7 @@ bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcm
 			i++;
 		if (ft_token_check(str[i]))
 			tmp_node = get_token(str, i, info->utils);
-		else if ((!tmp_node || tmp_node->token == PIPE || getcmd == true))
+		else if (cmd_conditions(tmp_node, getcmd))
 		{
 			tmp_node = new_lexer_node(get_content(str, i, CMD, info), CMD, info->utils);
 			getcmd = false;
@@ -96,8 +110,7 @@ bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcm
 	return (true);
 }
 
-
-void ft_lexer(char *str, t_info *info)
+void	ft_lexer(char *str, t_info *info)
 {
 	int			i;
 	t_lexer		*tmp_node;

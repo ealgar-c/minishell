@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/31 14:13:31 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:56:12 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ bool	ft_check_last_node(t_ast_utils *utils)
 	if (lx_node->token == GREAT || lx_node->token == GREAT_GREAT)
 		return (true);
 	if (lx_node->token == LESS || lx_node->token == LESS_LESS)
-		return (true);
-	if (lx_node->token == REDIR_FILE)
 		return (true);
 	return (false);
 }
