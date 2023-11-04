@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 14:59:34 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:13:27 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_print_error(int error, char *str)
 		ft_printf("%s\n", str);
 }
 
-void	ft_close(t_parser *node)
+/* void	ft_close(t_parser *node)
 {
 	while (node)
 	{
@@ -46,14 +46,14 @@ void	ft_close(t_parser *node)
 			close(node->redir_out);
 		node = node->next;
 	}
-}
+} */
 
 void	ft_error_handling(int error, char *str, t_info	*info)
 {
 	if (error)
 		ft_print_error(error, str);
-	if (info->utils->parser_root)
-		ft_close(info->utils->parser_root);
+/* 	if (info->utils->parser_root)
+		ft_close(info->utils->parser_root); */
 	ft_free_utils(info, false);
 	g_signals.error = true;
 
