@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 15:19:26 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:27:02 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	ft_close(t_parser *node)
 	while (node)
 	{
 		if (node->redir_in != STDIN_FILENO)
+		{
 			close(node->redir_in);
+			ft_printf("\033[0;33mHOLA HE CERRAO COSITAS\n \033[0m");
+		}
 		if (node->redir_out != STDOUT_FILENO)
+		{
 			close(node->redir_out);
+			ft_printf("\033[0;33mHOLA HE CERRAO COSITAS\n \033[0m");
+		}
 		node = node->next;
 	}
-	ft_printf("\033[0;33mHOLA HE CERRAO COSITAS\n \033[0m");
 }
 
 void	ft_free_lexer(t_ast_utils *utils)

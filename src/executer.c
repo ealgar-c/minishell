@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 15:27:23 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:24:28 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	*get_useful_path(char *cmd, t_env *env_root)
 	ft_free(paths);
 	return (NULL);
 }
-
 
 static void	execute_process(t_info *info, t_parser *parser)
 {
