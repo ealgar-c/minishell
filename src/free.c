@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:27:02 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:31:30 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_free_lexer(t_ast_utils *utils)
 		while (lx_tmp)
 		{
 			next_lx_tmp = lx_tmp->next;
-			if (lx_tmp->token == CMD || lx_tmp->token == ARG 
+			if (lx_tmp->token == CMD || lx_tmp->token == ARG
 				|| lx_tmp-> token == REDIR_FILE)
 				free(lx_tmp->content);
 			free(lx_tmp);

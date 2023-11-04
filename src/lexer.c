@@ -6,36 +6,11 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 14:21:22 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:52:42 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*get_content(char *str, int i, int token, t_info *info)
-{
-	char	*content;
-	int		len;
-
-	len = 0;
-	if (str[i + len] == 34 || str[i + len] == 39)
-	{
-		content = ft_quote_handling(str, i, len, str[i + len], token);
-		if (!content)
-			ft_error_handling(42, "Wrong quotes, please fix", info);
-	}
-	else
-	{
-		while (str[i + len] && str[i + len] != 32 
-			&& !ft_token_check(str[i + len])
-			&& str[i + len] != 34 && str[i + len] != 39)
-			len++;
-		content = ft_substr(str, i, len);
-		if (token == ARG)
-			ft_add_space(str, i + len, content, '\0');
-	}
-	return (content);
-}
 
 t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 {
@@ -82,29 +57,43 @@ bool	cmd_conditions(t_lexer *tmp, bool getcmd)
 	return (false);
 }
 
-bool	ft_lexer_list(char *str, int i, t_info *info, t_lexer *tmp_node, bool getcmd)
+t_lexer	*ft_create_list(char *str, int *i, t_info *in, t_lexer *tmp_node)
 {
+	bool	getcmd;
+
+	getcmd = false;
+	if (ft_token_check(str[*i]))
+		tmp_node = get_token(str, *i, in->utils);
+	else if (cmd_conditions(tmp_node, getcmd))
+	{
+		tmp_node = new_lexer_node(get_content(str, *i, 0, in), CMD, in->utils);
+		getcmd = false;
+	}
+	else if (!ft_check_last_node(in->utils))
+		tmp_node = new_lexer_node(get_content(str, *i, 1, in), ARG, in->utils);
+	else
+	{
+		tmp_node = new_lexer_node(get_content(str, *i, 7, in), 7, in->utils);
+		getcmd = true;
+	}
+	if (tmp_node == NULL)
+		return (NULL);
+	*i += ft_strlen(tmp_node->content);
+	return (tmp_node);
+}
+
+bool	ft_lexer_list(char *str, t_info *info, t_lexer *tmp_node)
+{
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		while (str[i] > 0 && str[i] < 33)
 			i++;
-		if (ft_token_check(str[i]))
-			tmp_node = get_token(str, i, info->utils);
-		else if (cmd_conditions(tmp_node, getcmd))
-		{
-			tmp_node = new_lexer_node(get_content(str, i, CMD, info), CMD, info->utils);
-			getcmd = false;
-		}
-		else if (!ft_check_last_node(info->utils))
-			tmp_node = new_lexer_node(get_content(str, i, ARG, info), ARG, info->utils);
-		else
-		{
-			tmp_node = new_lexer_node(get_content(str, i, REDIR_FILE, info), REDIR_FILE, info->utils);
-			getcmd = true;
-		}
-		if (tmp_node == NULL)
+		tmp_node = ft_create_list(str, &i, info, tmp_node);
+		if (!tmp_node)
 			return (false);
-		i += ft_strlen(tmp_node->content);
 		if (!str[i])
 			return (true);
 	}
@@ -115,13 +104,12 @@ void	ft_lexer(char *str, t_info *info)
 {
 	int			i;
 	t_lexer		*tmp_node;
-	bool		getcmd;
-	bool		ret = true;
+	bool		ret;
 	char		*line;
 
 	i = 0;
 	tmp_node = NULL; //sin esto en mi portatil petaba y en 42 no me explicas?????
-	getcmd = false;
+	ret = true;
 	line = ft_strtrim(str, " ");
 	g_signals.error = false;
 	if (!line[i])
@@ -129,7 +117,7 @@ void	ft_lexer(char *str, t_info *info)
 	if (line[i] == '|' || line[ft_strlen(line) - 1] == '|')
 		ft_error_handling(1, "|", info);
 	else if (!g_signals.error)
-		ret = ft_lexer_list(line, i, info, tmp_node, getcmd);
+		ret = ft_lexer_list(line, info, tmp_node);
 	else if(!ret)
 		ft_error_handling(0, NULL, info);
 	tmp_node = info->utils->lexer_root;

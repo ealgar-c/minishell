@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:25:12 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:49:41 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,9 @@ void			ft_lexer(char *str, t_info *info);
 // lexer_utils.c
 bool			ft_token_check(char c);
 char			*ft_add_space(char *str, int s, char *content, char q);
-char			*ft_quote_handling(char *str, int i, int len, char q, int tk);
+//char			*ft_quote_handling(char *str, int i, char q, int tk);
+char			*get_content(char *str, int i, int token, t_info *info);
+
 
 // lexer_list_utils.c
 t_ast_utils		*ft_utils_init(t_info *info);
