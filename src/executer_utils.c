@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 15:31:33 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:57:22 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,28 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 		info->exit_status = 127;
 	}
 	exit(info->exit_status);
+}
+
+void	ft_non_builtin(t_info *info, t_parser *parser, char *path)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	else if (pid == 0)
+		c_process(parser, info, parser->cmd, path);
+	else
+	{
+		if (parser->pipe)
+			config_pipes(parser, 1);
+		if (parser->prev && parser->prev->pipe)
+			config_pipes(parser, 2);
+		waitpid(-1, &info->exit_status, 0);
+		if (WIFEXITED(info->exit_status))
+			info->exit_status = WEXITSTATUS(info->exit_status);
+	}
+	g_signals.builtin = true;
 }
 
 /* void	executer(char **cmd, char **envp)

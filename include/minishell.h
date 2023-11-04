@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:49:41 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:58:08 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,8 @@ void			ft_builtin(t_parser *parser_node, char **cmd, t_info *info);
 char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
-void			c_process(t_parser *node, t_info *info, char **cmd, char *path);
+void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
+
 
 // main.c
 int				ft_array_len(char **str);

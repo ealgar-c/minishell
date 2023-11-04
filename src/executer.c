@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:24:28 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:58:29 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	*get_useful_path(char *cmd, t_env *env_root)
 static void	execute_process(t_info *info, t_parser *parser)
 {
 	char	*path;
-	pid_t	pid;
 
 	if (parser->pipe)
 		config_pipes(parser, 0);
@@ -87,24 +86,7 @@ static void	execute_process(t_info *info, t_parser *parser)
 		path = ft_strdup(parser->cmd[0]);
 	g_signals.builtin = builtin_redirector(parser, parser->cmd, info);
 	if (g_signals.builtin == false)
-	{
-		pid = fork();
-		if (pid == -1)
-			exit(0);
-		else if (pid == 0)
-			c_process(parser, info, parser->cmd, path);
-		else
-		{
-			if (parser->pipe)
-				config_pipes(parser, 1);
-			if (parser->prev && parser->prev->pipe)
-				config_pipes(parser, 2);
-			waitpid(-1, &info->exit_status, 0);
-			if (WIFEXITED(info->exit_status))
-				info->exit_status = WEXITSTATUS(info->exit_status);
-		}
-		g_signals.builtin = true;
-	}
+		ft_non_builtin(info, parser, path);
 	free(path);
 }
 
