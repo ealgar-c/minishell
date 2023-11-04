@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 12:48:02 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:08:47 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	ft_cd(t_parser *parser_node, t_info *info)
 {
 	char	*path;
 
-/* 	ft_redirector(parser_node, info);
-	ft_redirector_back(info); */
 	if (!parser_node->cmd[1])
 		path = ft_strdup(getenv("HOME"));
 	else if (parser_node->cmd[1][ft_strlen(parser_node->cmd[1]) - 1] == ' ')

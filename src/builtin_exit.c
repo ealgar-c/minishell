@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 12:30:42 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:09:03 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,6 @@ void	ft_leakss(void)
 {
 	system("leaks -q minishell");
 }
-
-/* void	ft_exit_heredoc(t_info *info)
-{
-	t_parser	*ptr;
-
-	ptr = info->utils->parser_root;
-	if (!ptr)
-		return ;
-	while (ptr)
-	{
-		if (ptr->heredoc_flag)
-		{
-			ft_heredoc(ptr, info);
-		}
-		ptr = ptr->next;
-	}
-} */
 
 void	ft_exit(char **cmd, t_info *info)
 {
