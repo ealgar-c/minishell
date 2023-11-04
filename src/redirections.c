@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 13:32:33 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:51:17 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_heredoc_loop(int fd, char *delim)
 {
 	char	*line;
 
+//	ft_printf("delim word is: %s\n", delim);
 	while (1)
 	{
 		ft_printf("\033[0;32m> \033[0m");
@@ -35,7 +36,7 @@ int	ft_heredoc(t_parser *parser, t_info	*info)
 {
 	int	pipefd[2];
 
-	pipe(pipefd); // parchear por si falla?
+	pipe(pipefd);
 	if (pipefd < 0)
 		ft_error_handling(3, NULL, info);
 	g_signals.heredoc = true;
@@ -49,10 +50,10 @@ void	ft_redirector_builtinpipes(t_parser *parser_node, t_info *info)
 {
 	if (parser_node->heredoc_flag)
 		dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
-	else if (parser_node->redir_in != -1 && parser_node->redir_in != STDIN_FILENO)
+	else if (parser_node->redir_in != -1 && parser_node->redir_in != 0)
 	{
 		dup2(parser_node->redir_in, STDIN_FILENO);
-		close(parser_node->redir_in);	
+		close(parser_node->redir_in);
 	}
 	if (parser_node->redir_out != -1 && parser_node->redir_out != STDOUT_FILENO)
 	{

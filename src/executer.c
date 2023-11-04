@@ -3,24 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 17:34:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:38:46 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
+bool	builtin_redirector(t_parser *node, char **cmd, t_info *info)
 {
-//	ft_redirector(parser_node);
+	if (!ft_strcmp(cmd[0], "echo") || !ft_strcmp(cmd[0], "cd")
+		|| !ft_strcmp(cmd[0], "pwd") || !ft_strcmp(cmd[0], "export")
+		|| !ft_strcmp(cmd[0], "env") || !ft_strcmp(cmd[0], "unset\0")
+		|| !ft_strcmp(cmd[0], "exit\0"))
+	{
+		ft_redirector(node, info);
+		ft_builtin(node, cmd, info);
+		ft_redirector_back(info);
+		return (true);
+	}
+	return (false);
+}
+
+void	ft_builtin(t_parser *parser_node, char **cmd, t_info *info)
+{
 	if ((ft_strcmp(cmd[0], "echo") == 0))
 		ft_echo(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "cd") == 0))
 		ft_cd(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "pwd") == 0))
-		ft_pwd(parser_node, info);
+		ft_pwd(info);
 	else if ((ft_strcmp(cmd[0], "export") == 0))
 		ft_export(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "env") == 0))
@@ -29,9 +43,6 @@ bool	ft_filter(t_parser *parser_node, char **cmd, t_info *info)
 		ft_unset(parser_node, info);
 	else if ((ft_strcmp(cmd[0], "exit\0") == 0))
 		ft_exit(cmd, info);
-	else
-		return (false);
-	return (true);
 }
 
 char	*get_useful_path(char *cmd, t_env *env_root)
@@ -101,7 +112,7 @@ char	**env_to_array(t_info *info)
 		i++;
 	}	
 } */
-char **ft_prepare_cmd(char **cmd)
+char	**ft_prepare_cmd(char **cmd)
 {
 	char	*line;
 	char	**new_cmd;
@@ -157,7 +168,7 @@ static void	execute_process(t_info *info, t_parser *parser)
 		path = get_useful_path(parser->cmd[0], info->env_root);
 	else
 		path = ft_strdup(parser->cmd[0]);
-	g_signals.builtin = ft_filter(parser, parser->cmd, info);
+	g_signals.builtin = builtin_redirector(parser, parser->cmd, info);
 	if (g_signals.builtin == false)
 	{
 		pid = fork();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/03 13:32:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:30:22 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 void	ft_echo(t_parser *parser_node, t_info *info)
 {
 	int		i;
-	
+
 	i = 1;
+//	ft_redirector(parser_node, info);
 	if (!parser_node->cmd[i])
 	{
 		write(1, "\n", 1);
+//		ft_redirector_back(info);
 		return ;
 	}
-	ft_redirector(parser_node, info);
 	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0)
 		i++;
 	while (parser_node->cmd[i])
@@ -37,6 +38,6 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 	}
 	if (ft_strcmp(parser_node->cmd[1], "-n " ) != 0)
 		ft_printf("\n");
-	ft_redirector_back(info);
+//	ft_redirector_back(info);
 	info->exit_status = 0;
 }

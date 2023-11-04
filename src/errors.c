@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/10/30 13:30:01 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:59:34 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void ft_print_error(int error, char *str)
 	if (error == 42)
 		ft_printf("%s\n", str);
 }
+
 void	ft_close(t_parser *node)
 {
-	while(node)
+	while (node)
 	{
 		if (node->redir_in != STDIN_FILENO)
 			close(node->redir_in);
@@ -55,16 +56,10 @@ void	ft_error_handling(int error, char *str, t_info	*info)
 		ft_close(info->utils->parser_root);
 	ft_free_utils(info, false);
 	g_signals.error = true;
-	
+
 //	ft_printf("\033[0;33mERROR FUNCTION WORKED\n \033[0m");
 //	ft_print_nl();
 }
-
-/* void ft_builtin_error(char *builtin, int error, char *str, t_info *info)
-{
-	ft_printf("%s: ");
-	ft_error_handling(error, str, info);
-} */
 
 /* error = 0 -> sin mensaje
 error = 1 -> syntax error 

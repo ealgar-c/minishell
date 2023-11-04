@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 15:05:26 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:30:42 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,29 @@ void	ft_leakss(void)
 	system("leaks -q minishell");
 }
 
+/* void	ft_exit_heredoc(t_info *info)
+{
+	t_parser	*ptr;
+
+	ptr = info->utils->parser_root;
+	if (!ptr)
+		return ;
+	while (ptr)
+	{
+		if (ptr->heredoc_flag)
+		{
+			ft_heredoc(ptr, info);
+		}
+		ptr = ptr->next;
+	}
+} */
+
 void	ft_exit(char **cmd, t_info *info)
 {
 	int	exit_arg;
 
 	exit_arg = 0;
+
 	ft_printf("exit\n");
 	if (cmd[1])
 	{

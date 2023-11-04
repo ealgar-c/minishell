@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 18:54:19 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:12:32 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void			ft_lexer(char *str, t_info *info);
 // lexer_utils.c
 bool			ft_token_check(char c);
 char			*ft_add_space(char *str, int s, char *content, char q);
-char			*ft_quote_handling(char *str, int i, int len, char q, int token);
+char			*ft_quote_handling(char *str, int i, int len, char q, int tk);
 
 // lexer_list_utils.c
 t_ast_utils		*ft_utils_init(t_info *info);
@@ -160,20 +160,22 @@ void			ft_env(t_parser *parser_node, t_info *info);
 void			ft_cd(t_parser *parser_node, t_info *info);
 
 // builtin_pwd.c
-void			ft_pwd(t_parser *parser_node, t_info *info);
+void			ft_pwd(t_info *info);
 
 // builtin_echo.c
 void			ft_echo(t_parser *parser_node, t_info *info);
 
 // builtin_export.c
 void			ft_export(t_parser *parser_node, t_info *info);
+// builtin_export_utils.c
+void			ft_non_arg_export(t_info *info);
 
 // builtin_unset.c
 void			ft_unset(t_parser *parser_node, t_info *info);
 
 // executer.c
 void			ft_executer(t_info *info);
-bool			ft_filter(t_parser *parser_node, char **cmd, t_info *info);
+void			ft_builtin(t_parser *parser_node, char **cmd, t_info *info);
 char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
 
@@ -182,6 +184,7 @@ int				ft_array_len(char **str);
 
 // free_utils.c
 void			ft_free_utils(t_info *info, bool mode);
+void			ft_free_env(t_env *root);
 void			ft_free(char **str);
 
 // extensor.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 13:33:08 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:58:25 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int	check_variable(char *name, char *value, t_info *info)
 {
-	t_env *ptr;
-//	int i = 1;
+	t_env	*ptr;
 
 	ptr = info->env_root;
-	if (!ptr) //sin esta condición hace segmentation fault, aunque para cuando se llame a esta función en la shell
-		return (0); //la lista ya habrá sido creada, al menos para las envp, pero por ahora no, creo
+	if (!ptr)
+		return (0);
 	while (ptr)
-	{ //si ya hay creada una variable con ese nombre, la sobreescribe
+	{
 		if (!ft_strcmp(ptr->name, name))
 		{
 			free(ptr->name);
@@ -31,13 +30,11 @@ int	check_variable(char *name, char *value, t_info *info)
 			return (1);
 		}
 		ptr = ptr->next;
-//		i++;
 	}
-//	ft_printf("a total of %i variables where checked\n", i);
 	return (0);
 }
 
-static void save_variable(char *variable, t_info *info)
+static void	save_variable(char *variable, t_info *info)
 {
 	t_env	*env;
 	char	*name;
@@ -45,14 +42,10 @@ static void save_variable(char *variable, t_info *info)
 
 	name = ft_get_env_name(variable);
 	value = ft_get_env_value(variable);
-	if (!check_variable(name, value, info)) //si no existe, crea la variable
+	if (!check_variable(name, value, info))
 	{
 		env = ft_new_env_node(name, value);
-/* 		if (!info->env_root)
-			info->env_root = env;
-		else */
 		env_add_back(&info->env_root, env);
-//		ft_printf("Variable named: \'%s\', has been saved\n", env->name);
 	}
 }
 
@@ -81,56 +74,14 @@ static bool	input_checker(char *arg)
 	return (free(name), true);
 }
 
-t_env	*sort_list(t_env* lst)
-{
-	t_env	*root;
-	t_env	*swap;
-
-	root = lst;
-	swap = ft_new_env_node(NULL, NULL);
-	while (lst->next != NULL)
-	{
-		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
-		{
-			swap->name = lst->name;
-			swap->value = lst->value;
-			lst->name = lst->next->name;
-			lst->value = lst->next->value;
-			lst->next->name = swap->name;
-			lst->next->value = swap->value;
-			lst = root;
-		}
-		else
-			lst = lst->next;
-	}
-	lst = root;
-	free(swap);
-/* 	free(swap->name); estaba liberando de más
-	free(swap->value); */
-	return (lst);
-}
-
-
 void	ft_export(t_parser *parser_node, t_info *info)
 {
-	t_env	*ptr;
 	int		i;
-//	("la primera variable a guardar es: \'%s\'\n", parser_node->cmd[1]);
-	i = 1; //si es 0 guardo la variable "export" xd
-	ft_redirector(parser_node, info);
+
+	i = 1;
 	info->exit_status = 0;
 	if (!parser_node->cmd[1])
-	{
-		ptr = sort_list(info->env_root);
-		while (ptr)
-		{
-			if (ptr->value[0])
-				ft_printf("declare -x %s=\"%s\"\n", ptr->name, ptr->value);
-			else
-				ft_printf("declare -x %s\n", ptr->name);
-			ptr = ptr->next;
-		}
-	}
+		ft_non_arg_export(info);
 	else
 	{
 		while (parser_node->cmd[i])

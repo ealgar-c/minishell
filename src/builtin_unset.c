@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 13:29:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:41:04 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //esto es provisional pq hasta que no se arregle export está sujeto a cambios
 
-static void del_variable(t_env	*node)
+static void	del_variable(t_env	*node)
 {
 //	ft_printf("la variable a borrar es: %s\n", node->name);
 	if (node->prev)
