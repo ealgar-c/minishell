@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:58:29 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:54:53 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	execute_process(t_info *info, t_parser *parser)
 	char	*path;
 
 	if (parser->pipe)
-		config_pipes(parser, 0);
+		config_pipes(parser, 0, info);
 	if (ft_isalnum(parser->cmd[0][0]) != 0)
 		path = get_useful_path(parser->cmd[0], info->env_root);
 	else

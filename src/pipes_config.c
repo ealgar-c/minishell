@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 19:16:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/02 15:06:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:55:13 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 		1 close redir_out
 		2 close redir_in
 */
-void	config_pipes(t_parser *parser, int mode)
+void	config_pipes(t_parser *parser, int mode, t_info *info)
 {
 	int	fd[2];
 
 	if (mode == 0)
 	{
 		pipe(fd);
+		if (fd < 0)
+			ft_error_handling(3, NULL, info);
 		parser->redir_out = fd[1];
 		parser->next->redir_in = fd[0];
 	}

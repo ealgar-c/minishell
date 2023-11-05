@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:57:22 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:56:17 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	envp = env_to_array(info);
 	ft_extend_and_quotes(cmd, info);
 	if (prsr_node->pipe)
-		config_pipes(prsr_node->next, 2);
+		config_pipes(prsr_node->next, 2, info);
 	if (prsr_node->prev && prsr_node->prev->pipe)
-		config_pipes(prsr_node->prev, 1);
+		config_pipes(prsr_node->prev, 1, info);
 	ft_redirector(prsr_node, info);
 	new_cmd = ft_prepare_cmd(cmd);
 	ft_free(cmd);
@@ -98,9 +98,9 @@ void	ft_non_builtin(t_info *info, t_parser *parser, char *path)
 	else
 	{
 		if (parser->pipe)
-			config_pipes(parser, 1);
+			config_pipes(parser, 1, info);
 		if (parser->prev && parser->prev->pipe)
-			config_pipes(parser, 2);
+			config_pipes(parser, 2, info);
 		waitpid(-1, &info->exit_status, 0);
 		if (WIFEXITED(info->exit_status))
 			info->exit_status = WEXITSTATUS(info->exit_status);
