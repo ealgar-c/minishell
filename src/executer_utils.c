@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:56:17 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:12:56 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ char	**env_to_array(t_info *info)
 	ret[len] = NULL;
 	return (ret);
 }
+void	wtf2(char **cmd)
+{
+	int i = 0;
+
+	if ((ft_strcmp(cmd[0], "expr") == 0))
+	{
+		while (cmd[++i])
+			ft_printf("\033[0;33marguments AFTER: \'%s\'\n\033[0m", cmd[i]);
+	}
+}
 
 char	**ft_prepare_cmd(char **cmd)
 {
@@ -57,9 +67,21 @@ char	**ft_prepare_cmd(char **cmd)
 			line = ft_strjoin(line, " ");
 		line = ft_strjoin(line, cmd[i]);
 	}
+	ft_printf("\033[0;34mPREPARE line is:'%s\'\n\033[0m", line);
 	new_cmd = ft_split(line, ' ');
 	free(line);
 	return (new_cmd);
+}
+
+void 	wtf_expr(char **cmd)
+{
+	int i = 0;
+
+	if ((ft_strcmp(cmd[0], "expr") == 0))
+	{
+		while (cmd[++i])
+			ft_printf("\033[0;33marguments BEFORE: \'%s\'\n\033[0m", cmd[i]);
+	}
 }
 
 void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
@@ -75,6 +97,8 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 		config_pipes(prsr_node->prev, 1, info);
 	ft_redirector(prsr_node, info);
 	new_cmd = ft_prepare_cmd(cmd);
+	wtf2(cmd);
+	wtf_expr(new_cmd);
 	ft_free(cmd);
 	info->exit_status = execve(path, new_cmd, envp);
 	ft_free(envp);

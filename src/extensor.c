@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:51:44 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:05:39 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static char	*get_env(char *env, t_info *info)
 	if (!tmp)
 		return (free(tmp_env), NULL);
 	if (env[ft_strlen(env) - 1] == 32)
+	{
+		ft_printf("HOLI AQUÍ HABÍA UN ESPACIO\n");
 		return (free(tmp_env), ft_strjoin(tmp->value, " "));
+	}
 	return (free(tmp_env), tmp->value);
 }
 
