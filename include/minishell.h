@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:58:33 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:35:37 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
+t_signal	g_signals;
 // ENUM
 typedef enum e_tokens
 {
@@ -73,8 +74,8 @@ typedef struct s_parser
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }		t_parser;
+struct		s_lexer;
 // utils
-struct	s_lexer;
 
 typedef struct s_ast_utils
 {
@@ -113,19 +114,11 @@ typedef struct s_signals
 	bool	error;
 }	t_signals;
 
-t_signals		g_signals;
 
-// FUNCIONES
+/************************FUNCIONES***************************/
+
 void			ctrlc_handler(int sign);
-
-// parser.c
-void			ft_parser(t_info *info);
-
-// parser_arguments_utils.c
-t_parser_args	*par_newargnode(t_lexer *tmp);
-void			get_arguments(t_lexer *lex, t_parser *par);
-void			get_final_cmd(t_parser *node);
-
+/*							LEXER							*/
 // lexer.c
 void			ft_lexer(char *str, t_info *info);
 
@@ -141,6 +134,16 @@ t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void			ft_lxadd_back(t_lexer **root, t_lexer *new);
 bool			ft_check_last_node(t_ast_utils *utils);
 
+/*							PARSER							*/
+// parser.c
+void			ft_parser(t_info *info);
+
+// parser_arguments_utils.c
+t_parser_args	*par_newargnode(t_lexer *tmp);
+void			get_arguments(t_lexer *lex, t_parser *par);
+void			get_final_cmd(t_parser *node);
+
+/*							EXECUTER						*/
 // redirections.c
 
 void			ft_redirector(t_parser *parser_node, t_info *info);
@@ -182,13 +185,6 @@ char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
 
-// main.c
-int				ft_array_len(char **str);
-
-// free_utils.c
-void			ft_free_utils(t_info *info, bool mode);
-void			ft_free_env(t_env *root);
-void			ft_free(char **str);
 
 // extensor.c
 char			*check_extensor(char *content, t_info *info, int quoted);
@@ -204,10 +200,15 @@ char			*ft_get_env_value(char *fullenv);
 void			ft_extend_and_quotes(char **cmd, t_info *info);
 char			*clean_quotes(char *str);
 
-//errors.c
-void			ft_error_handling(int error, char *str, t_info	*info);
-
 // pipes_config.c
 void			config_pipes(t_parser *parser, int mode, t_info *info);
+
+/*							UTILS							*/
+//errors.c
+void			ft_error_handling(int error, char *str, t_info	*info);
+// free_utils.c
+void			ft_free_utils(t_info *info, bool mode);
+void			ft_free_env(t_env *root);
+void			ft_free(char **str);
 
 #endif
