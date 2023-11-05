@@ -3,33 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 19:05:39 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:33:15 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+static char	*check_notenv(char *tmp_env, t_info *info, char *env)
+{
+	char	*ret;
+
+	if (ft_strcmp(tmp_env, "?") == 0)
+		ret = ft_strdup(ft_itoa(info->exit_status));
+	else if (ft_strcmp(tmp_env, "0") == 0)
+		ret = (ft_strdup("conchita"));
+	else
+		return (NULL);
+	if (env[ft_strlen(env) - 1] == 32)
+	{
+		return (ft_strjoin(ret, " "));
+	}
+	return (ret);
+}
+
 static char	*get_env(char *env, t_info *info)
 {
 	t_env	*tmp;
 	char	*tmp_env;
+	char	*tmp_ret;
 
-	tmp = info->env_root;
 	tmp_env = ft_strtrim(env, " ");
-	if (ft_strcmp(tmp_env, "?") == 0)
-		return (free(tmp_env), ft_strdup(ft_itoa(info->exit_status)));
-	else if (ft_strcmp(tmp_env, "0") == 0)
-		return (free(tmp_env), ft_strdup("conchita"));
+	tmp_ret = check_notenv(tmp_env, info, env);
+	if (tmp_ret != NULL)
+		return (free(tmp_env), tmp_ret);
+	tmp = info->env_root;
 	while (tmp && ft_strcmp(tmp_env, tmp->name) != 0)
 		tmp = tmp->next;
 	if (!tmp)
-		return (free(tmp_env), NULL);
+		return (env);
 	if (env[ft_strlen(env) - 1] == 32)
 	{
-		ft_printf("HOLI AQUÍ HABÍA UN ESPACIO\n");
 		return (free(tmp_env), ft_strjoin(tmp->value, " "));
 	}
 	return (free(tmp_env), tmp->value);
