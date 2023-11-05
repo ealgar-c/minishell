@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:46 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/02 14:12:37 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:05:20 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ctrlc_handler(int sig)
 	(void)sig;
 	if (!g_signals.builtin && !g_signals.heredoc)
 	{
-		//ft_printf("\033[0;34mholi modo ehpesia\n \033[0m");
 		write(1, "\033[K\n", 5);
 		rl_replace_line("", 0);
 		g_signals.builtin = true;

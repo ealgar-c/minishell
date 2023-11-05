@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/05 17:45:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:05:12 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ void	ft_heredoc_loop(int fd, char *delim)
 {
 	char	*line;
 
-//	ft_printf("delim word is: %s\n", delim);
 	while (1)
 	{
 		ft_printf("\033[0;32m> \033[0m");
 		line = get_next_line(0);
 		if (!line)
-			break ; //habria que cerrar mejor
+			break ;
 		if (!ft_strncmp(delim, line, ft_strlen(delim))
 			&& !ft_strncmp(delim, line, ft_strlen(line - 1)))
 			break ;
@@ -76,7 +75,6 @@ void	ft_redirector(t_parser *parser_node, t_info *info)
 			dup2(parser_node->redir_out, STDOUT_FILENO);
 	}
 }
-
 
 void	ft_redirector_back(t_info *info)
 {

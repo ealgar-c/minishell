@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 16:52:42 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:01:52 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ t_lexer	*get_token(char *str, int i, t_ast_utils *utils)
 		node = new_lexer_node("<<", LESS_LESS, utils);
 	return (node);
 }
-
-/* void print_lexer(t_info *info)
-{
-	t_lexer	*ptr;
-	
-	ptr = info->utils->lexer_root;
-	while(ptr)
-	{
-		ft_printf("*** NUEVO NODO ***\n");
-		ft_printf("content is: %s\n", ptr->content);
-		ft_printf("token is: %i\n", ptr->token);
-		ptr = ptr->next;
-	}
-} */
 
 bool	cmd_conditions(t_lexer *tmp, bool getcmd)
 {
@@ -108,7 +94,7 @@ void	ft_lexer(char *str, t_info *info)
 	char		*line;
 
 	i = 0;
-	tmp_node = NULL; //sin esto en mi portatil petaba y en 42 no me explicas?????
+	tmp_node = NULL;
 	ret = true;
 	line = ft_strtrim(str, " ");
 	g_signals.error = false;
@@ -118,11 +104,11 @@ void	ft_lexer(char *str, t_info *info)
 		ft_error_handling(1, "|", info);
 	else if (!g_signals.error)
 		ret = ft_lexer_list(line, info, tmp_node);
-	else if(!ret)
+	else if (!ret)
 		ft_error_handling(0, NULL, info);
 	tmp_node = info->utils->lexer_root;
-	if (!g_signals.error && tmp_node->token > 2 && tmp_node->token < 7 && !tmp_node->next) // si lo primero es redir y no hay nada después
+	if (!g_signals.error && tmp_node->token > 2
+		&& tmp_node->token < 7 && !tmp_node->next)
 		ft_error_handling(1, "newline", info);
 	free(line);
-//	print_lexer(info);
 }

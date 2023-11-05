@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:08:42 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:38:30 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ void	ft_echo(t_parser *parser_node, t_info *info)
 		write(1, "\n", 1);
 		return ;
 	}
-	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0)
+	if (ft_strcmp(parser_node->cmd[i], "-n ") == 0
+		|| ft_strcmp(parser_node->cmd[i], "-n") == 0)
 		i++;
 	while (parser_node->cmd[i])
 	{
 		ft_printf("%s", parser_node->cmd[i]);
 		i++;
 	}
-	if (ft_strcmp(parser_node->cmd[1], "-n " ) != 0)
+	if (ft_strcmp(parser_node->cmd[1], "-n " ) != 0
+		&& ft_strcmp(parser_node->cmd[1], "-n") != 0)
 		ft_printf("\n");
 	info->exit_status = 0;
 }

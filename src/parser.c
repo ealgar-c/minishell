@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 15:24:04 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:03:52 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	check_redir(t_lexer *lexer, t_info *info)
 {
-	int token;
+	int	token;
 
 	token = 0;
-	if (lexer->token > 1 && lexer->token < 7) //si el token es una redirección
+	if (lexer->token > 1 && lexer->token < 7)
 		token = lexer->token;
 	if (token && !lexer->next)
 		ft_error_handling(1, "newline", info);
 	else if (token && lexer->next->token > 1 && lexer->next->token < 7)
 		ft_error_handling(1, lexer->content, info);
-/* 	else if (token == PIPE && lexer->prev->token == PIPE)
-		ft_error_handling(42, "conchita cannot handle double pipes", info); */
 }
 
 void	get_redir(t_lexer *lexer, t_parser *parser, t_info *info)
@@ -43,7 +41,6 @@ void	get_redir(t_lexer *lexer, t_parser *parser, t_info *info)
 	}
 	else if (token == LESS_LESS)
 	{
-//		parser->redir_in = open(lexer->next->content, O_RDONLY, 0777);
 		parser->heredoc_flag = true;
 		parser->heredoc = lexer->next->content;
 	}
@@ -65,7 +62,7 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev, t_info *info)
 		return (NULL);
 	tmp_lex = lexer;
 	while (tmp_lex && tmp_lex->token != CMD)
-		tmp_lex = tmp_lex->next;	
+		tmp_lex = tmp_lex->next;
 	new_node->tmp_arg = par_newargnode(tmp_lex);
 	new_node->redir_in = STDIN_FILENO;
 	new_node->redir_out = STDOUT_FILENO;

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 21:22:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:55:47 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
+bool			ft_check_paths(t_env *env_root);
 
 // extensor.c
 char			*check_extensor(char *content, t_info *info, int quoted);
@@ -112,9 +113,9 @@ char			*clean_quotes(char *str);
 // pipes_config.c
 void			config_pipes(t_parser *parser, int mode, t_info *info);
 
-/*							UTILS							*/
 //errors.c
 void			ft_error_handling(int error, char *str, t_info	*info);
+
 // free_utils.c
 void			ft_free_utils(t_info *info, bool mode);
 void			ft_free_env(t_env *root);

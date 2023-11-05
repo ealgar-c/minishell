@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:08:47 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:12:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_cd(t_parser *parser_node, t_info *info)
 	char	*path;
 
 	if (!parser_node->cmd[1])
-		path = ft_strdup(getenv("HOME"));
+		path = ft_strdup(get("HOME"));
 	else if (parser_node->cmd[1][ft_strlen(parser_node->cmd[1]) - 1] == ' ')
 		path = ft_strtrim(parser_node->cmd[1], "    ");
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 19:02:10 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:12:59 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,21 @@ static void	execute_process(t_info *info, t_parser *parser)
 
 	if (parser->pipe)
 		config_pipes(parser, 0, info);
-	if (ft_isalnum(parser->cmd[0][0]) != 0)
-		path = get_useful_path(parser->cmd[0], info->env_root);
-	else
-		path = ft_strdup(parser->cmd[0]);
 	g_signals.builtin = builtin_redirector(parser, parser->cmd, info);
+	if (g_signals.builtin == false && !ft_check_paths(info->env_root))
+	{
+		ft_printf("%s: No such file or directory\n", parser->cmd[0]);
+		return ;
+	}
 	if (g_signals.builtin == false)
+	{
+		if (ft_isalnum(parser->cmd[0][0]) != 0)
+			path = get_useful_path(parser->cmd[0], info->env_root);
+		else
+			path = ft_strdup(parser->cmd[0]);
 		ft_non_builtin(info, parser, path);
-	free(path);
+		free(path);
+	}
 }
 
 void	ft_executer(t_info *info)
@@ -102,19 +109,3 @@ void	ft_executer(t_info *info)
 		parser_tmp = parser_tmp->next;
 	}
 }
-
-/* void	executer(char **cmd, char **envp)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	else if (pid == 0)
-		execute_process(cmd, envp);
-	else
-		waitpid(-1, &status, 0);
-} */
-
-// cat Makefile | wc -l

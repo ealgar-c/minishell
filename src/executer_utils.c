@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 21:17:35 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:07:25 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,16 @@ void	ft_non_builtin(t_info *info, t_parser *parser, char *path)
 	g_signals.builtin = true;
 }
 
-/* void	executer(char **cmd, char **envp)
+bool	ft_check_paths(t_env *env_root)
 {
-	pid_t	pid;
-	int		status;
+	t_env	*tmp;
+	bool	flag;
 
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	else if (pid == 0)
-		execute_process(cmd, envp);
-	else
-		waitpid(-1, &status, 0);
-} */
-
-// cat Makefile | wc -l
+	tmp = env_root;
+	flag = true;
+	while (tmp && ft_strcmp(tmp->name, "PATH") != 0)
+		tmp = tmp->next;
+	if (!tmp)
+		flag = false;
+	return (flag);
+}

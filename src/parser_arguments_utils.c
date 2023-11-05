@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_arguments_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/03 14:55:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:04:20 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	get_final_cmd(t_parser *node)
 t_parser_args	*par_newargnode(t_lexer *tmp)
 {
 	t_parser_args	*new_node;
-	char		*content;
+	char			*content;
 
 	if (tmp)
 		content = tmp->content;
 	else
-		return (NULL);	
+		return (NULL);
 	new_node = malloc(sizeof(t_parser_args));
 	if (!new_node)
 		return (NULL);
