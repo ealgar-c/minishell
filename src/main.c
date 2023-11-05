@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:57:18 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:59:56 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 	t_info	*info;
 
-	if (argv[1] || argc != 0)
+	if (argv[1] || argc != 1)
 	{
 		ft_printf("This program does not support any argument\n");
 		return (0);
