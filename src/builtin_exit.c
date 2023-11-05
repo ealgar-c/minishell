@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:09:03 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:48:02 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_exit(char **cmd, t_info *info)
 	int	exit_arg;
 
 	exit_arg = 0;
-
 	ft_printf("exit\n");
 	if (cmd[1])
 	{

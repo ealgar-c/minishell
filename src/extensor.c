@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:42:32 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:51:44 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_env(char *env, t_info *info)
 		tmp = tmp->next;
 	if (!tmp)
 		return (free(tmp_env), NULL);
-	if (env[ft_strlen(env) - 1] == 32) //si al final había un espacio lo vuelve a poner
+	if (env[ft_strlen(env) - 1] == 32)
 		return (free(tmp_env), ft_strjoin(tmp->value, " "));
 	return (free(tmp_env), tmp->value);
 }

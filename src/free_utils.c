@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 15:11:10 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:52:02 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_free_env(t_env *root)
 		}
 	}
 }
-
 
 void	ft_free(char **str)
 {

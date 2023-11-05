@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 14:42:57 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:48:29 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,3 @@ void	ft_non_arg_export(t_info *info)
 	}
 	ft_free_env(root);
 }
-
-

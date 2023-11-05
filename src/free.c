@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:31:30 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:52:39 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	ft_free_parser(t_ast_utils *utils)
 	}
 }
 
-
 void	ft_free_utils(t_info *info, bool mode)
 {
 	if (info->utils)
@@ -96,10 +95,6 @@ void	ft_free_utils(t_info *info, bool mode)
 		ft_free_parser(info->utils);
 		free(info->utils);
 		if (mode == true)
-		{
 			ft_free_env(info->env_root);
-			//free(info);
-		}
 	}
 }
-

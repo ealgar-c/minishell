@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 15:13:27 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:49:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 	rl_replace_line("", 0);
 } */
 
-void ft_print_error(int error, char *str)
+void	ft_print_error(int error, char *str)
 {
 	ft_printf("conchita$: ");
 	if (error == 1)
@@ -52,13 +52,8 @@ void	ft_error_handling(int error, char *str, t_info	*info)
 {
 	if (error)
 		ft_print_error(error, str);
-/* 	if (info->utils->parser_root)
-		ft_close(info->utils->parser_root); */
 	ft_free_utils(info, false);
 	g_signals.error = true;
-
-//	ft_printf("\033[0;33mERROR FUNCTION WORKED\n \033[0m");
-//	ft_print_nl();
 }
 
 /* error = 0 -> sin mensaje

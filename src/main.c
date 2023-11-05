@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 15:13:52 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:57:18 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 	rl_replace_line("", 0);
 } */
 
-void	ft_printlx(t_lexer *root)
+/* void	ft_printlx(t_lexer *root)
 {
 	t_lexer *tmp = root;
 	int		i = 0;
@@ -66,7 +66,7 @@ void	ft_printparser(t_parser *root)
 		tmp = tmp->next;
 		i++;
 	}
-}
+} */
 
 void	do_stuff(char *str, t_info *info)
 {
@@ -84,7 +84,7 @@ void	do_stuff(char *str, t_info *info)
 			ft_free_utils(info, false);
 	}
 }
-// LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
+/* // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
 void	shownodes(char *str, t_info *info)
 {
 	info->utils = ft_utils_init(info);
@@ -99,11 +99,12 @@ void	shownodes(char *str, t_info *info)
 			return ;
 		}
 		ft_printlx(info->utils->lexer_root);
-		/* ft_parser(info);
-		ft_printparser(info->utils->parser_root); */
+		ft_parser(info);
+		ft_printparser(info->utils->parser_root);
 		ft_free_utils(info, false);
 	}
 }
+ */
 
 t_info	*ft_init_info(char **envp)
 {
@@ -114,8 +115,8 @@ t_info	*ft_init_info(char **envp)
 		return (NULL);
 	info->env_root = save_envp(envp);
 	info->exit_status = 0;
-	info->STDIN_CPY = dup(STDIN_FILENO);
-	info->STDIN_CPY = dup(STDOUT_FILENO);
+	info->stdin_cpy = dup(STDIN_FILENO);
+	info->stdout_cpy = dup(STDOUT_FILENO);
 	return (info);
 }
 
@@ -123,45 +124,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_info	*info;
-	int		mode;
 
-	(void)argc;
-	if (argv[1] && ft_strcmp(argv[1], "-n") == 0)
-		mode = 1;
-	else
-		mode = 0;
+	if (argv[1] || argc != 0)
+	{
+		ft_printf("This program does not support any argument\n");
+		return (0);
+	}
 	signal(SIGINT, ctrlc_handler);
 	signal(SIGQUIT, SIG_IGN);
 	info = ft_init_info(envp);
 	g_signals.heredoc = false;
 	g_signals.builtin = true;
-	while (1)
-	{
-		str = readline("\033[0;32mconchita$ \033[0m");
-		if (mode == 0)
-			do_stuff(str, info);
-		else if (mode == 1)
-			shownodes(str, info);
-		add_history(str);
-		free(str);
-	}
-	return (0);
-}
-
-// EL MAIN DE ABAJO ES EL ORIGINAL
-/* 
-int	main(int argc, char **argv, char **envp)
-{
-	char	*str;
-	t_info	*info;
-	int		mode;
-
-	 if (argc != 1 || argv[1])
-		exit(0); 
-	signal(SIGINT, ctrlc_handler);
-	signal(SIGQUIT, SIG_IGN);
-	info = ft_init_info(envp);
-	g_signals.heredoc = false;
 	while (1)
 	{
 		str = readline("\033[0;32mconchita$ \033[0m");
@@ -171,6 +144,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-// test cmd: cat Makefile | wc -l >outfile
- */

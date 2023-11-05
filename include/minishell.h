@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 16:58:08 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:58:33 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_info
 	struct s_env		*env_root;
 	struct s_ast_utils	*utils;
 	int					exit_status;
-	int					STDIN_CPY;
-	int					STDOUT_CPY;
+	int					stdin_cpy;
+	int					stdout_cpy;
 }	t_info;
 
 // parser
@@ -113,7 +113,7 @@ typedef struct s_signals
 	bool	error;
 }	t_signals;
 
-t_signals	g_signals;
+t_signals		g_signals;
 
 // FUNCIONES
 void			ctrlc_handler(int sign);
@@ -134,7 +134,6 @@ bool			ft_token_check(char c);
 char			*ft_add_space(char *str, int s, char *content, char q);
 //char			*ft_quote_handling(char *str, int i, char q, int tk);
 char			*get_content(char *str, int i, int token, t_info *info);
-
 
 // lexer_list_utils.c
 t_ast_utils		*ft_utils_init(t_info *info);
@@ -183,7 +182,6 @@ char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
 
-
 // main.c
 int				ft_array_len(char **str);
 
@@ -206,13 +204,10 @@ char			*ft_get_env_value(char *fullenv);
 void			ft_extend_and_quotes(char **cmd, t_info *info);
 char			*clean_quotes(char *str);
 
-// pipex.c
-void			ft_pipex(t_parser *first_node, t_info *info);
-
 //errors.c
 void			ft_error_handling(int error, char *str, t_info	*info);
 
 // pipes_config.c
-void			config_pipes(t_parser *parser, int mode);
+void			config_pipes(t_parser *parser, int mode, t_info *info);
 
 #endif
