@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 19:33:15 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:56:39 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static char	*get_env(char *env, t_info *info)
 	tmp_env = ft_strtrim(env, " ");
 	tmp_ret = check_notenv(tmp_env, info, env);
 	if (tmp_ret != NULL)
-		return (free(tmp_env), tmp_ret);
+		return (free(env), free(tmp_env), tmp_ret);
 	tmp = info->env_root;
 	while (tmp && ft_strcmp(tmp_env, tmp->name) != 0)
 		tmp = tmp->next;
 	if (!tmp)
-		return (env);
+		return (NULL);
 	if (env[ft_strlen(env) - 1] == 32)
 	{
-		return (free(tmp_env), ft_strjoin(tmp->value, " "));
+		return (free(env), free(tmp_env), ft_strjoin(tmp->value, " "));
 	}
-	return (free(tmp_env), tmp->value);
+	return (free(env), free(tmp_env), tmp->value);
 }
 
 char	*get_extended(char *to_extend, char *orig, int i)
@@ -60,6 +60,8 @@ char	*get_extended(char *to_extend, char *orig, int i)
 	prev = ft_substr(orig, 0, i);
 	if (to_extend == NULL)
 		return (prev);
+	if (to_extend[ft_strlen(to_extend) - 1] == ' ')
+		return (free(prev), free(to_extend), ft_strjoin(prev, to_extend));
 	return (free(prev), ft_strjoin(prev, to_extend));
 }
 
@@ -83,12 +85,11 @@ char	*check_extensor(char *content, t_info *info, int quoted)
 			to_extend = get_env("HOME", info);
 			break ;
 		}
-		else
-			i++;
+		i++;
 	}
 	if (to_extend == NULL && !content[i])
 		return (content);
-	return (get_extended(to_extend, content, i));
+	return (free(content), get_extended(to_extend, content, i));
 }
 /* 
 char	*check_extensor(char *content, t_info *info)
@@ -116,3 +117,5 @@ char	*check_extensor(char *content, t_info *info)
 	return (content);
 }
  */
+
+// echo hola"que $HOME" tal

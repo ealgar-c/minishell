@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:52:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:16:33 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,9 @@ void	ft_close(t_parser *node)
 	while (node)
 	{
 		if (node->redir_in != STDIN_FILENO)
-		{
 			close(node->redir_in);
-			ft_printf("\033[0;33mHOLA HE CERRAO COSITAS\n \033[0m");
-		}
 		if (node->redir_out != STDOUT_FILENO)
-		{
 			close(node->redir_out);
-			ft_printf("\033[0;33mHOLA HE CERRAO COSITAS\n \033[0m");
-		}
 		node = node->next;
 	}
 }

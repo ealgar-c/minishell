@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend_and_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:42:27 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:39:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_extend_and_quotes(char **cmd, t_info *info)
 		if (quoted != NONE)
 			cmd[i] = clean_quotes(cmd[i]);
 		cmd[i] = check_extensor(cmd[i], info, quoted);
+		
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 19:35:37 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:22:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,99 +21,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include "minishell_structs.h"
 
-t_signal	g_signals;
-// ENUM
-typedef enum e_tokens
-{
-	CMD = 0,
-	ARG,
-	PIPE,
-	GREAT,
-	GREAT_GREAT,
-	LESS,
-	LESS_LESS,
-	REDIR_FILE,
-}	t_tokens;
-
-typedef enum e_quoted
-{
-	NONE = 0,
-	SINGLE,
-	DOUBLE,
-}	t_quoted;
-
-// STRUCTS
-// info
-typedef struct s_info
-{
-	struct s_env		*env_root;
-	struct s_ast_utils	*utils;
-	int					exit_status;
-	int					stdin_cpy;
-	int					stdout_cpy;
-}	t_info;
-
-// parser
-typedef struct s_parser_args
-{
-	char					*str;
-	struct s_parser_args	*next;
-}	t_parser_args;
-
-typedef struct s_parser
-{
-	t_parser_args	*tmp_arg;
-	char			**cmd;
-	int				redir_in;
-	bool			heredoc_flag;
-	char			*heredoc;
-	int				redir_out;
-	bool			double_out;
-	bool			pipe;
-	struct s_parser	*prev;
-	struct s_parser	*next;
-}		t_parser;
-struct		s_lexer;
-// utils
-
-typedef struct s_ast_utils
-{
-	int					pipes;
-	struct s_lexer		*lexer_root;
-	struct s_parser		*parser_root;
-	struct s_env		*env_root;
-	struct s_info		*info;
-}	t_ast_utils;
-
-// lexer
-typedef struct s_lexer
-{
-	struct s_ast_utils	*utils;
-	int					i;
-	t_tokens			token;
-	char				*content;
-	struct s_lexer		*prev;
-	struct s_lexer		*next;
-}	t_lexer;
-
-// env
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
-
-}	t_env;
-
-typedef struct s_signals
-{
-	bool	builtin;
-	bool	heredoc;
-	bool	error;
-}	t_signals;
-
+t_signals	g_signals;
 
 /************************FUNCIONES***************************/
 
@@ -184,7 +94,6 @@ char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
-
 
 // extensor.c
 char			*check_extensor(char *content, t_info *info, int quoted);
