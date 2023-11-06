@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 16:45:35 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:35:09 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ void			ft_env(t_parser *parser_node, t_info *info);
 // builtin_cd.c
 void			ft_cd(t_parser *parser_node, t_info *info);
 
+// builtin_cd_utils.c
+
+void			ft_check_cd_error(char *path);
+
+
+void			ft_change_pwd_env(t_info *info);
+
+
+void			ft_change_oldpwd_env(t_info *info);
+
 // builtin_pwd.c
 void			ft_pwd(t_info *info);
 
@@ -86,6 +96,7 @@ void			save_variable(char *variable, t_info *info);
 
 // builtin_export_utils.c
 void			ft_non_arg_export(t_info *info);
+bool			check_export_arg(char *str);
 
 // builtin_unset.c
 void			ft_unset(t_parser *parser_node, t_info *info);
@@ -96,6 +107,7 @@ void			ft_executer(t_info *info);
 void			ft_builtin(t_parser *parser_node, char **cmd, t_info *info);
 char			**env_to_array(t_info *info);
 char			*get_useful_path(char *cmd, t_env *env_root);
+
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
 bool			ft_check_paths(t_env *env_root);

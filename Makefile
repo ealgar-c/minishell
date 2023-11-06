@@ -1,7 +1,7 @@
 # COMPILER INFO
 CC = cc
 LIBFT_PATH = libft/
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 INCLUDE_DIRS = include -I $(LIBFT_PATH) -I /opt/homebrew/Cellar/readline/8.2.1/include
 LIBS =  -L$(LIBFT_PATH) -lreadline
@@ -20,7 +20,8 @@ SRC = free_utils.c executer.c lexer.c lexer_list_utils.c main.c parser.c\
 	builtin_exit.c builtin_echo.c builtin_pwd.c builtin_cd.c lexer_utils.c\
 	extensor.c enviroment.c builtin_env.c builtin_export.c builtin_unset.c\
 	parser_arguments_utils.c extend_and_quote.c redirections.c signals.c errors.c\
-	pipes_config.c builtin_export_utils.c free.c executer_utils.c parser_utils.c
+	pipes_config.c builtin_export_utils.c free.c executer_utils.c parser_utils.c\
+	builtin_cd_utils.c
 OBJ_DIR = objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
