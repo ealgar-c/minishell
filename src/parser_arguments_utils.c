@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:05:06 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:28:59 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ static t_parser_args	*lxargs_getactual(t_parser *root)
 void	get_arguments(t_lexer *lex, t_parser *par)
 {
 	t_parser_args	*tmp;
-//ya se comprueba que no haya error antes
-//pdte comentar con Enrique y forzar el fallo
+
 	tmp = lxargs_getactual(par);
 	tmp->next = par_newargnode(lex);
 }
-

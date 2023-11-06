@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 16:38:00 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:45:35 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ bool			ft_check_paths(t_env *env_root);
 void			ctrlc_handler(int sign);
 
 // extensor.c
+char			*get_env(char *env, t_info *info);
 char			*check_extensor(char *content, t_info *info, int quoted);
 
 // enviroment.c

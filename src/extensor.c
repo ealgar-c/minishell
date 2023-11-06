@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 16:26:15 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:27:31 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*check_notenv(char *tmp_env, t_info *info, char *env)
 	return (ret);
 }
 
-static char	*get_env(char *env, t_info *info)
+char	*get_env(char *env, t_info *info)
 {
 	t_env	*tmp;
 	char	*tmp_env;
@@ -80,7 +80,7 @@ char	*check_extensor(char *content, t_info *info, int quoted)
 		}
 		else if (content[0] == '~' && quoted == NONE)
 		{
-			to_extend = get_env("HOME", info);
+			to_extend = ft_strdup(getenv("HOME"));
 			break ;
 		}
 		i++;
