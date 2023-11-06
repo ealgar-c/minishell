@@ -6,12 +6,11 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:18:51 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 18:19:34 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:59:41 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 void	ft_check_cd_error(char *path)
 {

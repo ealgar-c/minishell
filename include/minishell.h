@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 18:35:09 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:59:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ void			ft_cd(t_parser *parser_node, t_info *info);
 // builtin_cd_utils.c
 
 void			ft_check_cd_error(char *path);
-
-
 void			ft_change_pwd_env(t_info *info);
-
-
 void			ft_change_oldpwd_env(t_info *info);
 
 // builtin_pwd.c
