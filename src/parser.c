@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 09:03:06 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:04:53 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,7 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev, t_info *info)
 	tmp_lex = lexer;
 	while (tmp_lex && tmp_lex->token != CMD)
 		tmp_lex = tmp_lex->next;
-	new_node->tmp_arg = par_newargnode(tmp_lex);
-	new_node->redir_in = STDIN_FILENO;
-	new_node->redir_out = STDOUT_FILENO;
-	new_node->heredoc = NULL;
-	new_node->heredoc_flag = false;
-	new_node->double_out = false;
-	new_node->pipe = false;
-	new_node->prev = prev;
-	new_node->next = NULL;
+	fill_new_par_node(new_node, prev, tmp_lex);
 	if (lexer->token != CMD)
 	{
 		check_redir(lexer, info);
@@ -91,33 +83,6 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 	return (parser);
 }
 
-/* void	ft_parser(t_info *info)
-{
-	t_lexer		*lexer_ptr;
-	t_parser	*parser;
-
-	lexer_ptr = info->utils->lexer_root;
-	while (lexer_ptr && !info->error)
-	{
-		if (!lexer_ptr->prev)
-		{
-			parser = new_parser_node(lexer_ptr, NULL, info);
-			info->utils->parser_root = parser;
-		}
-		else if (lexer_ptr->token == ARG)
-			get_arguments(lexer_ptr, info->utils->parser_root);
-		else if (lexer_ptr->token == PIPE)
-			parser = ft_config_pipe(parser, lexer_ptr, info);
-		else if (lexer_ptr->token != CMD)
-		{
-			check_redir(lexer_ptr, info);
-			if (!info->error)
-				get_redir(lexer_ptr, parser, info);
-		}
-		lexer_ptr = lexer_ptr->next;
-	}
-	get_final_cmd(parser);
-} */
 void	ft_parser(t_info *info)
 {
 	t_lexer		*lexer_ptr;

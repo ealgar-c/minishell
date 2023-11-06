@@ -6,13 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 21:16:33 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:08:28 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_close(t_parser *node)
+static void	ft_close(t_parser *node)
 {
 	while (node)
 	{
@@ -24,7 +24,7 @@ void	ft_close(t_parser *node)
 	}
 }
 
-void	ft_free_lexer(t_ast_utils *utils)
+static void	ft_free_lexer(t_ast_utils *utils)
 {
 	t_lexer		*lx_tmp;
 	t_lexer		*next_lx_tmp;
@@ -44,7 +44,7 @@ void	ft_free_lexer(t_ast_utils *utils)
 	}
 }
 
-void	ft_free_parserargs(t_parser_args *root)
+static void	ft_free_parserargs(t_parser_args *root)
 {
 	t_parser_args	*arg_tmp;
 	t_parser_args	*next_arg_tmp;
@@ -61,7 +61,7 @@ void	ft_free_parserargs(t_parser_args *root)
 	}
 }
 
-void	ft_free_parser(t_ast_utils *utils)
+static void	ft_free_parser(t_ast_utils *utils)
 {
 	t_parser		*par_tmp;
 	t_parser		*next_par_tmp;

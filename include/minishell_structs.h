@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:20:43 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 10:11:40 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:22:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ typedef struct s_parser
 	t_parser_args	*tmp_arg;
 	char			**cmd;
 	int				redir_in;
+	int				pipe_redir_in;
 	bool			heredoc_flag;
 	char			*heredoc;
 	int				redir_out;
+	int				pipe_redir_out;
 	bool			double_out;
 	bool			pipe;
 	struct s_parser	*prev;

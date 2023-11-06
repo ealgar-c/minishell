@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 19:16:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:55:13 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:50:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	config_pipes(t_parser *parser, int mode, t_info *info)
 		pipe(fd);
 		if (fd < 0)
 			ft_error_handling(3, NULL, info);
-		parser->redir_out = fd[1];
-		parser->next->redir_in = fd[0];
+		parser->pipe_redir_out = fd[1];
+		parser->next->pipe_redir_in = fd[0];
 	}
 	else if (mode == 1)
-		close(parser->redir_out);
+		close(parser->pipe_redir_out);
 	else if (mode == 2)
-		close(parser->redir_in);
+		close(parser->pipe_redir_in);
 }
 
 /* 		ft_printf("entrada en modo 1\n");

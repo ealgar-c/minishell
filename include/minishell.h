@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 08:52:23 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:07:40 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_signals	g_signals;
 
 /************************FUNCIONES***************************/
 
-void			ctrlc_handler(int sign);
 /*							LEXER							*/
 // lexer.c
 void			ft_lexer(char *str, t_info *info);
@@ -53,14 +52,16 @@ t_parser_args	*par_newargnode(t_lexer *tmp);
 void			get_arguments(t_lexer *lex, t_parser *par);
 void			get_final_cmd(t_parser *node, t_info *info);
 
-/*							EXECUTER						*/
-// redirections.c
+// parser_utils.c
+void			fill_new_par_node(t_parser *new, t_parser *prev,
+					t_lexer *tmp_lex);
 
+// redirections.c
 void			ft_redirector(t_parser *parser_node, t_info *info);
-void			ft_redirector_builtinpipes(t_parser *parser_node, t_info *info);
 void			ft_redirector_back(t_info *info);
 int				ft_heredoc(t_parser *parser, t_info	*info);
 
+/*							BUILTINS						*/
 // builtins.c
 void			ft_exit(char **cmd, t_info *info);
 
@@ -87,6 +88,7 @@ void			ft_non_arg_export(t_info *info);
 // builtin_unset.c
 void			ft_unset(t_parser *parser_node, t_info *info);
 
+/*							EXECUTER						*/
 // executer.c
 void			ft_executer(t_info *info);
 void			ft_builtin(t_parser *parser_node, char **cmd, t_info *info);
@@ -95,6 +97,10 @@ char			*get_useful_path(char *cmd, t_env *env_root);
 // executer_utils.c
 void			ft_non_builtin(t_info *info, t_parser *parser, char *path);
 bool			ft_check_paths(t_env *env_root);
+
+/*							UTILS						*/
+// signals.c
+void			ctrlc_handler(int sign);
 
 // extensor.c
 char			*check_extensor(char *content, t_info *info, int quoted);

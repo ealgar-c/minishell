@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_arguments_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 08:52:04 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:05:06 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,4 @@ void	get_arguments(t_lexer *lex, t_parser *par)
 	tmp = lxargs_getactual(par);
 	tmp->next = par_newargnode(lex);
 }
-/* void	get_arguments(t_lexer *lex, t_parser *par)
-{
-	t_parser_args	*tmp;
 
-	if (!info->error)
-	{
-		tmp = lxargs_getactual(par);
-		tmp->next = par_newargnode(lex);
-	}
-} */
