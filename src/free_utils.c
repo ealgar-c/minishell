@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:17:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:52:02 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:26:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	ft_free_env(t_env *root)
 		while (env_tmp)
 		{
 			next_env_tmp = env_tmp->next;
-			free(env_tmp->name);
-			free(env_tmp->value);
+			if (env_tmp->name)
+				free(env_tmp->name);
+			if (env_tmp->value)
+				free(env_tmp->value);
 			free(env_tmp);
 			env_tmp = next_env_tmp;
 		}

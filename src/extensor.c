@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 21:56:39 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:26:15 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ static char	*get_env(char *env, t_info *info)
 	if (!tmp)
 		return (NULL);
 	if (env[ft_strlen(env) - 1] == 32)
-	{
 		return (free(env), free(tmp_env), ft_strjoin(tmp->value, " "));
-	}
-	return (free(env), free(tmp_env), tmp->value);
+	return (free(env), free(tmp_env), ft_strdup(tmp->value));
 }
 
 char	*get_extended(char *to_extend, char *orig, int i)
@@ -61,7 +59,7 @@ char	*get_extended(char *to_extend, char *orig, int i)
 	if (to_extend == NULL)
 		return (prev);
 	if (to_extend[ft_strlen(to_extend) - 1] == ' ')
-		return (free(prev), free(to_extend), ft_strjoin(prev, to_extend));
+		return (free(prev), ft_strjoin(prev, to_extend));
 	return (free(prev), ft_strjoin(prev, to_extend));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:07:40 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:38:00 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void			ft_redirector_back(t_info *info);
 int				ft_heredoc(t_parser *parser, t_info	*info);
 
 /*							BUILTINS						*/
-// builtins.c
+// builtin_exit.c
 void			ft_exit(char **cmd, t_info *info);
 
-//void		ft_unset(char **cmd);
+//builtin_unset.c
 void			ft_unset(t_parser *parser_node, t_info *info);
 
 //builtin_env.c
@@ -82,6 +82,8 @@ void			ft_echo(t_parser *parser_node, t_info *info);
 
 // builtin_export.c
 void			ft_export(t_parser *parser_node, t_info *info);
+void			save_variable(char *variable, t_info *info);
+
 // builtin_export_utils.c
 void			ft_non_arg_export(t_info *info);
 

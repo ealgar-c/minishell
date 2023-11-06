@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 08:43:43 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:42:12 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ static void	ft_check_cd_error(char *path)
 	else
 		ft_printf("cd: %s: Not a directory\n", path);
 	close(fd);
+}
+
+static void	ft_change_pwd_env(t_info *info)
+{
+	char	*to_send;
+	char	*path;
+
+	path = malloc(sizeof(char) * 100);
+	path = getcwd(path, 100);
+	to_send = ft_strjoin("PWD=", path);
+	save_variable(to_send, info);
+	free(to_send);
+	free(path);
 }
 
 void	ft_cd(t_parser *parser_node, t_info *info)
@@ -41,5 +54,6 @@ void	ft_cd(t_parser *parser_node, t_info *info)
 	}
 	else
 		info->exit_status = 0;
+	ft_change_pwd_env(info);
 	free(path);
 }

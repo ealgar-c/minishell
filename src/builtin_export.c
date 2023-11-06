@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 14:58:25 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:36:32 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_variable(char *name, char *value, t_info *info)
 	return (0);
 }
 
-static void	save_variable(char *variable, t_info *info)
+void	save_variable(char *variable, t_info *info)
 {
 	t_env	*env;
 	char	*name;
