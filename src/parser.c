@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/05 22:03:52 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 09:03:06 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_parser	*new_parser_node(t_lexer *lexer, t_parser *prev, t_info *info)
 	if (lexer->token != CMD)
 	{
 		check_redir(lexer, info);
-		if (!g_signals.error)
+		if (!info->error)
 			get_redir(lexer, new_node, info);
 	}
 	return (new_node);
@@ -85,7 +85,7 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 {
 	lexer_ptr = lexer_ptr->next;
 	parser->pipe = true;
-	get_final_cmd(parser);
+	get_final_cmd(parser, info);
 	parser->next = new_parser_node(lexer_ptr, parser, info);
 	parser = parser->next;
 	return (parser);
@@ -97,7 +97,7 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 	t_parser	*parser;
 
 	lexer_ptr = info->utils->lexer_root;
-	while (lexer_ptr && !g_signals.error)
+	while (lexer_ptr && !info->error)
 	{
 		if (!lexer_ptr->prev)
 		{
@@ -111,7 +111,7 @@ t_parser	*ft_config_pipe(t_parser *parser, t_lexer *lexer_ptr, t_info *info)
 		else if (lexer_ptr->token != CMD)
 		{
 			check_redir(lexer_ptr, info);
-			if (!g_signals.error)
+			if (!info->error)
 				get_redir(lexer_ptr, parser, info);
 		}
 		lexer_ptr = lexer_ptr->next;
@@ -124,17 +124,17 @@ void	ft_parser(t_info *info)
 	t_parser	*parser;
 
 	lexer_ptr = info->utils->lexer_root;
-	while (lexer_ptr && !g_signals.error)
+	while (lexer_ptr && !info->error)
 	{
 		check_redir(lexer_ptr, info);
-		if (!lexer_ptr->prev && !g_signals.error)
+		if (!lexer_ptr->prev && !info->error)
 		{
 			parser = new_parser_node(lexer_ptr, NULL, info);
 			info->utils->parser_root = parser;
 		}
-		else if (lexer_ptr->token == ARG && !g_signals.error)
+		else if (lexer_ptr->token == ARG && !info->error)
 			get_arguments(lexer_ptr, info->utils->parser_root);
-		else if (lexer_ptr->token != CMD && !g_signals.error)
+		else if (lexer_ptr->token != CMD && !info->error)
 		{
 			if (lexer_ptr->token == PIPE)
 				parser = ft_config_pipe(parser, lexer_ptr, info);
@@ -143,5 +143,5 @@ void	ft_parser(t_info *info)
 		}
 		lexer_ptr = lexer_ptr->next;
 	}
-	get_final_cmd(parser);
+	get_final_cmd(parser, info);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/05 17:49:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:44:13 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_error_handling(int error, char *str, t_info	*info)
 	if (error)
 		ft_print_error(error, str);
 	ft_free_utils(info, false);
-	g_signals.error = true;
+	info->error = true;
 }
 
 /* error = 0 -> sin mensaje

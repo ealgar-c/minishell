@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_arguments_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:13:15 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 22:04:20 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:52:04 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static void	ft_copyarg(char *dest, char *orig)
 	dest[i] = '\0';
 }
 
-void	get_final_cmd(t_parser *node)
+void	get_final_cmd(t_parser *node, t_info *info)
 {
 	int				i;
 	t_parser_args	*tmp;
 
 	i = 1;
-	if (!g_signals.error)
+	if (!info->error)
 	{
 		tmp = node->tmp_arg;
 		while (tmp)
@@ -87,10 +87,18 @@ static t_parser_args	*lxargs_getactual(t_parser *root)
 void	get_arguments(t_lexer *lex, t_parser *par)
 {
 	t_parser_args	*tmp;
+//ya se comprueba que no haya error antes
+//pdte comentar con Enrique y forzar el fallo
+	tmp = lxargs_getactual(par);
+	tmp->next = par_newargnode(lex);
+}
+/* void	get_arguments(t_lexer *lex, t_parser *par)
+{
+	t_parser_args	*tmp;
 
-	if (!g_signals.error)
+	if (!info->error)
 	{
 		tmp = lxargs_getactual(par);
 		tmp->next = par_newargnode(lex);
 	}
-}
+} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/05 22:01:52 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:44:13 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,17 @@ void	ft_lexer(char *str, t_info *info)
 	tmp_node = NULL;
 	ret = true;
 	line = ft_strtrim(str, " ");
-	g_signals.error = false;
+	info->error = false;
 	if (!line[i])
 		ft_error_handling(0, NULL, info);
 	if (line[i] == '|' || line[ft_strlen(line) - 1] == '|')
 		ft_error_handling(1, "|", info);
-	else if (!g_signals.error)
+	else if (!info->error)
 		ret = ft_lexer_list(line, info, tmp_node);
 	else if (!ret)
 		ft_error_handling(0, NULL, info);
 	tmp_node = info->utils->lexer_root;
-	if (!g_signals.error && tmp_node->token > 2
+	if (!info->error && tmp_node->token > 2
 		&& tmp_node->token < 7 && !tmp_node->next)
 		ft_error_handling(1, "newline", info);
 	free(line);

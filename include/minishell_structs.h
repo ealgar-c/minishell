@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:20:43 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 21:23:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:11:40 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_info
 	int					exit_status;
 	int					stdin_cpy;
 	int					stdout_cpy;
+	bool				error;
 }	t_info;
 
 // parser
@@ -102,7 +103,6 @@ typedef struct s_signals
 {
 	bool	builtin;
 	bool	heredoc;
-	bool	error;
 }	t_signals;
 
 #endif

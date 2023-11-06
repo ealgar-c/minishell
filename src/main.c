@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 19:29:21 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:45:36 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	do_stuff(char *str, t_info *info)
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
 		ft_lexer(str, info);
-		if (!g_signals.error)
+		if (!info->error)
 			ft_parser(info);
-		if (!g_signals.error)
+		if (!info->error)
 			ft_executer(info);
-		if (!g_signals.error)
+		if (!info->error)
 			ft_free_utils(info, false);
 	}
 }
@@ -93,7 +93,7 @@ void	shownodes(char *str, t_info *info)
 	else if (!(ft_strncmp(str, "\0", 1) == 0))
 	{
 		ft_lexer(str, info);
-		if (g_signals.error)
+		if (info->error)
 		{
 	//		ft_free_utils(info, false);
 			return ;
@@ -117,6 +117,7 @@ t_info	*ft_init_info(char **envp)
 	info->exit_status = 0;
 	info->stdin_cpy = dup(STDIN_FILENO);
 	info->stdout_cpy = dup(STDOUT_FILENO);
+	info->error = false;
 	return (info);
 }
 
