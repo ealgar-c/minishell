@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/04 17:08:54 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:01:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	ft_env_exec(t_info *info)
 	tmp = info->env_root;
 	while (tmp)
 	{
-		ft_printf("%s=%s\n", tmp->name, tmp->value);
+		if (tmp->value[0])
+			ft_printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
 }

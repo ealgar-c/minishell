@@ -6,29 +6,18 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/07 16:13:26 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:04:36 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* void	ctrlc_handler(int sign)
-{
-	(void)sign;
-	rl_on_new_line();
-	rl_redisplay();
-	rl_replace_line("", 0);
-	write(1, "\033[K\n", 5);
-	rl_on_new_line();
-	rl_redisplay();
-	rl_replace_line("", 0);
-} */
-
-void	ft_printlx(t_lexer *root)
+/* void	ft_printlx(t_lexer *root)
 {
 	t_lexer *tmp = root;
 	int		i = 0;
 
+	ft_printf("LEXER:\n");
 	while (tmp)
 	{
 		ft_printf("node %i\n", i);
@@ -67,25 +56,7 @@ void	ft_printparser(t_parser *root)
 		i++;
 	}
 }
-
-void	do_stuff(char *str, t_info *info)
-{
-	info->utils = ft_utils_init(info);
-	if (!str)
-		ft_exit(ft_split("exit", ' '), info);
-	else if (!(ft_strncmp(str, "\0", 1) == 0))
-	{
-		ft_lexer(str, info);
-		if (!info->error)
-			ft_parser(info);
-		if (!info->error)
-			ft_executer(info);
-		if (!info->error)
-			ft_free_utils(info, false);
-	}
-}
-/* // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
- */
+// LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
 void	shownodes(char *str, t_info *info)
 {
 	info->utils = ft_utils_init(info);
@@ -103,6 +74,24 @@ void	shownodes(char *str, t_info *info)
 		ft_parser(info);
 		ft_printparser(info->utils->parser_root);
 		ft_free_utils(info, false);
+	}
+}
+ */
+
+void	do_stuff(char *str, t_info *info)
+{
+	info->utils = ft_utils_init(info);
+	if (!str)
+		ft_exit(ft_split("exit", ' '), info);
+	else if (!(ft_strncmp(str, "\0", 1) == 0))
+	{
+		ft_lexer(str, info);
+		if (!info->error)
+			ft_parser(info);
+		if (!info->error)
+			ft_executer(info);
+		if (!info->error)
+			ft_free_utils(info, false);
 	}
 }
 
@@ -139,7 +128,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\033[0;32mconchita$ \033[0m");
-		shownodes(str, info);
+		do_stuff(str, info);
 		add_history(str);
 		free(str);
 	}

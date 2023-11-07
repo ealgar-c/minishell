@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 18:34:16 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:58:22 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ static bool	input_checker(char *arg)
 			return (free(name), false);
 		}
 	}
-	if (!check_export_arg(arg))
-		return (free(name), false);
 	return (free(name), true);
 }
 
