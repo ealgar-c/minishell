@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 08:44:13 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:47:53 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,33 @@ bool	cmd_conditions(t_lexer *tmp, bool getcmd)
 {
 	if (!tmp)
 		return (true);
+	if (!getcmd)
+		return (false);
 	if (tmp->token != ARG)
 	{
-		if (tmp->token == PIPE)
-			return (true);
-		else if (getcmd == true && tmp->token != REDIR_FILE)
+		if (tmp->token == REDIR_FILE || tmp->token == PIPE)
 			return (true);
 	}
 	return (false);
 }
 
+bool	ft_checkend(char *str, int i, bool getcmd)
+{
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (getcmd);
+		i++;
+	}
+	return (true);
+}
+
 t_lexer	*ft_create_list(char *str, int *i, t_info *in, t_lexer *tmp_node)
 {
-	bool	getcmd;
+	static bool	getcmd = true;
 
-	getcmd = false;
+	if (str[*i] == '|')
+		getcmd = true;
 	if (ft_token_check(str[*i]))
 		tmp_node = get_token(str, *i, in->utils);
 	else if (cmd_conditions(tmp_node, getcmd))
@@ -58,13 +70,11 @@ t_lexer	*ft_create_list(char *str, int *i, t_info *in, t_lexer *tmp_node)
 	else if (!ft_check_last_node(in->utils))
 		tmp_node = new_lexer_node(get_content(str, *i, 1, in), ARG, in->utils);
 	else
-	{
 		tmp_node = new_lexer_node(get_content(str, *i, 7, in), 7, in->utils);
-		getcmd = true;
-	}
 	if (tmp_node == NULL)
 		return (NULL);
 	*i += ft_strlen(tmp_node->content);
+	getcmd = ft_checkend(str, *i, getcmd);
 	return (tmp_node);
 }
 

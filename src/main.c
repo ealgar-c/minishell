@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 08:45:36 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:13:26 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 	rl_replace_line("", 0);
 } */
 
-/* void	ft_printlx(t_lexer *root)
+void	ft_printlx(t_lexer *root)
 {
 	t_lexer *tmp = root;
 	int		i = 0;
@@ -66,7 +66,7 @@ void	ft_printparser(t_parser *root)
 		tmp = tmp->next;
 		i++;
 	}
-} */
+}
 
 void	do_stuff(char *str, t_info *info)
 {
@@ -85,6 +85,7 @@ void	do_stuff(char *str, t_info *info)
 	}
 }
 /* // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
+ */
 void	shownodes(char *str, t_info *info)
 {
 	info->utils = ft_utils_init(info);
@@ -95,7 +96,7 @@ void	shownodes(char *str, t_info *info)
 		ft_lexer(str, info);
 		if (info->error)
 		{
-	//		ft_free_utils(info, false);
+			ft_free_utils(info, false);
 			return ;
 		}
 		ft_printlx(info->utils->lexer_root);
@@ -104,7 +105,6 @@ void	shownodes(char *str, t_info *info)
 		ft_free_utils(info, false);
 	}
 }
- */
 
 t_info	*ft_init_info(char **envp)
 {
@@ -139,7 +139,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\033[0;32mconchita$ \033[0m");
-		do_stuff(str, info);
+		shownodes(str, info);
 		add_history(str);
 		free(str);
 	}

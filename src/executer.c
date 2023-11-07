@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 00:12:59 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:11:47 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static void	execute_process(t_info *info, t_parser *parser)
 
 	if (parser->pipe)
 		config_pipes(parser, 0, info);
+	if (!parser->cmd[0])
+		return ;
 	g_signals.builtin = builtin_redirector(parser, parser->cmd, info);
 	if (g_signals.builtin == false && !ft_check_paths(info->env_root))
 	{

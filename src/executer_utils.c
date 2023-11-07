@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 00:07:25 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:54:23 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	ft_free(envp);
 	if (info->exit_status == -1)
 	{
+		ft_redirector_back(info);
 		ft_printf("%s: command not found\n", new_cmd[0]);
 		info->exit_status = 127;
 	}
