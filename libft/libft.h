@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:58:41 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/10/19 12:37:28 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/08 13:19:06 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,6 @@ int				ft_printptr(unsigned long long ptr);
 int				ft_printstring(char *str);
 int				ft_printunsigned(unsigned int uns);
 int				ft_putchar(char c);
+
+char			*ft_insertstr(char *orig, int start, int len, char *replace);
 #endif

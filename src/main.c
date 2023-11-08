@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/07 19:04:36 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/08 13:54:26 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,14 @@ void	shownodes(char *str, t_info *info)
 		ft_printlx(info->utils->lexer_root);
 		ft_parser(info);
 		ft_printparser(info->utils->parser_root);
+		ft_extend_and_quotes(info->utils->parser_root->cmd, info);
+		ft_printf("after extend_and_quotes\n");
+		int i = -1;
+		while (info->utils->parser_root->cmd[++i])
+			ft_printf("\t%i: %s\n", i, info->utils->parser_root->cmd[i]);
 		ft_free_utils(info, false);
 	}
-}
- */
+} */
 
 void	do_stuff(char *str, t_info *info)
 {
@@ -110,7 +114,7 @@ t_info	*ft_init_info(char **envp)
 	return (info);
 }
 
-int	main(int argc, char **argv, char **envp)
+ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_info	*info;
