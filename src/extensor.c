@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/08 15:02:14 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:43:55 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,25 @@ char	*get_extended(char *str, int orig, t_info *info)
 	return (ft_insertstr(str, orig - 1, len + 1, ret));
 }
 
-char	*check_extensor(char *content, t_info *info, char q)
+char	*check_extensor(char *content, t_info *info, int quoted)
+{
+	int		i;
+	char	*to_extend;
+
+	i = 0;
+	to_extend = ft_strdup(content);
+	while (to_extend[i])
+	{
+		if (to_extend[i] == '$' && quoted != SINGLE)
+			to_extend = get_extended(to_extend, i + 1, info);
+		else if (to_extend[0] == '~' && quoted == NONE)
+			to_extend = ft_strdup(getenv("HOME"));
+		if (!(to_extend[i] == '$' && quoted != SINGLE))
+			i++;
+	}
+	return (free(content), to_extend);
+}
+/* char	*check_extensor(char *content, t_info *info, char q)
 {
 	int		i;
 	char	*to_extend;
@@ -75,4 +93,4 @@ char	*check_extensor(char *content, t_info *info, char q)
 			i++;
 	}
 	return (free(content), to_extend);
-}
+} */
