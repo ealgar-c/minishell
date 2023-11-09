@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/07 16:11:47 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:18:57 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	ft_executer(t_info *info)
 	while (parser_tmp)
 	{
 		ft_extend_and_quotes(parser_tmp->cmd, info);
+		if(info->error)
+			break ;
 		execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/07 15:54:23 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:37:45 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**env_to_array(t_info *info)
 	return (ret);
 }
 
-char	**ft_prepare_cmd(char **cmd)
+/* char	**ft_prepare_cmd(char **cmd)
 {
 	char	*line;
 	char	**new_cmd;
@@ -60,28 +60,30 @@ char	**ft_prepare_cmd(char **cmd)
 	new_cmd = ft_split(line, ' ');
 	free(line);
 	return (new_cmd);
-}
+} */
 
 void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
 	char	**envp;
-	char	**new_cmd;
+//	char	**new_cmd;
 
 	envp = env_to_array(info);
 	ft_extend_and_quotes(cmd, info);
+	if (info->error)
+		return ; //habrá que exit status y toda la pesca
 	if (prsr_node->pipe)
 		config_pipes(prsr_node->next, 2, info);
 	if (prsr_node->prev && prsr_node->prev->pipe)
 		config_pipes(prsr_node->prev, 1, info);
 	ft_redirector(prsr_node, info);
-	new_cmd = ft_prepare_cmd(cmd);
-	ft_free(cmd);
-	info->exit_status = execve(path, new_cmd, envp);
+//	new_cmd = ft_prepare_cmd(cmd);
+//	ft_free(cmd);
+	info->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)
 	{
 		ft_redirector_back(info);
-		ft_printf("%s: command not found\n", new_cmd[0]);
+		ft_printf("%s: command not found\n", cmd[0]);
 		info->exit_status = 127;
 	}
 	exit(info->exit_status);

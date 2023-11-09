@@ -6,59 +6,29 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/08 16:10:50 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:28:53 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* char	*clean_quotes(char *str)
+char	*update_prev(char *prev, char *content)
 {
-	char	*clean;
+	char	*temp;
 
-	clean = ft_substr(str, 1, ft_strlen(str) - 2);
-	return (free(str), clean);
-}
-
-char	*clean_quotes(char *str)
-{
-	char	*clean;
-
-	clean = ft_calloc(ft_strlen(str) - 2);
-	while (*str)
+	temp = prev;
+	if (prev)
 	{
-		if ()
-		*clean++ = *str++;
+		prev = ft_strjoin(prev, content);
+		free(temp);
 	}
-	return (free(str), clean);
+	else
+		prev = ft_strdup(content);
+	free(content);
+	return (prev);
 }
 
-int	check_quotes(char *cmd)
-{
-	if (cmd[0] == 34)
-		return (DOUBLE);
-	else if (cmd[0] == 39)
-		return (SINGLE);
-	return (NONE);
-}
-
-void	ft_extend_and_quote(char **cmd, t_info *info)
-{
-	int			i;
-	int			quoted;
-
-	i = 0;
-	while (cmd[i])
-	{
-		quoted = check_quotes(cmd[i]);
-		if (quoted != NONE)
-			cmd[i] = clean_quotes(cmd[i]);
-		cmd[i] = check_extensor(cmd[i], info, quoted);
-		i++;
-	}
-} */
-
-char	*ft_quote_handling(char *str, char *prev, int i, t_info *info)
+char	*ft_quote_handling(char *str, int i, t_info *info)
 {
 	char	*content;
 	int		len;
@@ -66,23 +36,23 @@ char	*ft_quote_handling(char *str, char *prev, int i, t_info *info)
 
 	len = 1;
 	q = str[i];
-	ft_printf("character check: %c\n", q);
-	while (str[i + len] != q)
+	ft_printf("index before: %i\n", i);
+	while (str[i + len] && str[i + len] != q)
 		len++;
+	ft_printf("index after: %i\n", i + len);
+	if (!str[i + len])
+	{
+		ft_error_handling(42, "Wrong quotes, please fix", info);
+		return (NULL);
+	}
 	if (len - i > 0) // si hay algo entre las comillas
 		content = check_extensor(ft_substr(str, i + 1, len - 1), info, q);
 	else // dice enrique que hay que alojar el nulo
 		content = ft_strdup(NULL);
-	if (prev)
-	{
-		content = ft_strjoin(prev, content);
-		free(prev);
-	}
-	ft_printf("after quote_h: %s\n", content);
 	return (content);
 }
 
-char	*ft_content_handling(char *str, char *prev, int i, t_info *info)
+char	*ft_content_handling(char *str, int i, t_info *info)
 {
 	char	*content;
 	int		len;
@@ -91,12 +61,6 @@ char	*ft_content_handling(char *str, char *prev, int i, t_info *info)
 	while (str[i + len] && str[i + len] != 34 && str[i + len] != 39)
 		len++;
 	content = check_extensor(ft_substr(str, i, len), info, str[i]);
-	if (prev)
-	{
-		content = ft_strjoin(prev, content);
-		free(prev);
-	}
-	ft_printf("after cont_h: %s\n", content);
 	return (content);
 }
 
@@ -104,33 +68,41 @@ char	*ft_join_content(char *str, t_info *info)
 {
 	char	*cmd;
 	char	*prev;
+	char	*tmp;
 	int		i;
 
 	i = 0;
-	prev = NULL;
-	while (str[i])
+	cmd = NULL;
+	while (str[i] && !info->error)
 	{
-		if (str[i] == 34 || str[i] == 39)
-		{
-			cmd = ft_quote_handling(str, prev, i, info);
-			i += 2;
+		prev = cmd;
+		tmp = NULL;
+		if (str[i] == 34 || str[i] == 39) {
+			tmp = ft_quote_handling(str, i, info);
+			i += 2; // Saltar la comilla y avanzar
 		}
 		else
-			cmd = ft_content_handling(str, prev, i, info);
-		i += ft_strlen(cmd);
+		{
+			tmp = ft_content_handling(str, i, info);
+			i += ft_strlen(tmp);
+		}
+		cmd = update_prev(prev, tmp);
+		i++;
 	}
-	return (free(str), cmd);
+	free(str);
+	return (cmd);
 }
 
-void	ft_extend_and_quote(char **cmd, t_info *info)
+
+void	ft_extend_and_quotes(char **cmd, t_info *info)
 {
 	int		j;
 
 	j = 0;
-	while (cmd[j])
+	while (cmd[j] && !info->error)
 	{
 		cmd[j] = ft_join_content(cmd[j], info);
-		ft_printf("cmd[j] is: %s\n", cmd[j]);
+//		ft_printf("cmd[j] is: %s\n", cmd[j]);
 		j++;
 	}
 }

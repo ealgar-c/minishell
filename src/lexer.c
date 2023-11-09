@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/07 18:47:53 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:09:27 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ t_lexer	*ft_create_list(char *str, int *i, t_info *in, t_lexer *tmp_node)
 		tmp_node = get_token(str, *i, in->utils);
 	else if (cmd_conditions(tmp_node, getcmd))
 	{
-		tmp_node = new_lexer_node(get_content(str, *i, 0, in), CMD, in->utils);
+		tmp_node = new_lexer_node(get_content(str, *i, in), CMD, in->utils);
 		getcmd = false;
 	}
 	else if (!ft_check_last_node(in->utils))
-		tmp_node = new_lexer_node(get_content(str, *i, 1, in), ARG, in->utils);
+		tmp_node = new_lexer_node(get_content(str, *i, in), ARG, in->utils);
 	else
-		tmp_node = new_lexer_node(get_content(str, *i, 7, in), 7, in->utils);
+		tmp_node = new_lexer_node(get_content(str, *i, in), 7, in->utils);
 	if (tmp_node == NULL)
 		return (NULL);
 	*i += ft_strlen(tmp_node->content);

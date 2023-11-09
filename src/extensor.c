@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/08 16:43:55 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:31:46 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_extended(char *str, int orig, t_info *info)
 	return (ft_insertstr(str, orig - 1, len + 1, ret));
 }
 
-char	*check_extensor(char *content, t_info *info, int quoted)
+char	*check_extensor(char *content, t_info *info, char quoted)
 {
 	int		i;
 	char	*to_extend;
@@ -67,11 +67,11 @@ char	*check_extensor(char *content, t_info *info, int quoted)
 	to_extend = ft_strdup(content);
 	while (to_extend[i])
 	{
-		if (to_extend[i] == '$' && quoted != SINGLE)
+		if (to_extend[i] == '$' && quoted != 39)
 			to_extend = get_extended(to_extend, i + 1, info);
-		else if (to_extend[0] == '~' && quoted == NONE)
+		else if (to_extend[0] == '~' && quoted != 39 && quoted != 34)
 			to_extend = ft_strdup(getenv("HOME"));
-		if (!(to_extend[i] == '$' && quoted != SINGLE))
+		if (!(to_extend[i] == '$' && quoted != 39))
 			i++;
 	}
 	return (free(content), to_extend);

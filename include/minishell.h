@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/08 16:38:19 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:32:57 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void			ctrlc_handler(int sign);
 
 // extensor.c
 char			*get_env(char *env, t_info *info);
-char			*check_extensor(char *content, t_info *info, int quoted);
+char			*check_extensor(char *content, t_info *info, char quoted);
 
 // enviroment.c
 t_env			*save_envp(char **envp);
