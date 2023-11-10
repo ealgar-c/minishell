@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend_and_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:42:19 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:20:35 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_quote_handling(char *str, int *i, t_info *info)
 	q = str[*i];
 	if (str[*i + len] == q)
 	{
-		*i += 1;
+		*i += 2;
 		return (NULL);
 	}
 	while (str[*i + len] && str[*i + len] != q)
