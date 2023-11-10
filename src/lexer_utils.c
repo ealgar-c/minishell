@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:09:04 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/10 13:48:20 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:08:39 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	loop_check(char c, bool *quote, char q)
 	{
 		if (c == q)
 			*quote = false;
-		if (c == 0 || c == 32)
+		if (c == 0)
 			return (0);
 	}
 	return (1);
