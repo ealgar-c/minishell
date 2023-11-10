@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:52:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:48:32 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static	bool	only_arg(t_info *info)
 		i++;
 		tmp = tmp->next;
 	}
-	if (i != 1)
+	if (i > 1)
 		return (false);
 	return (true);
 }
