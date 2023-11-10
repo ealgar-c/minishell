@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:35:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:42:19 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ char	*ft_quote_handling(char *str, int *i, t_info *info)
 	}
 	while (str[*i + len] && str[*i + len] != q)
 		len++;
-	/* if (str[*i + len] != q)
+	if (str[*i + len] != q)
 	{
 		ft_error_handling(42, "Wrong quotes, please fix", info);
 		return (NULL);
-	} */
+	}
 	content = check_extensor(ft_substr(str, *i + 1, len - 1), info, str[*i]);
 	*i += len + 1;
 	return (content);
@@ -85,7 +85,7 @@ char	*ft_join_content(char *str, t_info *info)
 		{
 			content = ft_quote_handling(str, &i, info);
 			if (info->error)
-				return (str);
+				return (free(cmd), str);
 		}
 		else
 			content = ft_content_handling(str, &i, info);
