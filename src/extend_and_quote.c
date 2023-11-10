@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 11:43:28 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 12:00:11 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_quote_handling(char *str, int *i, t_info *info)
 		return (NULL);
 	} */
 	content = check_extensor(ft_substr(str, *i + 1, len - 1), info, str[*i]);
-	*i += len;
+	*i += len + 1;
 //	content = check_extensor(ft_substr(str, i + 1, len - 1), info, q);
 //	ft_printf("after q_h: %s\n", content);
 	return (content);
@@ -47,7 +47,7 @@ char	*ft_content_handling(char *str, int *i, t_info *info)
 	while (str[*i + len] && str[*i + len] != 34 && str[*i + len] != 39)
 		len++;
 	content = check_extensor(ft_substr(str, *i, len), info, str[*i]);
-	*i += len + 1;
+	*i += len;
 	return (content);
 }
 
