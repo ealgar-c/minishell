@@ -6,13 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/08 13:54:26 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:36:12 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* void	ft_printlx(t_lexer *root)
+void	ft_printlx(t_lexer *root)
 {
 	t_lexer *tmp = root;
 	int		i = 0;
@@ -28,6 +28,33 @@
 		i++;
 	}
 }
+
+/* 
+// LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
+void	shownodes(char *str, t_info *info)
+{
+	info->utils = ft_utils_init(info);
+	if (!str || ft_strcmp(str, "exit") == 0)
+		ft_exit(ft_split("exit", ' '), info);
+	else if (!(ft_strncmp(str, "\0", 1) == 0))
+	{
+		ft_lexer(str, info);
+		if (info->error)
+		{
+			ft_free_utils(info, false);
+			return ;
+		}
+		ft_printlx(info->utils->lexer_root);
+		ft_parser(info);
+		ft_printparser(info->utils->parser_root);
+		ft_extend_and_quotes(info->utils->parser_root->cmd, info);
+		ft_printf("after extend_and_quotes\n");
+		int i = -1;
+		while (info->utils->parser_root->cmd[++i])
+			ft_printf("\t%i: %s\n", i, info->utils->parser_root->cmd[i]);
+		ft_free_utils(info, false);
+	}
+} */
 
 void	ft_printparser(t_parser *root)
 {
@@ -56,31 +83,6 @@ void	ft_printparser(t_parser *root)
 		i++;
 	}
 }
-// LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
-void	shownodes(char *str, t_info *info)
-{
-	info->utils = ft_utils_init(info);
-	if (!str || ft_strcmp(str, "exit") == 0)
-		ft_exit(ft_split("exit", ' '), info);
-	else if (!(ft_strncmp(str, "\0", 1) == 0))
-	{
-		ft_lexer(str, info);
-		if (info->error)
-		{
-			ft_free_utils(info, false);
-			return ;
-		}
-		ft_printlx(info->utils->lexer_root);
-		ft_parser(info);
-		ft_printparser(info->utils->parser_root);
-		ft_extend_and_quotes(info->utils->parser_root->cmd, info);
-		ft_printf("after extend_and_quotes\n");
-		int i = -1;
-		while (info->utils->parser_root->cmd[++i])
-			ft_printf("\t%i: %s\n", i, info->utils->parser_root->cmd[i]);
-		ft_free_utils(info, false);
-	}
-} */
 
 void	do_stuff(char *str, t_info *info)
 {
@@ -114,7 +116,7 @@ t_info	*ft_init_info(char **envp)
 	return (info);
 }
 
- int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_info	*info;

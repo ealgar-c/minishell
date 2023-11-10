@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:20:43 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 12:22:34 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:36:21 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_parser
 	struct s_parser	*next;
 }		t_parser;
 struct		s_lexer;
-// utils
 
+// utils
 typedef struct s_ast_utils
 {
 	int					pipes;
@@ -101,6 +101,7 @@ typedef struct s_env
 
 }	t_env;
 
+// signals
 typedef struct s_signals
 {
 	bool	builtin;

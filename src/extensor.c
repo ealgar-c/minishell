@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 09:31:46 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:36:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_env(char *env, t_info *info)
 	return (free(env), ft_strdup(tmp->value));
 }
 
-char	*get_extended(char *str, int orig, t_info *info)
+static char	*get_extended(char *str, int orig, t_info *info)
 {
 	int		len;
 	char	*env_to_check;
@@ -58,6 +58,11 @@ char	*get_extended(char *str, int orig, t_info *info)
 	return (ft_insertstr(str, orig - 1, len + 1, ret));
 }
 
+/* static char	*clean_quotes(char *str)
+{
+	return (ft_substr(str, 1, ft_strlen(str) - 2));
+}
+ */
 char	*check_extensor(char *content, t_info *info, char quoted)
 {
 	int		i;

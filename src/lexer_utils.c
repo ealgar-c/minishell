@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:09:04 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:24:10 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:59:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	loop_check(char c, bool *quote, char q)
 	{
 		if (c == q)
 			*quote = false;
-		if (c == 0)
+		if (c == 0 || c == 32)
 			return (0);
 	}
 	return (1);

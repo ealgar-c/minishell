@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 09:32:57 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:36:38 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void			ft_lexer(char *str, t_info *info);
 // lexer_utils.c
 bool			ft_token_check(char c);
 char			*ft_add_space(char *str, int s, char *content, char q);
-//char			*ft_quote_handling(char *str, int i, char q, int tk);
 char			*get_content(char *str, int i, t_info *info);
 
 // lexer_list_utils.c
@@ -125,7 +124,6 @@ char			*ft_get_env_value(char *fullenv);
 
 // extend_and_quote.c
 void			ft_extend_and_quotes(char **cmd, t_info *info);
-char			*clean_quotes(char *str);
 
 // pipes_config.c
 void			config_pipes(t_parser *parser, int mode, t_info *info);

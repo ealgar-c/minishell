@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 09:37:45 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:30:50 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 //	char	**new_cmd;
 
 	envp = env_to_array(info);
-	ft_extend_and_quotes(cmd, info);
 	if (info->error)
 		return ; //habrá que exit status y toda la pesca
 	if (prsr_node->pipe)

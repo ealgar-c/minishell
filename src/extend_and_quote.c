@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend_and_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 12:00:11 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:35:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,20 @@ char	*ft_quote_handling(char *str, int *i, t_info *info)
 
 	len = 1;
 	q = str[*i];
-//	ft_printf("previous: %c, current: %c, next: %c\n", str[i - 1], q, str[i + len]);
-	if (str[*i + len] == 'q')
-		return(ft_strdup(NULL));
+	if (str[*i + len] == q)
+	{
+		*i += 1;
+		return (NULL);
+	}
 	while (str[*i + len] && str[*i + len] != q)
 		len++;
-//	ft_printf("len is: %d", len);
-/* 	if (!str[i + len])
+	/* if (str[*i + len] != q)
 	{
 		ft_error_handling(42, "Wrong quotes, please fix", info);
 		return (NULL);
 	} */
 	content = check_extensor(ft_substr(str, *i + 1, len - 1), info, str[*i]);
 	*i += len + 1;
-//	content = check_extensor(ft_substr(str, i + 1, len - 1), info, q);
-//	ft_printf("after q_h: %s\n", content);
 	return (content);
 }
 
@@ -56,6 +55,8 @@ char	*update_prev(char *prev, char *content)
 	char	*temp;
 
 	temp = prev;
+	if (!content)
+		return (prev);
 	if (prev)
 	{
 		prev = ft_strjoin(prev, content);
@@ -63,7 +64,6 @@ char	*update_prev(char *prev, char *content)
 	}
 	else
 		prev = ft_strdup(content);
-	ft_printf("UP_PREV: prev: %s, content: %s\n", prev, content);
 	free(content);
 	return (prev);
 }
@@ -84,11 +84,11 @@ char	*ft_join_content(char *str, t_info *info)
 		if (str[i] == 34 || str[i] == 39)
 		{
 			content = ft_quote_handling(str, &i, info);
-//			i += 2;
+			if (info->error)
+				return (str);
 		}
 		else
 			content = ft_content_handling(str, &i, info);
-//		i += ft_strlen(content);
 		cmd = update_prev(prev, content);
 	}
 	return (free(str), cmd);
@@ -102,7 +102,8 @@ void	ft_extend_and_quotes(char **cmd, t_info *info)
 	while (cmd[j] && !info->error)
 	{
 		cmd[j] = ft_join_content(cmd[j], info);
-//		ft_printf("cmd[j] is: %s\n", cmd[j]);
+		if (info->error)
+			return ;
 		j++;
 	}
 }
