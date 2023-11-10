@@ -6,22 +6,11 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 08:44:13 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:37:48 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/* void ft_print_nl(void)
-{
-	rl_on_new_line();
-	rl_redisplay();
-	rl_replace_line("", 0);
-	write(1, "\033[K\n", 5);
-	rl_on_new_line();
-	rl_redisplay();
-	rl_replace_line("", 0);
-} */
 
 void	ft_print_error(int error, char *str)
 {
@@ -35,18 +24,6 @@ void	ft_print_error(int error, char *str)
 	if (error == 42)
 		ft_printf("%s\n", str);
 }
-
-/* void	ft_close(t_parser *node)
-{
-	while (node)
-	{
-		if (node->redir_in != STDIN_FILENO)
-			close(node->redir_in);
-		if (node->redir_out != STDOUT_FILENO)
-			close(node->redir_out);
-		node = node->next;
-	}
-} */
 
 void	ft_error_handling(int error, char *str, t_info	*info)
 {

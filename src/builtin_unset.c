@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/04 17:07:23 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:56:11 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_unset(t_parser *parser_node, t_info *info)
 		ptr = info->env_root;
 		if (!ptr)
 			return ;
-		ft_eraser(name, ptr, info);
+		if (input_checker(parser_node->cmd[i]))
+			ft_eraser(name, ptr, info);
 		free(name);
 	}
 }
