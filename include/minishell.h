@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:36:38 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:52:22 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_signals	g_signals;
 /*							LEXER							*/
 // lexer.c
 void			ft_lexer(char *str, t_info *info);
+t_lexer			*ft_create_list(char *str, int *i, t_info *in,
+					t_lexer *tmp_node);
 
 // lexer_utils.c
 bool			ft_token_check(char c);
@@ -41,6 +43,7 @@ t_ast_utils		*ft_utils_init(t_info *info);
 t_lexer			*new_lexer_node(char *content, int token, t_ast_utils *utils);
 void			ft_lxadd_back(t_lexer **root, t_lexer *new);
 bool			ft_check_last_node(t_ast_utils *utils);
+bool			ft_lexer_list(char *str, t_info *info, t_lexer *tmp_node);
 
 /*							PARSER							*/
 // parser.c

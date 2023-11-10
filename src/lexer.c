@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:40:28 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:09:27 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:45:42 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,6 @@ t_lexer	*ft_create_list(char *str, int *i, t_info *in, t_lexer *tmp_node)
 	*i += ft_strlen(tmp_node->content);
 	getcmd = ft_checkend(str, *i, getcmd);
 	return (tmp_node);
-}
-
-bool	ft_lexer_list(char *str, t_info *info, t_lexer *tmp_node)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] > 0 && str[i] < 33)
-			i++;
-		tmp_node = ft_create_list(str, &i, info, tmp_node);
-		if (!tmp_node)
-			return (false);
-		if (!str[i])
-			return (true);
-	}
-	return (true);
 }
 
 void	ft_lexer(char *str, t_info *info)

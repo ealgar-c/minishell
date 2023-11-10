@@ -6,12 +6,13 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:36:12 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:45:13 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/* 
 void	ft_printlx(t_lexer *root)
 {
 	t_lexer *tmp = root;
@@ -28,7 +29,7 @@ void	ft_printlx(t_lexer *root)
 		i++;
 	}
 }
-
+ */
 /* 
 // LA FUNCION DE ABAJO SOLO SIRVE CON EL MAIN DE DEBUGGEO
 void	shownodes(char *str, t_info *info)
@@ -55,7 +56,7 @@ void	shownodes(char *str, t_info *info)
 		ft_free_utils(info, false);
 	}
 } */
-
+/* 
 void	ft_printparser(t_parser *root)
 {
 	t_parser *tmp = root;
@@ -82,7 +83,7 @@ void	ft_printparser(t_parser *root)
 		tmp = tmp->next;
 		i++;
 	}
-}
+} */
 
 void	do_stuff(char *str, t_info *info)
 {

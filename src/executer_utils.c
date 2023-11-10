@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:30:50 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:47:52 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,18 @@ char	**env_to_array(t_info *info)
 	return (ret);
 }
 
-/* char	**ft_prepare_cmd(char **cmd)
-{
-	char	*line;
-	char	**new_cmd;
-	int		i;
-
-	i = 0;
-	line = cmd[i];
-	if (cmd[i][ft_strlen(cmd[i]) - 1] != 32)
-		line = ft_strjoin(line, " ");
-	while (cmd[++i])
-	{
-		if (cmd[i][ft_strlen(cmd[i]) - 1] != 32)
-			line = ft_strjoin(line, " ");
-		line = ft_strjoin(line, cmd[i]);
-	}
-	new_cmd = ft_split(line, ' ');
-	free(line);
-	return (new_cmd);
-} */
-
 void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 {
 	char	**envp;
-//	char	**new_cmd;
 
 	envp = env_to_array(info);
 	if (info->error)
-		return ; //habrá que exit status y toda la pesca
+		return ;
 	if (prsr_node->pipe)
 		config_pipes(prsr_node->next, 2, info);
 	if (prsr_node->prev && prsr_node->prev->pipe)
 		config_pipes(prsr_node->prev, 1, info);
 	ft_redirector(prsr_node, info);
-//	new_cmd = ft_prepare_cmd(cmd);
-//	ft_free(cmd);
 	info->exit_status = execve(path, cmd, envp);
 	ft_free(envp);
 	if (info->exit_status == -1)

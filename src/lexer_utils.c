@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:09:04 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/09 15:59:46 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:48:20 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ bool	ft_token_check(char c)
 
 int	loop_check(char c, bool *quote, char q)
 {
-
 	if (!*quote)
 	{
 		if (c == 0 || c == 32 || ft_token_check(c))
@@ -58,6 +57,5 @@ char	*get_content(char *str, int i, t_info *info)
 		}
 		len++;
 	}
-//	ft_printf("content after get_content is: \'%s\'n\", ft_substr(str, i, len));
 	return (ft_substr(str, i, len));
 }

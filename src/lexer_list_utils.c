@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:20:00 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/03 12:56:12 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:45:48 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,22 @@ bool	ft_check_last_node(t_ast_utils *utils)
 	if (lx_node->token == LESS || lx_node->token == LESS_LESS)
 		return (true);
 	return (false);
+}
+
+bool	ft_lexer_list(char *str, t_info *info, t_lexer *tmp_node)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		while (str[i] > 0 && str[i] < 33)
+			i++;
+		tmp_node = ft_create_list(str, &i, info, tmp_node);
+		if (!tmp_node)
+			return (false);
+		if (!str[i])
+			return (true);
+	}
+	return (true);
 }

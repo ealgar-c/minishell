@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 16:03:41 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:47:22 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_executer(t_info *info)
 	while (parser_tmp)
 	{
 		ft_extend_and_quotes(parser_tmp->cmd, info);
-		if(info->error)
+		if (info->error)
 			break ;
 		execute_process(info, parser_tmp);
 		parser_tmp = parser_tmp->next;
