@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_extend_and_quote.c                             :+:      :+:    :+:   */
+/*   extend_and_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:25 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 11:32:58 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/10 10:18:37 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,44 @@ char	*ft_content_handling(char *str, char *prev, int i, t_info *info)
 	return (content);
 }
 
-char	*ft_join_content(char *str, t_info *info)
-{
-	char	*cmd;
-	char	*prev;
-	int		i;
+char	*update_prev(char *prev, char *content) {
+    char *temp = prev;
+    if (prev) {
+        prev = ft_strjoin(prev, content);
+        free(temp);
+    } else {
+        prev = ft_strdup(content);
+    }
+    free(content);
+    return prev;
+}
 
-	i = 0;
-	cmd = NULL;
-	while (str[i] && !info->error)
+char	*ft_join_content(char *str, t_info *info) {
+    char *cmd = NULL;
+    int i = 0;
+
+    while (str[i] && !info->error) 
 	{
-		prev = cmd;
-//		ft_printf("FT_JOIN_CONTENT: prev is: %s\n", prev);
-		if (str[i] == 34 || str[i] == 39)
-		{
-			cmd = ft_quote_handling(str, prev, i, info);
-			i += 2;
-		}
-		else
-			cmd = ft_content_handling(str, prev, i, info);
-		i += ft_strlen(cmd);
-	}
-//	ft_printf("content after join content is: %s\n", cmd);
-	return (free(str), cmd);
+        char *prev = cmd;
+        char *content = NULL;
+
+        if (str[i] == 34 || str[i] == 39) {
+            content = ft_quote_handling(str, NULL, i, info);
+            i += 2; // Saltar la comilla y avanzar
+        } else {
+
+/*             while (str[j] && str[j] != 34 && str[j] != 39)
+                j++; */
+            content = ft_content_handling(str, NULL, i, info);
+            i += ft_strlen(content);
+        }
+
+        cmd = update_prev(prev, content);
+        i++;
+    }
+
+    free(str);
+    return cmd;
 }
 
 void	ft_extend_and_quotes(char **cmd, t_info *info)
