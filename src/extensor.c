@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/11 15:34:57 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:58:29 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,14 @@ static char	*get_extended(char *str, int orig, t_info *info)
 	while (str[orig + len] && str[orig + len] != ' ' && str[orig + len] != '$'
 		&& str[orig + len] != '/')
 		len++;
-	env_to_check = ft_substr(str, orig, len);
-	ret = get_env(env_to_check, info);
-	return (ft_insertstr(str, orig - 1, len + 1, ret));
+	if (len == 0)
+		return (ft_insertstr(str, orig - 1, len + 1, ft_strdup("$")));
+	else
+	{
+		env_to_check = ft_substr(str, orig, len);
+		ret = get_env(env_to_check, info);
+		return (ft_insertstr(str, orig - 1, len + 1, ret));
+	}
 }
 
 /* static char	*clean_quotes(char *str)
@@ -76,8 +81,7 @@ char	*check_extensor(char *content, t_info *info, char quoted)
 			return (free(content), free(to_extend), ft_strdup(getenv("HOME")));
 		else if (to_extend[i] == '$' && quoted != 39)
 			to_extend = get_extended(to_extend, i + 1, info);
-		if (!(to_extend[i] == '$' && quoted != 39))
-			i++;
+		i++;
 	}
 	return (free(content), to_extend);
 }
