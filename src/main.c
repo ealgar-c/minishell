@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 13:45:13 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:09:54 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	do_stuff(char *str, t_info *info)
 		if (!info->error)
 			ft_free_utils(info, false);
 	}
+	else
+		ft_free_utils(info, false);
 }
 
 t_info	*ft_init_info(char **envp)

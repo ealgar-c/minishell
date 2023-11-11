@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:09:04 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/10 18:26:20 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:26:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*get_content(char *str, int i, t_info *info)
 {
 	int		len;
 	bool	quote;
-
 
 	len = 0;
 	quote = false;
