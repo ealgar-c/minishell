@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 18:19:24 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:50:05 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_path(t_parser *parser_node, t_info *info)
 	if (!parser_node->cmd[1])
 	{
 		if (ft_check_home(info))
-			path = ft_strdup(get_env(ft_strdup("HOME"), info));
+			path = get_env(ft_strdup("HOME"), info);
 		else
 		{
 			ft_printf("cd: HOME not set\n");
@@ -42,7 +42,7 @@ static char	*get_path(t_parser *parser_node, t_info *info)
 	}
 	else if (ft_strcmp(parser_node->cmd[1], "-") == 0)
 	{
-		path = ft_strdup(get_env(ft_strdup("OLDPWD"), info));
+		path = get_env(ft_strdup("OLDPWD"), info);
 		ft_printf("%s\n", path);
 	}
 	else if (parser_node->cmd[1][ft_strlen(parser_node->cmd[1]) - 1] == ' ')

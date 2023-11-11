@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 18:28:22 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:34:57 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ char	*check_extensor(char *content, t_info *info, char quoted)
 	to_extend = ft_strdup(content);
 	while (to_extend[i])
 	{
-		if (to_extend[i] == '$' && quoted != 39)
+		if (to_extend[0] == '~' && quoted != 39 && quoted != 34)
+			return (free(content), free(to_extend), ft_strdup(getenv("HOME")));
+		else if (to_extend[i] == '$' && quoted != 39)
 			to_extend = get_extended(to_extend, i + 1, info);
-		else if (to_extend[0] == '~' && quoted != 39 && quoted != 34)
-			to_extend = ft_strdup(getenv("HOME"));
 		if (!(to_extend[i] == '$' && quoted != 39))
 			i++;
 	}
