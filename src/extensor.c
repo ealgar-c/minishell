@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/11 16:58:29 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:49:05 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*check_notenv(char *env, t_info *info)
 	char	*ret;
 
 	if (ft_strcmp(env, "?") == 0)
-		ret = ft_strdup(ft_itoa(info->exit_status));
+		ret = ft_itoa(info->exit_status);
 	else if (ft_strcmp(env, "0") == 0)
 		ret = (ft_strdup("conchita"));
 	else

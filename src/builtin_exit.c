@@ -6,16 +6,18 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 14:48:32 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:59:34 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_leakss(void)
+/* void	ft_leakss(void)
 {
 	system("leaks -q minishell");
+	atexit(ft_leakss);
 }
+ */
 
 static	bool	only_arg(t_info *info)
 {
@@ -65,7 +67,6 @@ void	ft_exit(char **cmd, t_info *info)
 	}
 	ft_free_utils(info, true);
 	free(info);
-	atexit(ft_leakss);
 	rl_clear_history();
 	exit (exit_arg);
 }
