@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/10 17:41:52 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:25:42 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void			ft_extend_and_quotes(char **cmd, t_info *info);
 
 // pipes_config.c
 void			config_pipes(t_parser *parser, int mode, t_info *info);
+int				ft_redirector_builtinpipes(t_parser *parser_node, t_info *info);
 
 //errors.c
 void			ft_error_handling(int error, char *str, t_info	*info);

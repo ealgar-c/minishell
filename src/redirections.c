@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 13:00:08 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:27:18 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,6 @@ int	ft_heredoc(t_parser *parser, t_info	*info)
 	close(pipefd[1]);
 	g_signals.heredoc = false;
 	return (pipefd[0]);
-}
-
-static int	ft_redirector_builtinpipes(t_parser *parser_node, t_info *info)
-{
-	int	flag;
-
-	flag = 0;
-	if (parser_node->heredoc_flag)
-		dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
-	else if (parser_node->pipe_redir_in != -1)
-	{
-		if (parser_node->redir_in == STDIN_FILENO)
-			dup2(parser_node->pipe_redir_in, STDIN_FILENO);
-		else
-			flag += 1;
-		close(parser_node->pipe_redir_in);
-	}
-	if (parser_node->pipe_redir_out != -1)
-	{
-		if (parser_node->redir_out == STDOUT_FILENO)
-			dup2(parser_node->pipe_redir_out, STDOUT_FILENO);
-		else
-			flag += 2;
-		close(parser_node->pipe_redir_out);
-	}
-	return (flag);
 }
 
 void	ft_redirector(t_parser *parser_node, t_info *info)

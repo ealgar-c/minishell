@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 19:16:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 12:50:48 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:26:46 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,35 @@ void	config_pipes(t_parser *parser, int mode, t_info *info)
 		close(parser->pipe_redir_in);
 }
 
-/* 		ft_printf("entrada en modo 1\n");
-		if (parser->pipe)
-		{
-			ft_printf("cerrando la entrada del siguiente\n");
-			close(parser->next->redir_in);
-		}
-		if (parser->prev)
-		{
-			if (parser->prev->pipe)
-			{
-				ft_printf("cerrando la salida del anterior\n");
-				close (parser->prev->redir_out);
-			}
-		} */
+static void	pipein(t_parser *parser_node, int *flag)
+{
+	if (parser_node->redir_in == STDIN_FILENO)
+		dup2(parser_node->pipe_redir_in, STDIN_FILENO);
+	else
+		*flag += 1;
+	close(parser_node->pipe_redir_in);
+}
+
+int	ft_redirector_builtinpipes(t_parser *parser_node, t_info *info)
+{
+	int	flag;
+
+	flag = 0;
+	if (parser_node->heredoc_flag)
+		dup2(ft_heredoc(parser_node, info), STDIN_FILENO);
+	else if (parser_node->pipe_redir_in != -1)
+		pipein(parser_node, &flag);
+	else
+		flag += 1;
+	if (parser_node->pipe_redir_out != -1)
+	{
+		if (parser_node->redir_out == STDOUT_FILENO)
+			dup2(parser_node->pipe_redir_out, STDOUT_FILENO);
+		else
+			flag += 2;
+		close(parser_node->pipe_redir_out);
+	}
+	else
+		flag += 2;
+	return (flag);
+}
