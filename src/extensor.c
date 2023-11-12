@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/11 19:49:05 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/12 19:34:05 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static char	*get_extended(char *str, int orig, t_info *info)
 
 	len = 0;
 	while (str[orig + len] && str[orig + len] != ' ' && str[orig + len] != '$'
-		&& str[orig + len] != '/')
+		&& str[orig + len] != '/' && str[orig + len] != 39
+		&& str[orig + len] != 34)
 		len++;
 	if (len == 0)
 		return (ft_insertstr(str, orig - 1, len + 1, ft_strdup("$")));
