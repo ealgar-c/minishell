@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:01:29 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/12 19:31:24 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:46:01 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void			ft_echo(t_parser *parser_node, t_info *info);
 // builtin_export.c
 void			ft_export(t_parser *parser_node, t_info *info);
 void			save_variable(char *variable, t_info *info);
-bool			input_checker(char *arg);
+bool			input_checker(char *arg, char *cmd);
 
 // builtin_export_utils.c
 void			ft_non_arg_export(t_info *info);

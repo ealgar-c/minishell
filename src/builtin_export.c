@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/10 17:39:39 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:45:25 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	save_variable(char *variable, t_info *info)
 	}
 }
 
-bool	input_checker(char *arg)
+bool	input_checker(char *arg, char *cmd)
 {
 	int		i;
 	char	*name;
@@ -58,7 +58,8 @@ bool	input_checker(char *arg)
 	name = ft_get_env_name(arg);
 	if (ft_isdigit(name[i]))
 	{
-		ft_printf("export: `%s': not a valid identifier\n", arg);
+		ft_printf("\033[0;33mconchita$: %s: \033[0m", cmd);
+		ft_printf("\033[0;33m`%s': not a valid identifier\n\033[0m", name);
 		return (free(name), false);
 	}
 	while (name[i])
@@ -67,7 +68,8 @@ bool	input_checker(char *arg)
 			i++;
 		else
 		{
-			ft_printf("export: `%s': not a valid identifier\n", name);
+			ft_printf("\033[0;33mconchita$: export: \033[0m");
+			ft_printf("\033[0;33m`%s': not a valid identifier\n\033[0m", name);
 			return (free(name), false);
 		}
 	}
@@ -86,7 +88,7 @@ void	ft_export(t_parser *parser_node, t_info *info)
 	{
 		while (parser_node->cmd[i])
 		{
-			if (input_checker(parser_node->cmd[i]))
+			if (input_checker(parser_node->cmd[i], parser_node->cmd[0]))
 				save_variable(parser_node->cmd[i], info);
 			else
 				info->exit_status = 1;

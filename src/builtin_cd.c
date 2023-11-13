@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/13 13:24:48 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:31:55 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_path(t_parser *parser_node, t_info *info)
 			path = get_env(ft_strdup("HOME"), info);
 		else
 		{
-			ft_printf("cd: HOME not set\n");
+			ft_printf("\033[0;33m cd: HOME not set\n\033[0m");
 			return (NULL);
 		}
 	}

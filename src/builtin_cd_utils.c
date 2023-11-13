@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:18:51 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/06 18:59:41 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:30:47 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_check_cd_error(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		ft_printf("cd: %s: No such file or directory\n", path);
+		ft_printf("\033[0;33mcd: %s: No such file or directory\n\033[0m", path);
 	else
-		ft_printf("cd: %s: Not a directory\n", path);
+		ft_printf("\033[0;33mcd: %s: Not a directory\n\033[0m", path);
 	close(fd);
 }
 
