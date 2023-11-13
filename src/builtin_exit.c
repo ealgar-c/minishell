@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/11 19:59:34 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:12:42 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	ft_exit(char **cmd, t_info *info)
 	if (!only_arg(info))
 		return ;
 	exit_arg = 0;
-	ft_printf("exit\n");
+	if (!info->exit_status)
+		ft_printf("\033[0;32mexit\n\033[0m");
+	else
+		ft_printf("\033[0;31mexit\n\033[0m");
 	if (cmd[1])
 		exit_arg = get_first_arg(cmd);
 	if (cmd[2])
