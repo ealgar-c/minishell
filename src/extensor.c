@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/12 19:34:05 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:27:46 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*check_notenv(char *env, t_info *info)
 	if (ft_strcmp(env, "?") == 0)
 		ret = ft_itoa(info->exit_status);
 	else if (ft_strcmp(env, "0") == 0)
-		ret = (ft_strdup("conchita"));
+		ret = (ft_strdup("conchita")); // estos paréntesis
 	else
 		return (NULL);
 	return (ret);

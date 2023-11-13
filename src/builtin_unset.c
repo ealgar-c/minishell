@@ -6,7 +6,7 @@
 /*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/10 17:56:11 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:25:40 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_unset(t_parser *parser_node, t_info *info)
 	info->exit_status = 0;
 	while (parser_node->cmd[++i])
 	{
-		name = ft_strtrim(parser_node->cmd[i], " ");
+		name = ft_strtrim(parser_node->cmd[i], " "); // este trim estaría bien quitarlo
 		ptr = info->env_root;
 		if (!ptr)
 			return ;

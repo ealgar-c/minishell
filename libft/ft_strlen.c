@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:41:16 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/05 17:34:28 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:24:49 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(const char *str)
 	int	cont;
 
 	cont = 0;
+	if (!str)
+		return (0);
 	while (str[cont])
 		cont++;
 	return (cont);

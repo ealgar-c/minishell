@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:21:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/06 13:04:53 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:43:21 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	check_redir(t_lexer *lexer, t_info *info)
 		token = lexer->token;
 	if (token && !lexer->next)
 		ft_error_handling(1, "newline", info);
-	else if (token && lexer->next->token > 1 && lexer->next->token < 7)
+	else if (token > PIPE && lexer->next->token > 1 && lexer->next->token < 7)
 		ft_error_handling(1, lexer->content, info);
+	else if (token == PIPE && lexer->next->token == PIPE)
+		ft_error_handling(42, "This shell can not handle \'||\'", info);
 }
 
 void	get_redir(t_lexer *lexer, t_parser *parser, t_info *info)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:02:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/11 15:09:54 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:41:53 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	main(int argc, char **argv, char **envp)
 	g_signals.builtin = true;
 	while (1)
 	{
-		str = readline("\033[0;32mconchita$ \033[0m");
+		str = readline("\033[0;36mconchita$ \033[0m");
 		do_stuff(str, info);
 		add_history(str);
 		free(str);

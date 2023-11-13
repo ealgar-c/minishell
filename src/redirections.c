@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:44:29 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/11 16:27:18 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:43:08 by erivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_heredoc_loop(int fd, char *delim)
 
 	while (1)
 	{
-		ft_printf("\033[0;32m> \033[0m");
+		ft_printf("\033[0;36m> \033[0m");
 		line = get_next_line(0);
 		if (!line)
 			break ;
