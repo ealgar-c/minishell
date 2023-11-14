@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:24:18 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/09 09:34:09 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:45:53 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/* char	*clean_quotes(char *content)
-{
-	return (ft_strtrim(content, "\"\'"));
-} */
 
 void	ft_echo(t_parser *parser_node, t_info *info)
 {

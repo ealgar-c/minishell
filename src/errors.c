@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:08:55 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/13 18:32:09 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:43:08 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_error(int error, char *str)
 {
-	ft_printf("\033[0;33mconchita$: \033[0m");
+	ft_printf("\033[0;33mconchita: \033[0m");
 	if (error == 1)
 	{
 		printf("\033[0;33msyntax error \033[0m");
@@ -33,7 +33,7 @@ void	ft_error_handling(int error, char *str, t_info	*info)
 	if (error)
 		ft_print_error(error, str);
 	ft_free_utils(info, false);
-	info->exit_status = 258; // esto es una chapuza pero
+	info->exit_status = 258;
 	info->error = true;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:48:47 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/13 16:41:58 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:23:28 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	c_process(t_parser *prsr_node, t_info *info, char **cmd, char *path)
 	if (info->exit_status == -1)
 	{
 		ft_redirector_back(info);
-		ft_printf("\033[0;33mconchita$: %s:\033[0m", cmd[0]);
+		ft_printf("\033[0;33mconchita: %s:\033[0m", cmd[0]);
 		ft_printf("\033[0;33m command not found\n\033[0m");
 		info->exit_status = 127;
 	}

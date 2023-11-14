@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 17:13:34 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/13 16:31:55 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:44:56 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static char	*get_path(t_parser *parser_node, t_info *info)
 		path = get_env(ft_strdup("OLDPWD"), info);
 		ft_printf("%s\n", path);
 	}
-/* 	else if (parser_node->cmd[1][ft_strlen(parser_node->cmd[1]) - 1] == ' ')
-		path = ft_strtrim(parser_node->cmd[1], "    "); */
 	else
 		path = ft_strdup(parser_node->cmd[1]);
 	return (path);

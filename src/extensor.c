@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extensor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:03:54 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/13 11:27:46 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:45:37 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*check_notenv(char *env, t_info *info)
 	if (ft_strcmp(env, "?") == 0)
 		ret = ft_itoa(info->exit_status);
 	else if (ft_strcmp(env, "0") == 0)
-		ret = (ft_strdup("conchita")); // estos paréntesis
+		ret = ft_strdup("conchita");
 	else
 		return (NULL);
 	return (ret);
@@ -64,11 +64,6 @@ static char	*get_extended(char *str, int orig, t_info *info)
 	}
 }
 
-/* static char	*clean_quotes(char *str)
-{
-	return (ft_substr(str, 1, ft_strlen(str) - 2));
-}
- */
 char	*check_extensor(char *content, t_info *info, char quoted)
 {
 	int		i;
@@ -86,21 +81,3 @@ char	*check_extensor(char *content, t_info *info, char quoted)
 	}
 	return (free(content), to_extend);
 }
-/* char	*check_extensor(char *content, t_info *info, char q)
-{
-	int		i;
-	char	*to_extend;
-
-	i = 0;
-	to_extend = ft_strdup(content);
-	while (to_extend[i])
-	{
-		if (to_extend[i] == '$' && q != 39)
-			to_extend = get_extended(to_extend, i + 1, info);
-		else if (to_extend[0] == '~' && q != 39 && q != 34)
-			to_extend = ft_strdup(getenv("HOME"));
-		if (!(to_extend[i] == '$' && q != 39))
-			i++;
-	}
-	return (free(content), to_extend);
-} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:28:47 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/13 16:45:25 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:23:28 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	input_checker(char *arg, char *cmd)
 	name = ft_get_env_name(arg);
 	if (ft_isdigit(name[i]))
 	{
-		ft_printf("\033[0;33mconchita$: %s: \033[0m", cmd);
+		ft_printf("\033[0;33mconchita: %s: \033[0m", cmd);
 		ft_printf("\033[0;33m`%s': not a valid identifier\n\033[0m", name);
 		return (free(name), false);
 	}
@@ -68,7 +68,7 @@ bool	input_checker(char *arg, char *cmd)
 			i++;
 		else
 		{
-			ft_printf("\033[0;33mconchita$: export: \033[0m");
+			ft_printf("\033[0;33mconchita: export: \033[0m");
 			ft_printf("\033[0;33m`%s': not a valid identifier\n\033[0m", name);
 			return (free(name), false);
 		}

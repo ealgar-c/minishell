@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:57:30 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/13 16:34:20 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:23:28 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_env(t_parser *parser_node, t_info *info)
 {
 	if (parser_node->cmd[1])
 	{
-		ft_printf("\033[0;33mconchita$: env: \033[0m\n");
+		ft_printf("\033[0;33mconchita: env: \033[0m\n");
 		ft_printf("\033[0;33mNo arguments supported\n\033[0m\n");
 		info->exit_status = 1;
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erivero- <erivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:13:02 by erivero-          #+#    #+#             */
-/*   Updated: 2023/11/13 18:32:44 by erivero-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:42:38 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	ft_eraser(char	*name, t_env *ptr)
 			del_variable(ptr);
 			break ;
 		}
-/* 		else en bash no se setea a 1 si intento borrar algo que no existe
-			info->exit_status = 1; */
 		ptr = ptr->next;
 	}
 }
@@ -42,7 +40,6 @@ void	ft_unset(t_parser *parser_node, t_info *info)
 {
 	t_env	*ptr;
 	int		i;
-//	char	*name;
 
 	i = 0;
 	if (!parser_node->cmd[i])
@@ -50,7 +47,6 @@ void	ft_unset(t_parser *parser_node, t_info *info)
 	info->exit_status = 0;
 	while (parser_node->cmd[++i])
 	{
-//		name = ft_strtrim(parser_node->cmd[i], " "); // este trim estaría bien quitarlo
 		ptr = info->env_root;
 		if (!ptr)
 			return ;
