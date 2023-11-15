@@ -6,7 +6,7 @@
 /*   By: ealgar-c <ealgar-c@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 12:40:32 by ealgar-c          #+#    #+#             */
-/*   Updated: 2023/11/14 13:53:23 by ealgar-c         ###   ########.fr       */
+/*   Updated: 2023/11/15 09:23:04 by ealgar-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void	ft_exit(char **cmd, t_info *info)
 	if (!only_arg(info))
 		return ;
 	exit_arg = 0;
-	if (!info->exit_status)
-		ft_printf("exit\n");
-	else
-		ft_printf("exit\n");
+	ft_printf("exit\n");
 	if (cmd[1])
 		exit_arg = get_first_arg(cmd);
 	if (cmd[2])
